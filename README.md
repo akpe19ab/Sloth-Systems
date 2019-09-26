@@ -1,5 +1,5 @@
 # Sloth.Food.Systems
-Opgavebeskrivelse til projekt: 
+# Opgavebeskrivelse til projekt: 
 
 You’ll have to hand in a list of requirements, a description and a class diagram of your idea to a system that you wish to build. 
 
@@ -25,6 +25,7 @@ Når brugeren har godkendt sin bestillingskurv, vil brugeren udfylde en oprettel
 
 Efter oprettelse i systemet, vil brugeren blive ført videre til betalingssiden, hvor der skal angives betalingsoplysninger, herunder: kortnummer, udløbsdato på kort, CVC.nr. og kortholders navn. Her vil brugeren have mulighed for at godkende transaktionen og vil derefter modtage en ordrebekræftelse på ordren. Her vil stå alle valgte produkter, totalpris samt relevante brugeroplysninger.
 
+---------------------------------------------------------------------------------------------------------------------------
 
 # 2. Kravspecifikationer til system:
 
@@ -54,6 +55,7 @@ Efter oprettelse i systemet, vil brugeren blive ført videre til betalingssiden,
 5. Ordrebekræftelse:
   * Brugeren vil modtage en besked om bekræftelse på ordre, hvor der vil blive informeret om valgte produkter, samlet pris, leveringsmetode og navn.
 
+---------------------------------------------------------------------------------------------------------------------------
 
 # 3. UML/Klasse-diagram over administrative system (Sammenhængen i systemet?):
 
