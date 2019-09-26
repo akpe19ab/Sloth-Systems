@@ -7,7 +7,7 @@ The description should in text clearly state what you wish to build and the requ
 
 ---------------------------------------------------------------------------------------------------------------------------
 
-* Beskrivelse af administrative system + user-case? (analyse)
+* Beskrivelse af administrative system (analyse)
 * Liste med krav til systemet (punktform)
 * UML/Klasse diagram over system (design)
 
