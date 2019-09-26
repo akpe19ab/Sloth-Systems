@@ -4,7 +4,7 @@ Beskrivelse (analyse)
 Liste med krav (design, punktform)
 Klasse diagram (design)
 
-# 1. Beskrivelse af idé (Analyse = hvad vil vi lave?):
+# 1. Beskrivelse af idé (Analyse = hvad vil vi lave?) :
 
 Vi ønsker at udvikle et administrativt system der indeholder flere forskellige typer af produkter, herunder: mad, drikkevare, tilbehør og levering. Her skal systemet give brugeren mulighed for, at kunne tilvælge og fravælge ovennævnte produkttyper samt ændre mængden af disse hvis ønsket.
 
