@@ -8,7 +8,7 @@ Klasse diagram (design)
 
 Vi ønsker at udvikle et administrativt system der indeholder flere forskellige typer af produkter, herunder: mad, drikkevare, tilbehør og levering. Her skal systemet give brugeren mulighed for, at kunne tilvælge og fravælge ovennævnte produkttyper samt ændre mængden af disse hvis ønsket.
 
-Systemet skal kunne genkende de forskellige produkter, ud fra en given unik produktkode og derved kunne genkende prisen for hvert enkelte produkt. Systemet skal herefter kunne udregne en totalpris for enhver vilkårlig sammensætning af produkttyper og antal. Denne totalpris samles i en ordre i bestillingskurven.  NOTE:(Mulig idé: rabatter ud fra råvare der er ved at udløbe)
+Systemet skal kunne genkende de forskellige produkter, ud fra en given unik produktkode og derved kunne genkende prisen for hvert enkelte produkt. Systemet skal herefter kunne udregne en totalpris for enhver vilkårlig sammensætning af produkttyper og antal. Denne totalpris samles i en ordre i bestillingskurven. Derudover har vi overvejelser omhandlende, at implementere en mulig rabatudløsning, hvis en af råvarene i et produkt ellere flere, nærmer sig udløbsdatoen. Her vil der tages en procentuel rabat af produktet.
 
 Bestillingskurven skal give brugeren overblik over hvilke produkter der er tilvalgt, totalpris samt antal af hvert valgte produkt. Systemet skal give brugeren muligheden for at kunne fjerne produkter, ændre i antallet af valgte produkter. Systemet skal derfor ved ændringer i disse parametre udregne en ny totalpris for ordren og fremvise dette i bestillingskurven. Systemet skal derudover også kunne give brugeren mulighed for, at kunne udfylde evt. kommentare til ordren via et kommentarfelt.
 
