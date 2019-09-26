@@ -20,26 +20,26 @@ Efter oprettelse i systemet, vil brugeren blive ført videre til betalingssiden,
 # 2. Kravspecifikationer til system:
 
 1. Forside med menu-kort over produkter:
-* Brugeren skal kunne tilføje og fravælge produkter i sin kurv.
-* Brugeren skal kunne ændre antal af produkter i sin kurv.
-* Brugeren skal kunne vælge leveringsform: pick-up eller levering.
-* Hvis brugeren ønsker levering; skal brugeren tilføje leveringsadresse og der vil tilføjes et leveringsgebyr til ordren.
+  * Brugeren skal kunne tilføje og fravælge produkter i sin kurv.
+  * Brugeren skal kunne ændre antal af produkter i sin kurv.
+  * Brugeren skal kunne vælge leveringsform: pick-up eller levering.
+  * Hvis brugeren ønsker levering; skal brugeren tilføje leveringsadresse og der vil tilføjes et leveringsgebyr til ordren.
 
 2. Ny side med kurv:
-** Overblik over valgte produkter.
-** Overblik over pris på produkter (og evt. leveringsgebyr)
-** Skal kunne fjerne produkter.
-** Skal kunne ændre antal af ønskede produkter.
-** Skal kunne tilføje kort kommentar til ordre.
+  * Overblik over valgte produkter.
+  * Overblik over pris på produkter (og evt. leveringsgebyr)
+  * Skal kunne fjerne produkter.
+  * Skal kunne ændre antal af ønskede produkter.
+  * Skal kunne tilføje kort kommentar til ordre.
 
 3. Pop-up med brugerinformation:
-* Brugeren skal indtaste hhv. navn, email og telefonnummer.
+  * Brugeren skal indtaste hhv. navn, email og telefonnummer.
 
 4. Betalingsside:
-* Brugeren skal kunne indtaste kortnummer, udløbsdato på kort, CVC samt kortholderens navn.
+  * Brugeren skal kunne indtaste kortnummer, udløbsdato på kort, CVC samt kortholderens navn.
 
 5. Ordrebekræftelse:
-* Brugeren vil modtage en besked om bekræftelse på ordre, hvor der vil blive informeret om valgte produkter, samlet pris, leveringsmetode og navn.
+  * Brugeren vil modtage en besked om bekræftelse på ordre, hvor der vil blive informeret om valgte produkter, samlet pris, leveringsmetode og navn.
 
 
 # 3. UML/Klasse-diagram over administrative system (Sammenhængen i systemet?):
