@@ -1,8 +1,8 @@
-# Sloth-Systems
-Kravspecifikation: 
-Beskrivelse (analyse)
-Liste med krav (design, punktform)
-Klasse diagram (design)
+# Sloth.Food.Systems
+Opgavebeskrivelse til projekt: 
+* Beskrivelse af administrative system (analyse)
+* Liste med krav til systemet (punktform)
+* UML/Klasse diagram over system (design)
 
 # 1. Beskrivelse af idé:
 
