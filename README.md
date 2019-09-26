@@ -26,11 +26,11 @@ Efter oprettelse i systemet, vil brugeren blive ført videre til betalingssiden,
 * Hvis brugeren ønsker levering; skal brugeren tilføje leveringsadresse og der vil tilføjes et leveringsgebyr til ordren.
 
 2. Ny side med kurv:
-* Overblik over valgte produkter.
-* Overblik over pris på produkter (og evt. leveringsgebyr)
-* Skal kunne fjerne produkter.
-* Skal kunne ændre antal af ønskede produkter.
-* Skal kunne tilføje kort kommentar til ordre.
+** Overblik over valgte produkter.
+** Overblik over pris på produkter (og evt. leveringsgebyr)
+** Skal kunne fjerne produkter.
+** Skal kunne ændre antal af ønskede produkter.
+** Skal kunne tilføje kort kommentar til ordre.
 
 3. Pop-up med brugerinformation:
 * Brugeren skal indtaste hhv. navn, email og telefonnummer.
