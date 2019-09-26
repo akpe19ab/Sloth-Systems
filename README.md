@@ -36,7 +36,7 @@ Efter oprettelse i systemet, vil brugeren blive ført videre til betalingssiden,
 
 3. Pop-up med brugerinformation:
   * Brugeren skal indtaste hhv. navn, email og telefonnummer.
-
+/b
 
 4. Betalingsside:
   * Brugeren skal kunne indtaste kortnummer, udløbsdato på kort, CVC samt kortholderens navn.
