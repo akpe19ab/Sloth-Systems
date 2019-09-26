@@ -36,6 +36,8 @@ Efter oprettelse i systemet, vil brugeren blive ført videre til betalingssiden,
   * Hvis brugeren ønsker levering; skal brugeren tilføje leveringsadresse og der vil tilføjes et leveringsgebyr til ordren.
 
 
+
+
 2. Ny side med bestillingskurv:
   * Overblik over valgte produkter.
   * Overblik over pris på produkter (og evt. leveringsgebyr)
@@ -44,12 +46,18 @@ Efter oprettelse i systemet, vil brugeren blive ført videre til betalingssiden,
   * Skal kunne tilføje kort kommentar til ordre.
 
 
+
+
 3. Pop-up med brugerinformation:
   * Brugeren skal indtaste hhv. navn, email og telefonnummer.
 
 
+
+
 4. Betalingsside:
   * Brugeren skal kunne indtaste kortnummer, udløbsdato på kort, CVC samt kortholderens navn.
+
+
 
 
 5. Ordrebekræftelse:
