@@ -3,7 +3,7 @@
 
 You’ll have to hand in a list of requirements, a description and a class diagram of your idea to a system that you wish to build. 
 
-The description should in text clearly state what you wish to build and the requirements should be done in use cases. Furthermore, you should analyze which program structures you would need in order to build the system. 
+The description should in text clearly state what you wish to build and the requirements should be done in use cases (vi skal ikke lave use-cases). Furthermore, you should analyze which program structures you would need in order to build the system.
 
 ---------------------------------------------------------------------------------------------------------------------------
 
