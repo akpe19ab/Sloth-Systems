@@ -1,10 +1,10 @@
-# Sloth-Systems 
+# Sloth-Systems
 Kravspecifikation: 
 Beskrivelse (analyse)
 Liste med krav (design, punktform)
 Klasse diagram (design)
 
-# 1. Beskrivelse af idé:
+# 1. Beskrivelse af idé (Analyse = hvad vil vi lave?):
 
 Vi ønsker at udvikle et administrativt system der indeholder flere forskellige typer af produkter, herunder: mad, drikkevare, tilbehør og levering. Her skal systemet give brugeren mulighed for, at kunne tilvælge og fravælge ovennævnte produkttyper samt ændre mængden af disse hvis ønsket.
 
@@ -36,7 +36,7 @@ Efter oprettelse i systemet, vil brugeren blive ført videre til betalingssiden,
 
 3. Pop-up med brugerinformation:
   * Brugeren skal indtaste hhv. navn, email og telefonnummer.
-
+/b
 
 4. Betalingsside:
   * Brugeren skal kunne indtaste kortnummer, udløbsdato på kort, CVC samt kortholderens navn.
@@ -48,3 +48,4 @@ Efter oprettelse i systemet, vil brugeren blive ført videre til betalingssiden,
 
 # 3. UML/Klasse-diagram over administrative system (Sammenhængen i systemet?):
 
+![UML klasse diagram](/UML.png)
