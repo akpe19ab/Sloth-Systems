@@ -38,6 +38,8 @@ Efter oprettelse i systemet, vil brugeren blive ført videre til betalingssiden,
 
 
 
+
+
 2. Ny side med bestillingskurv:
   * Overblik over valgte produkter.
   * Overblik over pris på produkter (og evt. leveringsgebyr)
@@ -48,14 +50,20 @@ Efter oprettelse i systemet, vil brugeren blive ført videre til betalingssiden,
 
 
 
+
+
 3. Pop-up med brugerinformation:
   * Brugeren skal indtaste hhv. navn, email og telefonnummer.
 
 
 
 
+
+
 4. Betalingsside:
   * Brugeren skal kunne indtaste kortnummer, udløbsdato på kort, CVC samt kortholderens navn.
+
+
 
 
 
