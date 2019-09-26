@@ -1,8 +1,17 @@
 # Sloth.Food.Systems
 Opgavebeskrivelse til projekt: 
-* Beskrivelse af administrative system (analyse)
+
+You’ll have to hand in a list of requirements, a description and a class diagram of your idea to a system that you wish to build. 
+
+The description should in text clearly state what you wish to build and the requirements should be done in use cases. Furthermore, you should analyze which program structures you would need in order to build the system. 
+
+---------------------------------------------------------------------------------------------------------------------------
+
+* Beskrivelse af administrative system + user-case? (analyse)
 * Liste med krav til systemet (punktform)
 * UML/Klasse diagram over system (design)
+
+---------------------------------------------------------------------------------------------------------------------------
 
 # 1. Beskrivelse af idé:
 
