@@ -59,4 +59,4 @@ Efter oprettelse i systemet, vil brugeren blive ført videre til betalingssiden,
 
 # 3. UML/Klasse-diagram over administrative system (Sammenhængen i systemet?):
 
-![UML klasse diagram](/UML Diagram.png)
+![UML klasse diagram](/UML_Diagram.png)
