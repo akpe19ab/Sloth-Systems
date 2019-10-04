@@ -64,4 +64,4 @@ Vi har en idé om, at der skal kunne gives rabat baseret på madens udløbsdato,
 
 # 3. UML/Klasse-diagram over administrative system (Sammenhængen i systemet?):
 
-![UML klasse diagram](/UML_new.png)
+![UML klasse diagram](/UML_newest.png)
