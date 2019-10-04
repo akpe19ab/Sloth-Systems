@@ -25,6 +25,11 @@ Når brugeren har godkendt sin ordreoversigt, vil brugeren udfylde en oprettelse
 
 Efter oprettelse i systemet, vil brugeren blive ført videre til betalingssiden, hvor der skal angives betalingsoplysninger, herunder: kortnummer, udløbsdato på kort, CVC.nr. og kortholders navn. Her vil brugeren have mulighed for at godkende transaktionen og vil derefter modtage en ordrebekræftelse på ordren. Her vil stå alle valgte produkter, totalpris samt relevante brugeroplysninger.
 
+# Ide til videre udvikling #
+
+Vi har en idé om, at der skal kunne gives rabat baseret på madens udløbsdato, så man derigennem kan bekæmpe madspild. Tanken er, at jo tættere en given råvare er på udløbsdato, des større rabat på produktet, der indeholder råvaren. Denne ide har vi dog ikke fået tilføjet til vores klassediagram endnu, da det er noget vi vil tage fat i efterfølgende. En tanke er, at klassen "food" skal have en liste (array) med de ingredienser/råvarer, som det består af. Vi implementerer derpå en klasse "ingredients", som blandt andet indeholder en attribut "expiry date". I klassen "item", hvor der kan gives generelle rabatter, kan tilføjes en metode, der beregner en rabat på baggrund af, hvor tæt udløbsdatoen er på dags dato.  
+
+
 ---------------------------------------------------------------------------------------------------------------------------
 
 # 2. Kravspecifikationer til system:
