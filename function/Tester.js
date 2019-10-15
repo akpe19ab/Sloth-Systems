@@ -2,6 +2,14 @@
 var item = [];
 
 
+function showOrder() {
+         console.log(JSON.stringify(item));
+}
+
+/* function calculateTotalPriceItem (){
+        console.log(item.calculateTotalPrice());
+}  */
+
 
 class Product {
     constructor(productName, productID, productPrice) {
@@ -10,11 +18,11 @@ class Product {
         this.productPrice = productPrice;
     }
 
-    addProduct(productName, productID, productPrice) {
+    /* Laver en metode addProduct() der tilføjer et produkt til item. Helt simpelt tager funktionen addProduct(),
+    de tre constructors (productName,productID,productPrice) og koger ned til et objekt (newProduct),
+    som bliver pushet til arrayet item. Dette gør at de tre constructors er samlet på en plads i arrayet, istedet for eksempelvis 3 */
 
-        var ProductName = this.productName;
-        var ProductID = this.productID;
-        var ProductPrice = this.productPrice;
+    addProduct(productName, productID, productPrice) {
 
         var newProduct = {
             product_Name: null,
@@ -22,23 +30,26 @@ class Product {
             product_Price: 0,
         };
 
-        newProduct.product_Name = ProductName;
-        newProduct.product_ID = ProductID;
-        newProduct.product_Price = ProductPrice;
+        newProduct.product_Name = this.productName; //Sætter newProducts product_Name til at være lig produktets productName
+        newProduct.product_ID = this.productID; //Sætter newProducts product_ID til at være lig produktets productID
+        newProduct.product_Price = this.productPrice; //Sætter newProducts product_Price til at være lig produktets productPrice
 
-        item.push(newProduct);
+        item.push(newProduct); //Pusher newProduct til arrayet item
+
 
     }
 
-   /* removeProduct(productID) {
+  /* removeProduct(productName, productID, productPrice) {
 
         for (var x = 0; x < item.length; x++)
 
-            if (item[x].product_ID === productID) {
+            if (item[x].product_ID === this.productID) {
                 item.slice(x, 1);
             }
     } */
 }
+
+
 
 
 class Food extends Product {
@@ -47,11 +58,12 @@ class Food extends Product {
 //Instantierer et produkt under klassen "Food"
 let burger = new Food ("Burger", 2, 45);
 
-// Aktiverer funtionen addProduct;
-burger.addProduct();
+// Aktiverer funtionen addProduct for burger;
+function addCheeseburger() {
+    burger.addProduct();
+    console.log(JSON.stringify(item)); 
+}
 
-// Viser item;
-console.log(JSON.stringify(item));
 
 
 
@@ -62,12 +74,10 @@ class Drinks extends Product {
 
 let water = new Drinks ("Water", 5, 20);
 
-// Aktiverer funtionen addProduct;
-water.addProduct();
-
-// Viser item;
-console.log(JSON.stringify(item));
-
+// Aktiverer funtionen addProduct water;
+function addWater() {
+    water.addProduct();
+}
 
 
 
@@ -77,21 +87,9 @@ class Extras extends Product {
 //Instantierer et produkt under klassen "Food"
 let rice = new Extras ("Rice", 10, 30);
 
-// Aktiverer funtionen addProduct;
-rice.addProduct();
-
-// Viser item;
-console.log(JSON.stringify(item));
-
-
-
-
-// Aktiverer funktionen removeProduct for water
-//burger.removeProduct();
-
-// Viser item;
-//console.log(JSON.stringify(item));
-
-
+// Aktiverer funtionen addProduct for rice;
+function addRice() {
+    rice.addProduct();
+}
 
 
