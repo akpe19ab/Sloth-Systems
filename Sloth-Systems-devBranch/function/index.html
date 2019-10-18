@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Sloth Foods</title>
+</head>
+<body>
+
+<h1 id="Main-header">Sloth Foods</h1>
+
+<section id="products_container">
+    <h2 id="products_header">PRODUKTER</h2>
+    <div id="burger_div">
+        <p id="Cheeseburger"> Cheeseburger</p>
+
+        <div id="cheeseburger_details">
+            <p id="product_price"> 80,00 KR.</p>
+            <button onclick="addCheeseburger();displayItems();calculateTotalPrice()" > Tilføj til kurv</button>
+        </div>
+
+        <div id="cheeseburger_details">
+            <button onclick="removeCheeseburger();displayItems();calculateTotalPrice()"> Fjern fra kurv</button>
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<section id="products_container">
+    <div id="water_div">
+        <p id="Water"> Water</p>
+
+        <div id="water_details">
+            <p id="product_price"> 20,00 KR.</p>
+            <button onclick="addWater();displayItems();calculateTotalPrice()" > Tilføj til kurv</button>
+        </div>
+
+        <div id="water_details">
+            <button onclick="removeWater();displayItems();calculateTotalPrice()" > Fjern fra kurv</button>
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<section id="products_container">
+    <div id="extra_div">
+        <p id="Extra"> Rice</p>
+
+        <div id="xtra_details">
+            <p id="product_price"> 15,00 KR.</p>
+            <button onclick="addRice();displayItems();calculateTotalPrice()" > Tilføj til kurv</button>
+        </div>
+
+        <div id="extra_details">
+            <button onclick="removeRice();displayItems();calculateTotalPrice()" > Fjern fra kurv</button>
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-------------------------------------------------------------------------------------------------------------->
+
+<br>
+
+<!-------------------------------------------------------------------------------------------------------------->
+
+<section id="basket_container"></section>
+<h2 id="basket_header">KURV</h2>
+<div id="basket_div">
+    <span id="basket_product">VARE</span>
+    <span id="basket_quantity"> <!-- ANTAL --> </span> <!-- Function ikke lavet endnu -->
+    <span id="basket_price"> PRIS</span>
+     <p id="displayed_items"></p>
+
+    </div>
+
+    <br>
+
+
+    <div id="BasketPrice">
+
+    </div>
+</div>
+
+<div id="items_basket_container"></div>
+
+<div id="total_basket_container">
+    <h3 id="total_basket_header"> PRIS FOR KURV I ALT</h3
+    <div>
+        <p id="basketTotalPrice">0 kr</p>
+    </div>
+</div>
+
+<div id="order_button_div">
+    <button onclick="displayItems();calculateTotalPrice()">BESTIL</button>
+
+</div>
+
+
+</body>
+
+<script src="Tester.js"></script>
+
+</html>
