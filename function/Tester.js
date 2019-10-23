@@ -59,7 +59,6 @@ function displayItems() {
 
     if (countRice > 0){
         document.getElementById("displayed_items").innerHTML += countRice + " X " + rice.productName + " " + rice.productPrice + " KR. " + "<br>";
-
     // Fjerner først evt. værdi i HTML
     //document.getElementById("displayed_items").innerHTML="";
 }
@@ -77,20 +76,82 @@ function calculateTotalPrice(){
     console.log("Total pris af kurv ");
 
 
-    // Dette for-loop viser total price for kurv.
+
+    // Discountfield defineres ud fra value i HTML, den er tom.
+    var discountfield=document.getElementById("discountCodeField").value;
     var totalPrice = 0;
+    var discount=0;
+    //var couponsUsed=0; skal evt. bruges til at prisen ikke overskrives hvis der allerede er aktiveret en rabatkode
+
+    // Dette for-loop gennemgår arrayet i item for dets længde
     for (var x = 0; x < item.length; x++) {
-        totalPrice = item[x].product_Price + totalPrice;
+
+        //Hvis der ikke indstastes en rabatkode udregnes samlet pris for kurven.
+
+        if (discountfield=="") {
+            totalPrice = item[x].product_Price + totalPrice;
+        }
+
+        //Hvis der indstastes noget udregnes prisen på hele kurven
+        //Uden denne Else vil prisen blive 0 hvis man indtaster en ikke aktiv rabatkode, fordi ingen af if statements vil execute prisudregningen
+        //Hvis der indtastes en kode giver den en fejlmeddelses, hvis et if statement nedenunder er sandt, overskriver det fejlmeddelsen
+        else{
+            totalPrice = item[x].product_Price + totalPrice;
+            document.getElementById("activatedCoupons").innerHTML=""
+            document.getElementById("discountError").innerHTML="Koden du har indtastet er ikke gyldig."
+        }
+
+        //Hvis der indtastes noget i rabatkode feltet der matcher med en rabatkode udregnes discount.
+        //Discount bliver udregnet og pga. ovenstående if/else har vi allerede udregnet totalPrice
+        //Disse if statements "sletter" også else sætningens fejlmeddelelse.
+        //Der findes 4 rabatkoder. 1. "burger10" 2. "rice10" 3. "water10" 4. "ALL10"
+    if (discountfield=="burger10" && countCheeseburger>0){
+        document.getElementById("discountError").innerHTML=""
+        discount=(countCheeseburger*cheeseburger.productPrice)/10;
+        console.log(discount);
+        //totalPrice = item[x].product_Price + totalPrice;
+        document.getElementById("activatedCoupons").innerHTML="Aktiverede rabatter" + "<br>" + "<b>Burger10:</b> Giver 10% rabat på din burger(e)"
+        }
+
+        if (discountfield=="rice10" && countRice>0) {
+            document.getElementById("discountError").innerHTML=""
+            discount=(countRice*rice.productPrice)/10;
+            console.log(discount);
+            //totalPrice = item[x].product_Price + totalPrice;
+            document.getElementById("activatedCoupons").innerHTML="Aktiverede rabatter" + "<br>" + "<b>rice10:</b> Giver 10% rabat på din ris"
+        }
+
+        if (discountfield=="water10" && countWater>0){
+            document.getElementById("discountError").innerHTML=""
+            discount=(countWater*water.productPrice)/10;
+            console.log(discount);
+            //totalPrice = item[x].product_Price + totalPrice;
+            document.getElementById("activatedCoupons").innerHTML="Aktiverede rabatter" + "<br>" + "<b>water10:</b> Giver 10% rabat på din vand"
+        }
+
+        if (discountfield=="ALL10"){
+            document.getElementById("discountError").innerHTML=""
+            discount=totalPrice/10;
+            console.log(discount);
+            //totalPrice = item[x].product_Price + totalPrice;
+            document.getElementById("activatedCoupons").innerHTML="Aktiverede rabatter" + "<br>" + "<b>ALL10:</b> Giver 10% rabat på hele din ordre"
+        }
+
     }
 
-    document.getElementById("basketTotalPrice").innerHTML = totalPrice + " kr";
+    //Denne variabel er den egentlige totalpris
+    var totalPriceDiscount = totalPrice-discount;
+
+    document.getElementById("basketTotalPrice").innerHTML = "Pris for produkter " + totalPrice + " kr";
+    document.getElementById("discount").innerHTML= "Rabat " + discount + " KR."
+    document.getElementById("totalPriceWithDiscount").innerHTML= "Total pris " + totalPriceDiscount + "KR.";
 
 
     // Dette er kun relevant for console.log (Dette viser total price i console.log)
     console.log("Den totale pris er: " + totalPrice + " kr"); //(denne er derfor kun for at skabe overblik)
     console.log("-----------------------------------------------");
 }
- 
+
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
 

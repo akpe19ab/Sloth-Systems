@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <meta charset="UTF-8">
     <title>Sloth Foods</title>
 </head>
 <body>
@@ -73,13 +74,21 @@
 <section id="basket_container"></section>
 <h2 id="basket_header">KURV</h2>
 <div id="basket_div">
-    <span id="basket_quantity">ANTAL</span> <!-- Function ikke lavet endnu -->
+    <span id="basket_quantity">ANTAL</span>
     <span id="basket_product">VARE</span>
     <span id="basket_price"> PRIS</span>
      <p id="displayed_items"></p>
 
     </div>
 
+<section id="discountField">
+    <h4>Tilføj en rabatkode</h4>
+    <input value="" type="text" id="discountCodeField">
+    <button onclick="calculateTotalPrice()">Tilføj</button>
+    <p id="activatedCoupons"></p>
+    <p id="discountError"></p>
+
+</section>
     <br>
 
 
@@ -93,7 +102,9 @@
 <div id="total_basket_container">
     <h3 id="total_basket_header"> PRIS FOR KURV I ALT</h3
     <div>
-        <p id="basketTotalPrice">0 kr</p>
+        <p id="basketTotalPrice">Pris for produkter 0 KR.</p>
+        <p id="discount"> Rabat 0 KR.</p>
+        <p id="totalPriceWithDiscount"> Total pris 0 KR.</p>
     </div>
 </div>
 
