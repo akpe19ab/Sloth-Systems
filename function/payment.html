@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Payment</title>
+</head>
+<body>
+<p>Her betales der for din ordre:</p>
+
+<section id="basket_payment">
+    <span id="basket_quantity">ANTAL</span>
+    <span id="basket_product">VARE</span>
+    <span id="basket_price"> PRIS</span>
+    <p id="totalPriceWithDiscount"> Total pris 0 KR.</p>
+</section>
+<h4>Kortnummer</h4>
+
+<input value="" id="cardNumber"><br>
+
+<h4>Udløbsdato</h4>
+<input value="" type="number" id="expiryDateMonth" min="01" max="12" placeholder="01" onblur="correctDates()"> /
+<input value="" type="number" id="expiryDateYear" min="19" max="30" placeholder="19" onblur="correctDates()">
+
+<h4>CVC</h4>
+<input value="" id="CVC"><br>
+
+<h4>Kortholders navn</h4>
+<input value="" id="cardHoldersName"><br>
+
+<button id="paymentButton" onclick="validateCreditCard()">Betal</button>
+</body>
+<script src="Payment.js"></script>
+</html>
