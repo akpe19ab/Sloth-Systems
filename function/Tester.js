@@ -168,3 +168,12 @@ function calculateTotalPrice(){
     console.log("Den totale pris er: " + totalPrice + " kr"); //(denne er derfor kun for at skabe overblik)
     console.log("-----------------------------------------------");
 }
+
+function goToCustomerInfo() {
+    if (item.length!==0){
+    const currentPage=window.location="index.html";
+    window.close(currentPage);
+    const customerPage=window.location="Customer.html";
+    window.open(customerPage);}
+    else alert("Du skal købe noget makker");
+}

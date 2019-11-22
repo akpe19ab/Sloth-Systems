@@ -145,7 +145,6 @@ function acceptOrder() {
     popUp.document.write("Du bliver nu ført tilbage til forsiden");
     setTimeout(redirectToFrontPage,3000);
 
-
 }
 
 function redirectToFrontPage() {
