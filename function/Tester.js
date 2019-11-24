@@ -67,16 +67,24 @@ let rice = new Extras("Rice", 3, 15, 0);
 
 
 
-
-
-////////////////////////////////////////////////////////////////////////////////////////////////////////
+//---------------------------------------------------------------------------------------
+// Delivery subclass
 
 //Optimering: javascript reduce dom access (ikke gjort endnu)
 // Nedarvning af Product: "Delivery"
 // HUSK - man skal ikke kumne vælge levering hvis ikke man har valgt produkter
 
-
+/* Deklarerer subklassen 'Delivery' som nedarvning der extender superklassen 'Product'.
+ * (Klassenotation og deklaration, s. 102, extend 113)
+ */
 class Delivery extends Product {
+
+    /* Definerer klassens constructor med properties der nedarves fra superklassen,
+     * og properties der er unikke for 'Delivery'. (Constructor funktion, 102)
+     * Kalder superklassens constructor med super-keyword, hvormed Delivery nedarver attributter og metoder fra 'Product'. (Extends, 113)
+     * (this.-keyword s. 99)
+     */
+
     constructor(productName, productID, productPrice, initialProductQuantity, deliverySelected, deliveryTime, deliveryAddress, deliveryRegion, deliveryCity, deliveryComment) {
         super(productName, productID, productPrice, initialProductQuantity);
         this.deliverySelected = deliverySelected;
@@ -86,75 +94,153 @@ class Delivery extends Product {
         this.deliveryCity = deliveryCity;
         this.deliveryComment = deliveryComment;
     }
+
+    // Deklarerer unikke metoder for 'Delivery'-klassen.
+
+    // Metode der anvender alert til at vise dialogbox med en string om at leveringsinfo er registreret samt værdierne
+    // bundet til de forskellige klasse-attributter.
+    // Anvender escape character til at lave newline i string. (escape character newline, 14)
+    // alert funktion (221),
+    deliveryInfoSucced() {
+        alert("Leveringsoplysninger er blevet registreret:"
+            + "\n Leveringstidspunkt: " + this.deliveryTime
+            + "\n Adresse: " + this.deliveryAddress
+            + "\n Post nr.: " + this.deliveryRegion
+            + "\n By: " + this.deliveryCity
+            + "\n Evt. kommentar til levering: " + this.deliveryComment
+        );
+    }
+
+    // Metode der virker på samme måde som deliveryInfoSucced()
+    // men viser kun de info der er nødvendig for hvis kunde selv afhenter bestilling.
+    pickUpInfoSucced() {
+        alert("Oplysninger for afhentning af bestilling er blevet registreret:"
+            + "\n Afhentningstidspunkt: " + this.deliveryTime
+            + "\n Evt. kommentar til levering: " + this.deliveryComment
+        );
+    }
 }
 
+
+// Instantierer et objekt af klassen 'Delivery' med properties fra 'Delivery'-klassen, der definerer hvad et
+// objekt i klassen 'Delivery' består af.
+// Objektet 'delivery' er prædefineret og fungerer som et "produkt" hvis kunden vælger levering eller afhentning.
+// Dens definerede værdier anvendes også til validation af info, som brugeren indtaster i HTML.
+// Sætter en del af properties lig den empty value 'null' da disse ændres når bruger indtaster valide værdier. (null, 18)
+let delivery = new Delivery(
+    "Levering",
+    "1",
+    "45",
+    0,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null
+);
+
+// Kreerer et nyt Map bundet til variabel, for at have en let data struktur til at opbevare og tilgå registrerede
+// leveringsoplysninger.
+// mapDelivery bruges til senere hen at gemme en instantiering af et delivery-objekt.
+// Når en kunde har registreret korrekte oplysninger gemmes oplysningerne som properties til et nyt
+// delivery-objekt der med .set-metoden gemmes i vores Map. Objektet gemmes i Map med en key med en tilknyttet
+// værdi der indeholder selve delivery-objektet. (Maps, 104)
+// let-keyword, binding, assignment operator (23)
 let mapDelivery = new Map();
 
-//Instantierer et produkt under klassen "Delivery"
-let delivery = new Delivery("Levering", "1", "45", 0, null, null, null, null, null, null);
 
+/* Funktion med formål at tjekke hvilken leveringsmetode kunden har valgt (levering/afhentning) efter hvilken radiobutton
+ * der er tjekket.(radiobutton, 322)
+ * Definerer variable vha. .get
+ * Anvender assignment operator til at definere variable til værdien af en specifik node i HTML DOM'en.
+ * DOM metoden .getElementById bruges til at finde den specifikke node for hver af de to radiobuttons.
+ * Bruger conditional execution i form af if- else if - else statement: først et if-else der assigner "deliverySelected"
+ * til en boolean (true/false) alt efter hvilken radiobutton der er tjekket af.
+* */
 
+/*Funktionen "deliveryFee" vil tilføje leveringsgebyer, hvis man har trykket på "Vælg levering" hvormed "deliverySelected=true".
+ Hvis man derimod trykker "hent selv" vil den igen fjerne leveringsgebyr, da "deliverySelected=false".*/
 function deliveryMethodSelected() {
     let yesDelRadioBtn = document.getElementById('yes-delivery');
     let noDelRadioBtn = document.getElementById('no-delivery');
 
-    if  (yesDelRadioBtn.checked === true && noDelRadioBtn.checked ===false ) {
+    // Conditional statement der tjekker hvilken leveringsmetode kunden har valgt.
+    // if-statement der anvender operatorer der tjekker om radiobtn for levering har en checked-property lig true OG
+    // radiobtn for afhentning dermed er false.
+    // Hvis radiobtn for levering har checked boolean værdi lig true (levering) skal felter til udfyldning af leveringsoplysninger
+    // være synlige.
+    // delivery-objektets property "deliverySelected" assignes til den booleanske værdi 'true'.
+    // getElementByID-metoden anvendes til at mutere noden med det specifikke ID så dens style bliver synlig eller skjult.
+    if  (yesDelRadioBtn.checked === true && noDelRadioBtn.checked ===false ) {                                               // (logisk operator &&, 17), (identity/strictly equal to operator, 19), (boolean, 16)
         delivery.deliverySelected = true;
-        document.getElementById('if-yes-delivery').style.visibility = 'visible';
+        document.getElementById('if-yes-delivery').style.visibility = 'visible';                                   // (style, 236)
         document.getElementById('if-no-delivery').style.visibility = 'visible';
 
+
+        // else if der tjekker modsat af første radiobtn. delivery-objektets property assignes til 'true'
+        // Hvis kunde vælger "afhentning" skal addresse, post nr. og by ikke være synlig.
     } else if (yesDelRadioBtn.checked === false && noDelRadioBtn.checked ===true) {
         delivery.deliverySelected = false;
         document.getElementById('if-no-delivery').style.visibility = 'visible';
         document.getElementById('if-yes-delivery').style.visibility = 'hidden';
 
+        // else statement der assigner objektets property til null hvis ingen radiobtns er tjekket
+        // bruges til at validere om kunden har valgt leveringsmetode eller ej.
     } else {
         delivery.deliverySelected = null;
     }
-}
 
-/*Funktionen "deliveryFee" vil tilføje leveringsgebyer, hvis man har trykket på "Vælg levering" hvormed "deliverySelected=true".
- Hvis man derimod trykker "hent selv" vil den igen fjerne leveringsgebyr, da "deliverySelected=false". */
-function deliveryFee() {
+    // Anvender if else statement for at tjekke om der skal tilføjes leveringsgebyer til den totale pris.
+
+    // if-statement der kalder superklassens metode addProduct hvis der er valgt levering
+    // delivery-objektet pushes dermed i item-array.
     if (delivery.deliverySelected  === true) {
         delivery.addProduct();
         console.log(JSON.stringify(item)); // Dette er kun relevant for console.log
-    } else if (delivery.productQuantity > 0 ) {
-        //   } else if (delivery.productQuantity > 0 && delivery.deliverySelected  === false ) {
+
+
+        // Comparison operator sørger for at removeProduct kun kaldes, hvis der allerede er et delivery-objekt i item.
+        // Hvis true, kaldes removeProduct-metoden og dermed fjernes leveringsobjekt fra item-array.
+    } else if (delivery.productQuantity > 0 ) {                                                                             // comparison operator, 17
         delivery.removeProduct();
         console.log(JSON.stringify(item)); // Dette er kun relevant for console.log
+
+        // Hvis kunden endnu ikke har valgt leveringsmetode er delivery.deliverySelected lig null, og
+        // delivery-objektets productQuantity-attribut assignes til 0.
     } else {
         delivery.productQuantity=0;
     }
 }
 
+// Deklarerer funktion der kalder flere funktioner i et nested scope (nested scope, 42)
 function delMethodFunctions() {
     deliveryMethodSelected();
-    deliveryFee();
     displayItems();
     calculateTotalPrice();
 }
+
+
+// Tilføjer eventlistener på radiobuttons for leveringsmetode
+// Anvender addEventListener metoden til at registrere event handler på de to radiobuttons.
+// Eventet defineres ved typen "change", så når radiobtn ændres ved at den tjekkes af, så
+// kaldes funktionen hvormed leveringsmetoden registreres.
 let noDelRadioBtn = document.getElementById('no-delivery');
 let yesDelRadioBtn = document.getElementById('yes-delivery');
-noDelRadioBtn.addEventListener("change", delMethodFunctions);
+noDelRadioBtn.addEventListener("change", delMethodFunctions);                                                    // addEventListener, 244)
 yesDelRadioBtn.addEventListener("change", delMethodFunctions);
 
-/* Bad practise to attach event listeners in af for loop
-https://gomakethings.com/why-you-shouldnt-attach-event-listeners-in-a-for-loop-with-vanilla-javascript/
-let delRadioBtn = document.getElementsByClassName('select-delivery-method');
-//For loop der knytter eventlisteners på radiobuttons
-for(i = 0; i<delRadioBtn.length; i++){
-    delRadioBtn[i].addEventListener('change', () => {
-        deliveryMethodSelected();
-        deliveryFee();
-        displayItems();
-        calculateTotalPrice();
-    });
-}
-*/
 
-//Validation of delivery information
+
+// Funktion der validerer leveringsoplysninger i form-felterne i HTML-dokumentet.
+// Definerer variable for de inputfelter der påkræves at være udfyldt med leverings/afhentningsoplysninger.
+// Conditional statement der tjekker om felterne er korrekt udfyldt.
+// Hvis true så instantieres et nyt objekt med de valide informationer, der pushes til deliverySaved Map'et.
+
 function validateDeliveryInformation() {
+
+    // Anvender DOM-properties (.options, .selectedIndex, .text, .value) for at tilgå
+    // værdierne i input-felterne. Disse bindes til en variabel og bruges til validation.
     let objHours = document.getElementById("delivery_time-hours");
     let selectedHours  = objHours.options[objHours.selectedIndex].text;
     let objMin = document.getElementById("delivery_time-minutes");
@@ -165,21 +251,29 @@ function validateDeliveryInformation() {
     let city = document.getElementById("delivery_city").value;
     let comment = document.getElementById("delivery_comment").value;
 
-    // Declaring variables to the HTML <p> elements with the validation error ID
+    // Variable bindes til DOM-paragraffer for hver specifik fejlmeddelelse.
     let paraValMethod = document.getElementById("validate-del-method");
     let paraValTime= document.getElementById("validate-del-time");
     let paraValComment = document.getElementById("validate-del-comment");
     let paraValAddress = document.getElementById("validate-address");
     let paraValRegion = document.getElementById("validate-region");
     let paraValCity = document.getElementById("validate-city");
+
+    // Variabel bindes til DOM-element for paragraf, hvor meddelelse vises, når levering er registreret korrekt.
     let paraDelRegistered = document.getElementById("delivery-registered");
 
-    //Accessing value of radiobuttons - if delivery method has been selected
-    let delRadioBtn = document.getElementsByClassName('select-delivery-method');
+
+    // Definerer variablen delRadioBtn der bindes til radiobuttons-noderne vha. DOM-metoden querySelectorAll().                // querySelectorAll,322
+    // delRadioBtn er en NodeList der indeholder to objekter for hver radiobtn-node.                                       // NodeList, 227
+    // Radiobtns værdier skal tilgås, for at validere om leveringsmetode er blevet valgt.
+    // NodelIst property .length anvendes for at returnere antallet af items i delRadioBtn.
+    let delRadioBtn = document.querySelectorAll("[name=delivery-methods]");
     let len = delRadioBtn.length;
     let radioInput = false;
+    console.log(delRadioBtn);
 
     /*--------------Validate Information-------------------*/
+
 //Validation of form
     let form_valid = true;
     let validation_message = "";
@@ -274,14 +368,7 @@ function validateDeliveryInformation() {
     if (form_valid && delivery.deliverySelected === true) {
         //Alert if validation is approved
         //Using the alert function to show user entered the information
-        //Behøves ikke alert - kan slettes
-        paraDelRegistered.innerHTML="Leveringsoplysninger er gemt."
 
-        alert("Leveringsmetode er blevet registreret:"
-            + "\nAddress: " + address
-            + "\nPost nr.: " + region
-            + "\nLeveringstidspunkt/afhentningstidspunkt: " + deliveryTime
-            + "\nEventuel kommentar: " + comment);
         let deliveryObj = new Delivery (
             delivery.productName,
             delivery.productID,
@@ -295,6 +382,8 @@ function validateDeliveryInformation() {
             comment
         );
 
+        deliveryObj.deliveryInfoSucced();
+
         console.log("Leveringsoplysninger er registreret");
 
         mapDelivery.set(delivery.productID, deliveryObj);
@@ -302,11 +391,6 @@ function validateDeliveryInformation() {
         // console.log(JSON.stringify(mapDelivery));
 
     } else if (form_valid && delivery.deliverySelected === false) {
-        alert("Oplysninger for afhentning af bestilling er blevet registreret:"
-            + "\nLeveringstidspunkt/afhentningstidspunkt: " + deliveryTime
-            + "\nEventuel kommentar: " + comment);
-
-        paraDelRegistered.innerHTML="Leveringsoplysninger er gemt."
 
         let deliveryObj = new Delivery (
             delivery.productName,
@@ -320,20 +404,24 @@ function validateDeliveryInformation() {
             null,
             comment
         );
+
+        deliveryObj.pickUpInfoSucced();
         console.log("Leveringsoplysninger er registreret");
 
         mapDelivery.set(delivery.productID, deliveryObj);
         console.log(mapDelivery);
         // console.log(JSON.stringify(mapDelivery));
+        paraDelRegistered.innerHTML="Leveringsoplysninger er gemt.";
 
     } else {
         alert(validation_message);
-        return false;
+        paraDelRegistered.innerHTML="Leveringsoplysninger er ikke gemt!!!.";
+        return false
     }
 }
 
 //Funktion der først tjekker om man har gemt oplysninger én gang
-function submitDelInfo() {
+function submitDeliveryInfo() {
     if (mapDelivery.size!==0) {
         alert("Oplysninger er allerede gemt. Tryk 'Rediger oplysninger', hvis du ønsker at ændre i de gemte oplysninger");
     } else {
@@ -341,24 +429,24 @@ function submitDelInfo() {
     }
 }
 
-//Eventlistener der aktiverer funktionen submitDelInfo når man trykker på knappen "gem oplysninger"
-document.getElementById('submit-delivery-information').addEventListener("click", () => {
-    submitDelInfo();
-});
-
-
-
-
 
 //Funktion der kan ændre oplysninger
 function changeDeliveryInfo() {
-    if (mapDelivery.delete("1")){
+    let paraDelRegistered = document.getElementById("delivery-registered");
+    if (mapDelivery.delete("1")) {
         mapDelivery.clear();
+        paraDelRegistered.innerHTML="Leveringsoplysninger er ikke gemt.";
     } else {
         alert("Du har ikke gemt nogle oplysninger endnu");
     }
+
     console.log(mapDelivery);
 }
+
+//Eventlistener der aktiverer funktionen submitDelInfo når man trykker på knappen "gem oplysninger"
+document.getElementById('submit-delivery-information').addEventListener("click", () => {
+    submitDeliveryInfo();
+});
 
 //Eventlistener der aktiverer changeDeliveryInfo når der trykkes på knap "rediger"
 document.getElementById('edit-delivery-information').addEventListener("click", () => {
@@ -377,13 +465,11 @@ function displayItems() {
     document.getElementById("displayed_items").innerHTML = "";
     if (cheeseburger.productQuantity > 0) {
         document.getElementById("displayed_items").innerHTML += cheeseburger.productQuantity + " X " + cheeseburger.productName + " " + cheeseburger.productPrice*cheeseburger.productQuantity + " KR." + "<br>"
-
     }
 
     if (water.productQuantity > 0) {
         document.getElementById("displayed_items").innerHTML += water.productQuantity + " X " + water.productName + " " + water.productPrice*water.productQuantity + " KR. " + "<br>";
     }
-
     if (rice.productQuantity > 0) {
         document.getElementById("displayed_items").innerHTML += rice.productQuantity + " X " + rice.productName + " " + rice.productPrice*rice.productQuantity + " KR. " + "<br>";
 
@@ -401,7 +487,6 @@ function calculateTotalPrice(){
     // Dette er kun relevant for console.log
     console.log(""); //Laver "linebreak" i console.log
     console.log("Total pris af kurv ");
-
 
 
     // DiscountField defineres ud fra value i HTML, den er tom.
@@ -480,10 +565,11 @@ function calculateTotalPrice(){
 
 
 
-
+//H: har optimeret så den tjekker for flere ting inden man kan gå videre
 // Funktion der tjekker om man både har valgt varer OG har valgt leveringsmetode. Hvis sandt, så sendes man til betaling
 function validateCart() {
     var cartValidated = true;
+
     try {
         if (item.length === 0 && delivery.deliverySelected===null && mapDelivery.size === 0 ) throw "Du skal lægge varer i kurven og vælge leveringsmetode";
         if (item.length !== 0 && delivery.deliverySelected===null) throw "Du skal vælge leveringsmetode";
@@ -497,6 +583,7 @@ function validateCart() {
         alert("Hov - du kan ikke gå videre endnu: " + error);
         cartValidated = false;
     }
+
     if (cartValidated===true) {
         goToCustomerInfo();
     }
