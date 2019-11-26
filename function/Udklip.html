@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Sloth Foods</title>
+</head>
+<body>
+
+<h1 id="Main-header">Sloth Foods</h1>
+
+<section id="products_container">
+    <h2 id="products_header">PRODUKTER</h2>
+    <div id="burger_div">
+        <p id="Cheeseburger"> Cheeseburger</p>
+
+        <div id="cheeseburger_details">
+            <p id="product_price"> 80,00 KR.</p>
+            <button onclick="addCheeseburger();displayItems();calculateTotalPrice()" > Tilføj til kurv</button>
+        </div>
+
+        <div id="cheeseburger_details">
+            <button onclick="removeCheeseburger();displayItems();calculateTotalPrice()"> Fjern fra kurv</button>
+        </div>
+
+    </div>
+
+</section>
+
+
+<section id="products_container">
+    <div id="water_div">
+        <p id="Water"> Water</p>
+
+        <div id="water_details">
+            <p id="product_price"> 20,00 KR.</p>
+            <button onclick="addWater();displayItems();calculateTotalPrice()" > Tilføj til kurv</button>
+        </div>
+
+        <div id="water_details">
+            <button onclick="removeWater();displayItems();calculateTotalPrice()" > Fjern fra kurv</button>
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<section id="products_container">
+    <div id="extra_div">
+        <p id="Extra"> Rice</p>
+
+        <div id="xtra_details">
+            <p id="product_price"> 15,00 KR.</p>
+            <button onclick="addRice();displayItems();calculateTotalPrice()" > Tilføj til kurv</button>
+        </div>
+
+        <div id="extra_details">
+            <button onclick="removeRice();displayItems();calculateTotalPrice()" > Fjern fra kurv</button>
+        </div>
+
+    </div>
+
+</section>
+
+
+
+
+<!--------------------------------------Delivery---------------------------------------------->
+
+<div class="products_container">
+    <div class="products_div">
+        <p class="product_name"> Delivery </p>
+
+        <div class="product_details">
+            <p class="product_price"> 45,00 KR.</p>
+
+
+        </div>
+
+        <form id="selectDelMethod">
+            <input type="radio" class="deliveryMethodSelected" name="deliveryMethod" id="yesDelivery"  onClick="deliveryMethodClicked(); deliveryYesNo();deliveryFee();displayItems();calculateTotalPrice(); "/> Tilføj levering <br>
+            <input type="radio" class="deliveryMethodSelected" name="deliveryMethod" id="noDelivery" onClick="deliveryMethodClicked(); deliveryYesNo();deliveryFee();displayItems();calculateTotalPrice(); "/> Hent selv<br>
+        </form>
+
+        <br>
+        <p id="validationDelMethod" style="color: red; margin-top: 1px; margin-bottom: 1px;"></p>
+
+
+    </div>
+
+    <form id="ifYesDelivery" style="visibility: hidden">
+        Addresse: <input type="text" id="delivery_address"/>
+        <br>
+        <p id="validationAddress" style="color: red; margin-top: 1px; margin-bottom: 1px;"></p>
+
+
+        Post-nr: <input type="text" id="delivery_region"/>
+        <br>
+        <p id="validationRegion" style="color: red; margin-top: 1px; margin-bottom: 1px;"></p>
+
+        Leveringstidspunkt:
+        <select id="delivery_time-hours">
+            <option value="" selected="selected">-00-</option>
+            <option value="10">10</option>
+            <option value="11">11</option>
+            <option value="12">12</option>
+            <option value="13">13</option>
+            <option value="14">14</option>
+            <option value="15">15</option>
+            <option value="16">16</option>
+            <option value="17">17</option>
+            <option value="18">18</option>
+            <option value="19">19</option>
+            <option value="20">20</option>
+        </select> :
+
+        <select id="delivery_time-minutes">
+            <option value="" selected="selected">-00-</option>
+            <option value="00">00</option>
+            <option value="15">15</option>
+            <option value="30">30</option>
+            <option value="45">45</option>
+        </select>
+        <br>
+        <p id="validationDelTime" style="color: red; margin-top: 1px; margin-bottom: 1px;"></p>
+
+
+        Additional comments
+        <br/>
+        <textarea type="text" rows="5" cols="30" id="delivery_comment" value="" placeholder="Your feedback"></textarea>
+        <br/>
+
+
+    </form>
+
+    <form id="ifNoDelivery" style="visibility: hidden">
+        Afhentningstidspunkt:
+        <select id="delivery_time-hours">
+            <option value="" selected="selected">-00-</option>
+            <option value="10">10</option>
+            <option value="11">11</option>
+            <option value="12">12</option>
+            <option value="13">13</option>
+            <option value="14">14</option>
+            <option value="15">15</option>
+            <option value="16">16</option>
+            <option value="17">17</option>
+            <option value="18">18</option>
+            <option value="19">19</option>
+            <option value="20">20</option>
+        </select> :
+
+        <select id="delivery_time-minutes">
+            <option value="" selected="selected">-00-</option>
+            <option value="00">00</option>
+            <option value="15">15</option>
+            <option value="30">30</option>
+            <option value="45">45</option>
+        </select>
+
+        <br>
+        <p id="validationDelTime" style="color: red; margin-top: 1px; margin-bottom: 1px;"></p>
+
+
+        Additional comments
+        <br/>
+        <textarea type="text" rows="5" cols="30" id="addInfo" value="" placeholder="Your feedback"></textarea>
+        <br/>
+
+    </form>
+
+</div>
+
+
+<!-- Knap der gemmer leveringsoplysninger-->
+<button id="testButton"> TESTKNAP  </button>
+
+
+<!-------------------------------------------------------------------------------------------------------------->
+
+<br>
+
+<!-------------------------------------------------------------------------------------------------------------->
+
+<section id="basket_container"></section>
+<h2 id="basket_header">KURV</h2>
+<div id="basket_div">
+    <span id="basket_quantity">ANTAL</span>
+    <span id="basket_product">VARE</span>
+    <span id="basket_price"> PRIS</span>
+    <p id="displayed_items"></p>
+
+</div>
+
+<section id="discountField">
+    <h4>Tilføj en rabatkode</h4>
+    <input value="" type="text" id="discountCodeField">
+    <button onclick="calculateTotalPrice()">Tilføj</button>
+    <p id="activatedCoupons"></p>
+    <p id="discountError"></p>
+
+</section>
+<br>
+
+
+<div id="BasketPrice">
+
+</div>
+</div>
+
+<div id="items_basket_container"></div>
+
+<div id="total_basket_container">
+    <h3 id="total_basket_header"> PRIS FOR KURV I ALT</h3
+    <div>
+        <p id="basketTotalPrice">Pris for produkter 0 KR.</p>
+        <p id="discount"> Rabat 0 KR.</p>
+        <p id="totalPriceWithDiscount"> Total pris 0 KR.</p>
+    </div>
+</div>
+
+<div id="order_button_div">
+    <a href="payment.html"><button>Bestil</button></a>
+
+</div>
+
+
+</body>
+
+<script src="../Function/testDelivery.js"></script>
+
+</html>

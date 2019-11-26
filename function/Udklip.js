@@ -301,3 +301,236 @@ function removeRice() {
     rice.removeProduct();
     console.log(JSON.stringify(item)); // Dette er kun relevant for console.log
 }
+
+
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+//fra Helenas "delivery"
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+//Optimering: javascript reduce dom access
+
+// Nedarvning af Product: "Delivery"
+
+class Delivery extends Product {
+    constructor(productName, productID, productPrice, deliverySelected, deliveryAddress, deliveryRegion, deliveryComment, deliveryTime) {
+        super(productName, productID, productPrice);
+        this.deliverySelected = deliverySelected;
+        this.deliveryAddress = deliveryAddress;
+        this.deliveryRegion = deliveryRegion;
+        this.deliveryComment = deliveryComment;
+        this.deliveryTime = deliveryTime;
+    }
+    setdeliverySelected(x) {
+        this.deliverySelected = x;
+    }
+
+    setdeliveryAddress (x) {
+        this.deliveryAddress = x;
+    }
+
+    setdeliveryRegion(x) {
+        this.deliveryRegion = x;
+    }
+    setdeliveryComment(x) {
+        this.deliveryComment = x;
+    }
+
+    setdeliveryTime(x) {
+        this.deliveryTime = x;
+    }
+
+    getdeliverySelected() {
+        return this.deliverySelected;
+    }
+
+    getdeliveryAddress() {
+        return this.deliveryAddress;
+    }
+
+    getdeliveryRegion() {
+        return this.deliveryRegion;
+    }
+    getdeliveryComment () {
+        return this.deliveryComment;
+    }
+
+    getdeliveryTime () {
+        return this.deliveryTime;
+    }
+
+}
+
+//Instantierer et produkt under klassen "Delivery"
+let delivery = new Delivery("Delivery", 15, 45, null, "", "", "");
+
+
+/*Laver en funktion der sætter "deliverySelected" til true/False alt efter hvilken radiobutton man tjekker*/
+function deliveryYesNo() {
+    if (document.getElementById('yesDelivery').checked) {
+        delivery.setdeliverySelected(true);
+        delivery.getdeliverySelected();
+    } else {
+        delivery.setdeliverySelected(false);
+        delivery.getdeliverySelected();
+    }
+}
+function deliveryYesOrNo() {
+    var deliveryYesNo = document.getElementsByClassName("deliveryMethodSelected");
+    for (i=0; i < deliveryMethodSelected.length; i++) {
+        if (yesDelivery)
+            }
+}
+
+/*Funktionen "deliveryFee" vil tilføje leveringsgebyer, hvis man har trykket på "Vælg levering" hvormed "deliverySelected=true".
+ Hvis man derimod trykker "hent selv" vil den igen fjerne leveringsgebyr, da "deliverySelected=false". */
+function deliveryFee() {
+    if (delivery.deliverySelected  === true) {
+        delivery.addProduct();
+        console.log(JSON.stringify(item)); // Dette er kun relevant for console.log
+    } else {
+        delivery.removeProduct();
+        console.log(JSON.stringify(item)); // Dette er kun relevant for console.log
+    }
+}
+
+/*Function der viser info i HTML hvor man skal udfylde på baggrund af om man vælger levering eller hent selv*/
+function deliveryMethodClicked () {
+    if (document.getElementById('yesDelivery').checked) {
+        document.getElementById('ifYesDelivery').style.visibility = 'visible';
+        document.getElementById('ifNoDelivery').style.visibility = 'hidden';
+    } else {
+        document.getElementById('ifNoDelivery').style.visibility = 'visible';
+        document.getElementById('ifYesDelivery').style.visibility = 'hidden';
+    }
+}
+
+
+/* Function der sætter værdien af addresse, postnr og evt kommentar - tilføjes til deliveryobjektet.*/
+function test() {
+    delivery.setdeliveryAddress(document.getElementById("delivery_address").value);
+    delivery.getdeliveryAddress();
+
+
+    delivery.setdeliveryRegion(document.getElementById("delivery_region").value);
+    delivery.getdeliveryRegion();
+
+
+    delivery.setdeliveryComment(document.getElementById("delivery_comment").value);
+    delivery.getdeliveryComment();
+
+
+    console.log(JSON.stringify(delivery)); // Dette er kun relevant for console.log
+
+}
+
+
+
+//Deklarerer funktionen "validateInformation" der validerer brugerens indtastede leveringsoplysninger*/
+//BIS exercise 8
+
+function validateDeliveryInformation() {
+
+    //Accessing value of radiobuttons - if delivery method has been selected
+    var radioButtons = document.getElementsByClassName('deliveryMethodSelected');
+    var deliveryMethodSelected = "";
+    var len = radioButtons.length;
+    var radioInput = false;
+    var i = null;
+
+    //checked property checks if a checkbox is checked or not
+    for (i=0; i<len; i++) {
+        if (radioButtons[i].checked) {
+            deliveryMethodSelected = radioButtons[i].value;
+            radioInput = true;
+        }
+    }
+
+    /*--------------Validate Information-------------------*/
+//Validation of form
+    var form_valid = true;
+    var validation_message = "";
+
+//Validation: rating
+    /*if-else statement that controls whether the “radioInput” variable has been set = a radio button has been checked, or if no delivery method has been given.*/
+    if (radioInput === false) {
+        validation_message += "Please select delivery Method\n ";
+        form_valid = false;
+    }
+
+//Validation: deliveryAddress
+    //Use if statement to check if an address has been typed:
+    if (delivery.deliverySelected === true) {                                       // Checking if delivery has been selected, else not relevant
+        if (delivery.deliveryAddress === null || delivery.deliveryAddress === "") {
+            validation_message += "Please fill out 'address'\n";
+            form_valid = false;
+        }
+    }
+
+    //Validation: deliveryRegion
+    //Checking if the zipcode no. contains only numbers and is not blank. Using the NaN-function () (Not-a-Number) inside an if statement to determine whether or not the entered regionCode only contains numbers:
+    if (delivery.deliverySelected === true) {                                        // ZIP code information only relevant if delivery has been selected
+        if (delivery.deliveryRegion === "" || delivery.deliveryRegion === null) {       // ZIP code input is empty
+            validation_message += "Please fill out 'ZIP code'\n";
+            form_valid = false;
+
+        } else if (isNaN(delivery.deliveryRegion)) {                                    // ZIP code must only contain numbers
+            validation_message += "The ZIP code can only consist of numbers! \n";
+            form_valid = false;
+
+        } else if (delivery.deliveryRegion.length !== 4) {                              // ZIP code must consist of 4 digits
+            validation_message += "ZIP code must contain of 4 digits'\n";
+            form_valid = false;
+        }
+    }
+
+
+    //Error in validation alert
+    if (form_valid) {
+        //Alert if validation is approved
+        //Using the alert function to show user entered the information
+
+        alert("Address " + delivery.deliveryAddress
+            + "Delivery method has been selected"
+        );
+    }
+    else {
+        alert(validation_message);
+        return false;
+    }
+
+    return (form_valid);
+
+}
+
+function showDelivery() {
+    alert(JSON.stringify(delivery)); // Dette er kun relevant for console.log
+}
+
+
+
+
+function getOption() {
+    var objHours = document.getElementById("delivery_time-hours");
+    var selectedHours  = objHours.options[objHours.selectedIndex].text;
+
+    var objMin = document.getElementById("delivery_time-minutes");
+    var selectedMinutes = objMin.options[objMin.selectedIndex].text;
+
+    var deliveryTime = `${selectedHours}:${selectedMinutes}`;
+    alert(deliveryTime);
+
+}
+
+function createDelivery() {
+    var deliveryObj = new Delivery(
+        document.getElementById("delivery_address").value,
+        document.getElementById("delivery_region").value,
+        document.getElementById("delivery_comment").value,
+    );
+    console.log(deliveryObj);
+}

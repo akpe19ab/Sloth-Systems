@@ -116,7 +116,7 @@ function validateCreditCard() {
 //onblur kører et script når brugeren ikke længere har markeret feltet i html formen.
 // Det var lidt mere overskueligt at lave function til denne da man hurtigt ved hjælp af if statements kunne løse
 // De mest væsentlige problemer uden at skulle kaste en fejl til slutbrugeren hele tiden men istedet overskrive deres input
-//Forskellen og brugen af if og try/catch kan diskuteres ud fra dette eksempel
+//Forskellen og brugen af if og try/catch kan diskuteres ud fra dette eksempel. MB
 function correctDates() {
 
     var expiryDateMonth = document.getElementById("expiryDateMonth").value;
@@ -148,16 +148,17 @@ function saveCreditCard(){
     console.log(JSON.stringify(creditCards));
 
     //kalder en ny funktion der dog sker hver gang saveCreditCard kaldes
-    //grunden til opdeling er at det er mere overskueligt at dele op da formålene med funktioner er ret forskellige
+    //grunden til opdeling er at det er mere overskueligt at dele op da formålene med funktioner er ret forskellige. MB
     acceptOrder();
 }
 
-//Denne funktion kaldes af saveCreditCard og sørger for at slutbrugeren avancerer i vores flow
+//Denne funktion kaldes af saveCreditCard og sørger for at slutbrugeren avancerer i vores flow. MB
 function acceptOrder() {
     var popUp= window.open("","_self");
 
-    //Her kunne det være fedt hvis vi havde storage så vi kunne vise info fra tester.js og customer.js
-    popUp.document.write("Dette er din bekræftelse på din bestilling" +"<br>");
+    //Her kunne det være fedt hvis vi havde storage så vi kunne vise info fra tester.js og customer.js og rent
+    // faktisk vise en kvittering for hvad man har købt
+    popUp.document.write("Dette er din bekræftelse på din bestilling"+"<br>");
     popUp.document.write("Du bliver nu ført tilbage til forsiden");
 
     //Her kaldes en ny funktion dette sker hver gang acceptOder executer men jeg har valgt at splitte op i 2
