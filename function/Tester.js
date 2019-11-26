@@ -530,6 +530,7 @@ document.getElementById('edit-delivery-information').addEventListener("click", (
 
 // Funktion til at vise valgte items
 function displayItems() {
+
     document.getElementById("displayed_items").innerHTML = "";
 
     //Conditional statements der sørger for kun at ændre DOM værdierne hvis productQuantity for det anførte objekt er over 0
@@ -684,5 +685,3 @@ function goToCustomerInfo() {
 document.getElementById('order_button').addEventListener("click", () => {
     validateCart()
 });
-
-
