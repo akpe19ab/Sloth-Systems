@@ -1,4 +1,5 @@
-class Product {
+
+export class Product {
     constructor(productName, productID, productPrice, initialProductQuantity) {
         this.productName = productName;
         this.productID = productID;
@@ -42,52 +43,31 @@ class Product {
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Nedarvning af klasser
 
-
-class Food extends Product {
+export class Food extends Product {
 }
 
-//Instantierer et produkt under klassen "Food"
-let cheeseburger = new Food ("Cheeseburger", 2, 80, 0);
-
-////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-class Drinks extends Product {
+export class Drinks extends Product {
 }
 
-let water = new Drinks("Water", 1, 20, 0);
 
-////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-class Extras extends Product {
+export class Extras extends Product {
 }
 
-let rice = new Extras("Rice", 3, 15, 0);
+
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-function displayItems() {
-    document.getElementById("displayed_items").innerHTML = "";
-    if (cheeseburger.productQuantity > 0) {
-        document.getElementById("displayed_items").innerHTML += cheeseburger.productQuantity + " X " + cheeseburger.productName + " " + cheeseburger.productPrice + " KR." + "<br>"
-
-    }
-
-    if (water.productQuantity > 0) {
-        document.getElementById("displayed_items").innerHTML += water.productQuantity + " X " + water.productName + " " + water.productPrice + " KR. " + "<br>";
-    }
-
-    if (rice.productQuantity > 0) {
-        document.getElementById("displayed_items").innerHTML += rice.productQuantity + " X " + rice.productName + " " + rice.productPrice + " KR. " + "<br>";
-
-
-        // Fjerner først evt. værdi i HTML
-        //document.getElementById("displayed_items").innerHTML="";
-
-        //Tilkføjer denne linje så delivery også bliver vist
-    }
-    if (delivery.productQuantity > 0) {
-        document.getElementById("displayed_items").innerHTML += delivery.productQuantity + " X " + delivery.productName + " " + delivery.productPrice + " KR. " + "<br>";
+export class Delivery extends Product {
+    constructor(productName, productID, productPrice, initialProductQuantity, deliverySelected, deliveryTime, deliveryAddress, deliveryRegion, deliveryCity, deliveryComment) {
+        super(productName, productID, productPrice, initialProductQuantity);
+        this.deliverySelected = deliverySelected;
+        this.deliveryTime = deliveryTime;
+        this.deliveryAddress = deliveryAddress;
+        this.deliveryRegion = deliveryRegion;
+        this.deliveryCity = deliveryCity;
+        this.deliveryComment = deliveryComment;
     }
 }

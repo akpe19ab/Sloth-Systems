@@ -1,4 +1,7 @@
+// Formålet med at oprette en variabel der er et array er at kunne opbevare de objekter vi vil tilføje i dette. MB
 let item = [];
+//Formålet med at oprette en klasse er at definere hvilke informationer et "produkt" består af
+//Klassen er ud fra en constructor givet 4 parametre der synes relevante for den ønskede funktion det skal have i programmet MB
 class Product {
     constructor(productName, productID, productPrice, initialProductQuantity) {
         this.productName = productName;
@@ -7,9 +10,10 @@ class Product {
         this.productQuantity = initialProductQuantity;
     }
 
-    /* Laver en metode addProduct() der tilføjer et produkt til item. Helt simpelt tager funktionen addProduct(),
+    /* Laver en metode addProduct() der tilføjer et produkt til vores array item. Helt simpelt tager funktionen addProduct(),
     de tre constructors (productName,productID,productPrice) og koger ned til et objekt (newProduct),
-    som bliver pushet til arrayet item. Dette gør at de tre constructors er samlet på en plads i arrayet, istedet for eksempelvis 3 */
+    som bliver pushet til arrayet item. Dette gør at de tre constructors er samlet på en plads i arrayet, istedet for eksempelvis 3
+     productQuantity bliver forøget med én som skal bruges længere nede i koden. MB*/
 
     addProduct() {
         this.productQuantity++;
@@ -22,30 +26,33 @@ class Product {
         item.push(newProduct); //Pusher newProduct til arrayet item
         console.log(JSON.stringify(item));
 
+        /*Denne metode er modstykket til addProduct sådan at vi også kan fjerne "produkter"/objekter i vores array. MB
+    */
     }
     removeProduct() {
         this.productQuantity--;
-        //Prøv at brug for/of loop.
+        //Her bruges et for loop til at itere igennem hele arrayet, item
         for (var x = 0; x < item.length; x++)
 
+            //Conditional statement der sørger for at fjerne det relevante produkt
             if (item[x].product_ID === this.productID) {
                 item.splice(x, 1);
                 break; // Uden break(stopper for-loopet) vil for-loopet fortsætte efter, at der er blevet fjernet et produkt.
             }
         console.log(JSON.stringify(item));
     }
+    /* Jeg kender ikke til denne metode og ved ikke hvad meningen er med den. Den bliver ikke kaldt. MB
     ArrayCounter() {
         for (let x = 0; x < itemlist.length; x++) {
-
         }
         this.addProduct();
         console.log(JSON.stringify(item));
-    }
+    }*/
 }
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
-// Nedarvning af klasser
+// Nedarvning af klasser, her oprettes vores underklasser og instatieret produkterne under dem
 
 class Food extends Product {
 }
@@ -56,15 +63,12 @@ let cheeseburger = new Food ("Cheeseburger", 2, 80, 0);
 class Drinks extends Product {
 }
 
-let water = new Drinks("Water", 1, 20, 0);
+let water = new Drinks("Vand", 1, 20, 0);
 
 class Extras extends Product {
 }
 
-let rice = new Extras("Rice", 3, 15, 0);
-
-
-
+let fries = new Extras("Pomfritter", 3, 15, 0);
 
 
 //---------------------------------------------------------------------------------------
@@ -78,57 +82,16 @@ let rice = new Extras("Rice", 3, 15, 0);
  * (Klassenotation og deklaration, s. 102, extend 113)
  */
 class Delivery extends Product {
-
     /* Definerer klassens constructor med properties der nedarves fra superklassen,
      * og properties der er unikke for 'Delivery'. (Constructor funktion, 102)
      * Kalder superklassens constructor med super-keyword, hvormed Delivery nedarver attributter og metoder fra 'Product'. (Extends, 113)
      * (this.-keyword s. 99)
      */
-
-    constructor(productName, productID, productPrice, initialProductQuantity, deliverySelected, deliveryTime, deliveryAddress, deliveryRegion, deliveryCity, deliveryComment) {
+    constructor(productName, productID, productPrice, initialProductQuantity, deliverySelected) {
         super(productName, productID, productPrice, initialProductQuantity);
         this.deliverySelected = deliverySelected;
-        this.deliveryTime = deliveryTime;
-        this.deliveryAddress = deliveryAddress;
-        this.deliveryRegion = deliveryRegion;
-        this.deliveryCity = deliveryCity;
-        this.deliveryComment = deliveryComment;
-    }
-
-    // Deklarerer unikke metoder for 'Delivery'-klassen.
-
-    // Metode der anvender alert til at vise dialogbox med en string om at leveringsinfo er registreret samt værdierne
-    // bundet til de forskellige klasse-attributter.
-    // Anvender escape character til at lave newline i string. (escape character newline, 14)
-    // alert funktion (221),
-    deliveryInfoSucced() {
-        alert("Leveringsoplysninger er blevet registreret:"
-            + "\n Leveringstidspunkt: " + this.deliveryTime
-            + "\n Adresse: " + this.deliveryAddress
-            + "\n Post nr.: " + this.deliveryRegion
-            + "\n By: " + this.deliveryCity
-            + "\n Evt. kommentar til levering: " + this.deliveryComment
-        );
-    }
-
-    // Metode der virker på samme måde som deliveryInfoSucced()
-    // men viser kun de info der er nødvendig for hvis kunde selv afhenter bestilling.
-    pickUpInfoSucced() {
-        alert("Oplysninger for afhentning af bestilling er blevet registreret:"
-            + "\n Afhentningstidspunkt: " + this.deliveryTime
-            + "\n Evt. kommentar til levering: " + this.deliveryComment
-        );
     }
 }
-
-// Kreerer et nyt Map bundet til variabel, for at have en let data struktur til at opbevare og tilgå registrerede
-// leveringsoplysninger.
-// mapDelivery bruges til senere hen at gemme en instantiering af et delivery-objekt.
-// Når en kunde har registreret korrekte oplysninger gemmes oplysningerne som properties til et nyt
-// delivery-objekt der med .set-metoden gemmes i vores Map. Objektet gemmes i Map med en key med en tilknyttet
-// værdi der indeholder selve delivery-objektet. (Maps, 104)
-// let-keyword, binding, assignment operator (23)
-let mapDelivery = new Map();
 
 
 // Instantierer et objekt af klassen 'Delivery' med properties fra 'Delivery'-klassen, der definerer hvad et
@@ -142,11 +105,6 @@ let delivery = new Delivery(
     45,
     0,
     null,
-    null,
-    null,
-    null,
-    null,
-    null
 );
 
 
@@ -164,7 +122,6 @@ let delivery = new Delivery(
 function deliveryMethodSelected() {
     let yesDelRadioBtn = document.getElementById('yes-delivery');
     let noDelRadioBtn = document.getElementById('no-delivery');
-
     // Conditional statement der tjekker hvilken leveringsmetode kunden har valgt.
     // if-statement der anvender operatorer der tjekker om radiobtn for levering har en checked-property lig true OG
     // radiobtn for afhentning dermed er false.
@@ -177,7 +134,6 @@ function deliveryMethodSelected() {
         delivery.deliverySelected = true;
         document.getElementById('if-yes-delivery').style.visibility = 'visible';                                   // (style, 236)
         document.getElementById('if-no-delivery').style.visibility = 'visible';
-
 
         // else if der tjekker modsat af første radiobtn. delivery-objektets property assignes til 'true'
         // Hvis kunde vælger "afhentning" skal addresse, post nr. og by ikke være synlig.
@@ -196,7 +152,7 @@ function deliveryMethodSelected() {
 
     // if-statement der kalder superklassens metode addProduct hvis der er valgt levering
     // delivery-objektet pushes dermed i item-array.
-    if (delivery.deliverySelected  === true) {
+    if (delivery.deliverySelected === true) {
         delivery.addProduct();
         console.log(JSON.stringify(item)); // Dette er kun relevant for console.log
 
@@ -221,297 +177,13 @@ function delMethodFunctions() {
     calculateTotalPrice();
 }
 
-
-// Tilføjer eventlistener på radiobuttons for leveringsmetode
-// Anvender addEventListener metoden til at registrere event handler på de to radiobuttons.
+// addEventListener på radiobuttons for leveringsmetode bruges til at registrere event handler på de to radiobuttons.
 // Eventet defineres ved typen "change", så når radiobtn ændres ved at den tjekkes af, så
 // kaldes funktionen hvormed leveringsmetoden registreres.
 let noDelRadioBtn = document.getElementById('no-delivery');
 let yesDelRadioBtn = document.getElementById('yes-delivery');
 noDelRadioBtn.addEventListener("change", delMethodFunctions);                                                    // addEventListener, 244)
 yesDelRadioBtn.addEventListener("change", delMethodFunctions);
-
-
-
-/* Funktion der validerer leveringsoplysninger i form-felterne i HTML-dokumentet.
- * Definerer variable for de inputfelter der påkræves at være udfyldt med leverings/afhentningsoplysninger.
- * Conditional statement der tjekker om felterne er korrekt udfyldt.
- * Hvis true så instantieres et nyt objekt med de valide informationer, der pushes til deliverySaved Map'et.
- */
-//lige nu har jeg både alert og .innerHTML der viser fejlteksten
-function validateDeliveryInformation() {
-    // Definerer variable i toppen  pga. scoping
-    // Anvender DOM-properties (.options, .selectedIndex, .text, .value) for at tilgå
-    // værdierne i input-felterne. Disse bindes til en variabel og bruges til validation.
-
-    /*--------------Deklaration af variable-------------------*/
-    let objHours = document.getElementById("delivery_time-hours");
-    let selectedHours  = objHours.options[objHours.selectedIndex].text;
-    let objMin = document.getElementById("delivery_time-minutes");
-    let selectedMinutes = objMin.options[objMin.selectedIndex].text;
-    let deliveryTime = `${selectedHours}:${selectedMinutes}`;
-    var address = document.getElementById("delivery_address").value;
-    var region = document.getElementById("delivery_region").value;
-    var city = document.getElementById("delivery_city").value;
-    var comment = document.getElementById("delivery_comment").value;
-
-    // Variable bindes til DOM-paragraffer for hver specifik fejlmeddelelse.
-    let paraValMethod = document.getElementById("validate-del-method");
-    let paraValTime= document.getElementById("validate-del-time");
-    let paraValComment = document.getElementById("validate-del-comment");
-    let paraValAddress = document.getElementById("validate-address");
-    let paraValRegion = document.getElementById("validate-region");
-    let paraValCity = document.getElementById("validate-city");
-
-    // Variabel bindes til DOM-element for paragraf, hvor meddelelse vises, når levering er registreret korrekt.
-    let paraDelRegistered = document.getElementById("delivery-registered");
-
-
-    // Definerer variablen delRadioBtn der bindes til radiobuttons-noderne vha. DOM-metoden querySelectorAll().                // querySelectorAll,322
-    // delRadioBtn er en NodeList der indeholder to objekter for hver radiobtn-node.                                       // NodeList, 227
-    // Radiobtns værdier skal tilgås, for at validere om leveringsmetode er blevet valgt.
-    // NodelIst property .length anvendes for at returnere antallet af items i delRadioBtn.
-
-    let delRadioBtn = document.querySelectorAll("[name=delivery-methods]");
-    let len = delRadioBtn.length;
-    let radioInput = false;
-    console.log(delRadioBtn);
-
-
-//Validation af hele leverings/afhentningsformen
-    // Definerer variblen 'formValid' der bruges til at validere formen for leverings/oplysninger som kunde har indtastet.
-    // Definerer værdien til booleansk udtryk 'true' som initiel værdi. Hvis der fanges en fejl vil den ændres til "false"
-    // Hvis formValids booleanske værdi er falsk betyder det, at én eller flere felter, som kunde skal udfylde,
-    // ikke er udfyldt korrekt, hvormed fejlbesked vil blive alerted. Alle fejl gemmes i validationMessage. Hvis formValid
-    // er true er alle påkrævede felter udfyldt korrekt og de gemmes i deliverySaved-Map'et.
-    // !!!! Lige nu er der både en alert + fejlmeddelselser vises i HTML vha. DOM-metode .innerHTML.****
-    let formValid = true;
-    let validationMessage = "";
-
-
-//Validation af leveringsmetode
-    // For-loop med det formål at undersøge om kunden har valgt leveringsmetode og derved om radiobtns er checked.
-    // Itererer gennem hver node i Nodelist. Bruger DOM-attributten .checked på hvert index i for-loop, dvs.
-    // Anvender DOM property .checked til at for hver radiobtn undersøge om den er checked eller ej.
-    // Bruger variabel deklareret til en booleansk værdi der sættes til true hvis én radiobtn er checked, og false hvis ikke.
-
-    // !!! Kunne bare bruge delivery.deliverySelected som er defineret i funktionen deliveryMethodSelected
-    for (var i = 0; i < len; i++) {                                                      // H: Virker ikke hvis man bruger "use strict;
-        if (delRadioBtn[i].checked) {                                                     // ReferenceError: "i is not deifined"
-            radioInput = true;
-        }
-    }
-    // if-else statement der anvender radioInput's boolean værdi til at kontrollere om radiobtn er blevet checked
-    // Hvis false er ingen radiobutton blevet valgt
-    // Anvender DOM-property .innerHTML til at sætte værdien af den respektive paragraf til validation af leveringsmetode
-    // Hvis leveringsmetode er valgt og radioInput er true skrives der ingen fejlmeddelelse i HTML-dokument.
-    if (radioInput === false) {
-        validationMessage += "Please select delivery Method\n ";
-        formValid= false;
-        paraValMethod.innerHTML = "Please select delivery Method";
-    } else {
-        paraValMethod.innerHTML = null;
-    }
-
-//Validation: Leverings/afhentningstid
-    // Anvender DOM property .selectedIndex for at undersøge om der er valgt et element i drop-down list.
-    let hoursIndex = objHours.selectedIndex;
-    let minIndex = objMin.selectedIndex;
-
-    // Anvender nested if-statement, da validation af leverings/afhentningstid kun skal eksekveres
-    // hvis kunde har valgt leveringsmetode. Det nestede if-statement vil kun eksekvere hvis boolean er true.
-    // Logisk OR-operator anvendes til at kontrollere at der er valgt timer og minutter, dvs. begge drop-down
-    // lister har en selected option. Hvis false, vises fejlmeddelelse vha. innerHTML-property
-   if (radioInput === true) {
-        if (hoursIndex === 0 || minIndex === 0) {
-            validationMessage += "Please choose a valid delivery time\n ";
-            formValid = false;
-            paraValTime.innerHTML = "Please choose a valid delivery time";
-        } else {
-            paraValTime.innerHTML = null;
-        }
-    }
-//Validation: comment
-    // If-statement der anvender relation operator til at undersøge om input i kommentarfelt overskrider
-    // max antal tegn. Kommentaren er en string der derfor kaldes med metoden .length for at undersøge længde.
-    if (comment.length > 255) {
-        paraValComment.innerHTML = "Overskrider maks på 255 antal tegn";
-    } else {
-        paraValComment.innerHTML = null;
-    }
-
-//Validation: leveringsaddresse
-    // Nested if-statement anvendes da addresse kun er påkrævet hvis "levering" er valgt,
-    // if-statement kontrollerer at delivery-objektets deliverySelected attribut er true hvormed 'levering' er blevet valgt.
-    // Indre if-stament tjekker om feltet for addresse er blevet udfyldt korrekt.
-
-    // FOr at kontrollere at der ikke kun er indtastet white spaces anvendes string metoden trim() på variablen
-    // 'address' der binder en string. Bruger dernæst identity operator for at checke om den efter trim er en empty.
-    if (delivery.deliverySelected === true) {                                               // Checking if delivery has been selected, else not relevant
-        if (address === null || address === "" || address.trim()==="") {                                           // !!!!!!! Den kontrollerer ikke hvis man skriver mellemrum
-            validationMessage += "Please fill out 'address'\n";
-            formValid = false;
-            paraValAddress.innerHTML = "Please fill out address";
-        } else {
-            paraValAddress.innerHTML = null;
-        }
-    }
-    console.log(address.length);
-
-
-
-//Validation: post nr.
-    // Nested if-statement, da post nr. kun er påkrævet hvis kunde har valgt 'levering'
-    // Kontrollerer at felt er udfyldt
-    if (delivery.deliverySelected === true) {
-        if (region === "" || region === null || region.trim()==="") {       // ZIP code input is empty
-            validationMessage += "Please fill out 'ZIP code'\n";
-            formValid = false;
-            paraValRegion.innerHTML = "Please fill out 'ZIP code'";
-
-         // Kalder isNaN-funktionen i et if statement for at kontrollere at der kun er indtastet
-         // tal da post nr kun kan bestå af tal.
-        } else if (isNaN(region)) {
-            validationMessage += "The ZIP code can only consist of numbers! \n";
-            formValid = false;
-            paraValRegion.innerHTML = "The ZIP code can only consist of numbers!";
-
-
-        // Post nr. kan kun bestå af 4 cifre
-        } else if (region.length !== 4) {
-            validationMessage += "ZIP code must contain of 4 digits'\n";
-            formValid = false;
-            paraValRegion.innerHTML = "ZIP code must consist of 4 digits'";
-        } else {
-            paraValRegion.innerHTML = null;
-        }
-    }
-
-//Validation: by
-    // Nested if-statement, da by kun er påkrævet ved valg af 'levering'
-    if (delivery.deliverySelected === true) {
-        if (city === "" || city === null || city.trim()==="") {
-            validationMessage += "Please fill out 'City'\n";
-            formValid = false;
-            paraValCity.innerHTML = "Please fill out 'City'";
-
-
-        // Anvender not-operator på isNaN-funktionen der skal kontrollere at der ikke er indtastet et tal
-        // !!!!virker ikke optimalt =>  KUN hvis der udelukkende indtastet et tal
-        } else if (!isNaN(city)) {
-            validationMessage += "City cannot contain numbers \n";
-            formValid = false;
-            paraValCity.innerHTML = "City cannot contain numbers";
-
-        } else {
-            paraValCity.innerHTML = null;
-        }
-    }
-
-// Validation af leverings/afhentningsformen
-    // Kontrollerer om både formValid er true og at der er valgt 'levering' vha. logisk AND-operator.
-    // Hvis alle felter er udfyldt korrekt og der er valgt 'levering' instantieres nyt delivery-objekt med
-    // de indtastede oplysninger.
-    if (formValid && delivery.deliverySelected === true) {
-        let deliveryObj = new Delivery (
-            delivery.productName,
-            delivery.productID,
-            delivery.productPrice,
-            delivery.productQuantity,
-            delivery.deliverySelected,
-            deliveryTime,
-            address,
-            region,
-            city,
-            comment
-        );
-
-        // Kalder Delivery-klassens metode der alerter de registrerde leveringsoplysninger, hvis validation
-        // er approved.
-        deliveryObj.deliveryInfoSucced();
-        // Anvender Map set()-metoden for at tilføje det instantierede deliveryObj til savedDelivery-Map.
-        // ELementet deliveryObj gemmes som et objekt i Map'et. key defineres som værdien af delivery-objektets
-        // product-ID attribut og selve deliveryObj-objektet som værdi.
-        mapDelivery.set(delivery.productID, deliveryObj);
-        console.log(mapDelivery);
-
-        // Bekræftelse på leveringsoplysninger er registreret skrives i HTML-paragraf.
-        paraDelRegistered.innerHTML="Leveringsoplysninger er gemt.";
-        console.log("Leveringsoplysninger er registreret");
-
-     // else if der nu tjekker om der er valgt 'afhentning'. Der sker det samme som ovenstående.
-     // De validerede oplysninger defineres dog til attributterne af et pick-up objekt
-     // der også er en instanitering af Delivery-klassen. Addresse, post nr, og by gemmes ikke.
-    } else if (formValid && delivery.deliverySelected === false) {
-
-        //instanitering af instance af Delivery-objekt med afhentningsoplysninger
-        let pickupObj = new Delivery (
-            delivery.productName,
-            delivery.productID,
-            delivery.productPrice,
-            delivery.productQuantity,
-            delivery.deliverySelected,
-            deliveryTime,
-            null,
-            null,
-            null,
-            comment
-        );
-
-        //Kalder Delivery-metode til alert af registrerede oplysninger
-        pickupObj.pickUpInfoSucced();
-
-        // Gemmer objekt i Map vha. set() og udskriver map i konsol.
-        mapDelivery.set(delivery.productID, pickupObj);
-        console.log(mapDelivery);
-        // console.log(JSON.stringify(mapDelivery));
-
-        // Bekræftelse på afhentningsoplysninger er registreret skrives i HTML-paragraf.
-        paraDelRegistered.innerHTML="Leveringsoplysninger er gemt.";
-        console.log("Leveringsoplysninger er registreret");
-
-        // Else statement der eksekveres hvis form ikke er valideret
-        // ALert med fejlbeskeder
-        // Fejlbesked i HTML-dokument om at leveringsoplysninger ikke er gemt
-    } else {
-        alert(validationMessage);
-        paraDelRegistered.innerHTML="Leveringsoplysninger er ikke gemt!!!.";
-        return false
-    }
-}
-
-//Funktion der først tjekker om man har gemt oplysninger én gang
-function submitDeliveryInfo() {
-    if (mapDelivery.size!==0) {
-        alert("Oplysninger er allerede gemt. Tryk 'Rediger oplysninger', hvis du ønsker at ændre i de gemte oplysninger");
-    } else {
-        validateDeliveryInformation();
-    }
-}
-
-
-//Funktion der kan ændre oplysninger
-function changeDeliveryInfo() {
-    let paraDelRegistered = document.getElementById("delivery-registered");
-    if (mapDelivery.delete("1")) {
-        mapDelivery.clear();
-        paraDelRegistered.innerHTML="Leveringsoplysninger er ikke gemt.";
-    } else {
-        alert("Du har ikke gemt nogle oplysninger endnu");
-    }
-
-    console.log(mapDelivery);
-}
-
-//Eventlistener der aktiverer funktionen submitDelInfo når man trykker på knappen "gem oplysninger"
-document.getElementById('submit-delivery-information').addEventListener("click", () => {
-    submitDeliveryInfo();
-});
-
-//Eventlistener der aktiverer changeDeliveryInfo når der trykkes på knap "rediger"
-document.getElementById('edit-delivery-information').addEventListener("click", () => {
-    changeDeliveryInfo();
-});
 
 
 
@@ -522,7 +194,11 @@ document.getElementById('edit-delivery-information').addEventListener("click", (
 
 // Funktion til at vise valgte items
 function displayItems() {
+
     document.getElementById("displayed_items").innerHTML = "";
+
+    //Conditional statements der sørger for kun at ændre DOM værdierne hvis productQuantity for det anførte objekt er over 0
+    //Ikke brug for noget else da der ikke skal gøres noget hvis ingen af disse statements er opfyldt. MB
     if (cheeseburger.productQuantity > 0) {
         document.getElementById("displayed_items").innerHTML += cheeseburger.productQuantity + " X " + cheeseburger.productName + " " + cheeseburger.productPrice*cheeseburger.productQuantity + " KR." + "<br>"
     }
@@ -530,8 +206,8 @@ function displayItems() {
     if (water.productQuantity > 0) {
         document.getElementById("displayed_items").innerHTML += water.productQuantity + " X " + water.productName + " " + water.productPrice*water.productQuantity + " KR. " + "<br>";
     }
-    if (rice.productQuantity > 0) {
-        document.getElementById("displayed_items").innerHTML += rice.productQuantity + " X " + rice.productName + " " + rice.productPrice*rice.productQuantity + " KR. " + "<br>";
+    if (fries.productQuantity > 0) {
+        document.getElementById("displayed_items").innerHTML += fries.productQuantity + " X " + fries.productName + " " + fries.productPrice*fries.productQuantity + " KR. " + "<br>";
 
         // Fjerner først evt. værdi i HTML
         //document.getElementById("displayed_items").innerHTML="";
@@ -543,29 +219,32 @@ function displayItems() {
 
 // Funktion der udregner den totale pris af valgte items.
 function calculateTotalPrice(){
-
     // Dette er kun relevant for console.log
     console.log(""); //Laver "linebreak" i console.log
     console.log("Total pris af kurv ");
 
-
-    // DiscountField defineres ud fra value i HTML, den er tom.
+    // Her defineres 3 variabler der bruges til at udregne den sidste totalepris
     var discountField=document.getElementById("discountCodeField").value;
     var totalPrice = 0;
     var discount = 0;
-    //var couponsUsed=0; skal evt. bruges til at prisen ikke overskrives hvis der allerede er aktiveret en rabatkode
+
+    //Ideen med denne variabel er at nedenstående conditional statements ville sætte den til 1
+    // På den måde ville vi kunne registrere om en gydig rabatkode var indstastet og blokere for at andre kunne bruges
+    // Man kan dog kun bruge en ad gangen så indtil videre kan man bare vælge hvilken kode man vil bruge uden at den blokerer. MB
+    //var couponsUsed=0;
 
     // Dette for-loop gennemgår arrayet i item for dets længde
     for (var x = 0; x < item.length; x++) {
 
-        //Hvis der ikke indstastes en rabatkode udregnes samlet pris for kurven.
+        //Hvis der ikke indstastes en rabatkode udregnes samlet pris for kurven ved at for loopet gennemgår hele vores array
+        // Og vi derefter ganger objekterne med .product_price, dette gentages i loopet for ikke at overskrive resultatet. MB
         if (discountField==="") {
             totalPrice = item[x].product_Price + totalPrice;
         }
 
         //Hvis der indstastes noget udregnes prisen på hele kurven
         //Uden denne Else vil prisen blive 0 hvis man indtaster en ikke aktiv rabatkode, fordi ingen af if statements vil execute prisudregningen
-        //Hvis der indtastes en kode giver den en fejlmeddelses, hvis et if statement nedenunder er sandt, overskriver det fejlmeddelsen
+        //Hvis der indtastes en kode giver den en fejlmeddelses, hvis et if statement nedenunder er sandt, overskriver det fejlmeddelsen. MB
         else{
             totalPrice = item[x].product_Price + totalPrice;
             document.getElementById("activatedCoupons").innerHTML="";
@@ -575,7 +254,7 @@ function calculateTotalPrice(){
         //Hvis der indtastes noget i rabatkode feltet der matcher med en rabatkode udregnes discount.
         //Discount bliver udregnet og pga. ovenstående if/else har vi allerede udregnet totalPrice
         //Disse if statements "sletter" også else sætningens fejlmeddelelse.
-        //Der findes 4 rabatkoder. 1. "burger10" 2. "rice10" 3. "water10" 4. "ALL10"
+        //Der findes 4 rabatkoder. 1. "burger10" 2. "rice10" 3. "water10" 4. "ALL10" . MB
         if (discountField==="burger10" && cheeseburger.productQuantity>0){
             document.getElementById("discountError").innerHTML="";
             discount=(cheeseburger.productQuantity*cheeseburger.productPrice)/10;
@@ -584,12 +263,12 @@ function calculateTotalPrice(){
             document.getElementById("activatedCoupons").innerHTML="Aktiverede rabatter" + "<br>" + "<b>Burger10:</b> Giver 10% rabat på din burger(e)"
         }
 
-        if (discountField==="rice10" && rice.productQuantity>0) {
+        if (discountField==="fries10" && fries.productQuantity>0) {
             document.getElementById("discountError").innerHTML="";
-            discount=(rice.productQuantity*rice.productPrice)/10;
+            discount=(fries.productQuantity*fries.productPrice)/10;
             console.log(discount);
             //totalPrice = item[x].product_Price + totalPrice;
-            document.getElementById("activatedCoupons").innerHTML="Aktiverede rabatter" + "<br>" + "<b>rice10:</b> Giver 10% rabat på din ris"
+            document.getElementById("activatedCoupons").innerHTML="Aktiverede rabatter" + "<br>" + "<b>fries10:</b> Giver 10% rabat på dine pomfritter"
         }
 
         if (discountField==="water10" && water.productQuantity>0){
@@ -610,7 +289,9 @@ function calculateTotalPrice(){
 
     }
 
-    //Denne variabel er den egentlige totalpris
+    //Denne variabel er den egentlige totalpris da variablen totalPrice giver totale pris for kurven uden evt. discount
+    // discount variablen bliver tildelt en anden værdi end 0 hvis et af if statements er sande
+    // Hvis ingen af if statements er sande skal der ikke være disount men den er 0 så det er ligegyldigt at den fratrækkes. MB
     var totalPriceDiscount = totalPrice-discount;
 
     document.getElementById("basketTotalPrice").innerHTML = "Pris for produkter " + totalPrice + " kr";
@@ -651,7 +332,8 @@ function validateCart() {
     }
 }
 
-//Funktion der fører kunden videre til siden for udfyldning af kundeoplysninger
+/*Denne funktion er lavet for at man kan avancere i flowet videre til næste sider
+  Hvis item er tom dvs. ingen produkter er valgt kommer an alert op på skærmen og man bliver ikke ført videre. MB*/
 function goToCustomerInfo() {
     const currentPage=window.location="index.html";
     window.close(currentPage);
@@ -665,5 +347,3 @@ function goToCustomerInfo() {
 document.getElementById('order_button').addEventListener("click", () => {
     validateCart()
 });
-
-
