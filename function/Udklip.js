@@ -534,3 +534,212 @@ function createDelivery() {
     );
     console.log(deliveryObj);
 }
+    
+    /*
+///ANDEN der anvender try/catch og kun viser fejlmeddelelser med alert!!!!!
+
+// Deklaration af funktion med formål at validere leveringsoplysninger i form-felterne i HTML-dokumentet.
+// Definerer variable ud fra DOM inputfelter, der påkræves at være udfyldt med leverings/afhentningsoplysninger.
+// Anvender exeption handling for at kontrollere at felterne er korrekt udfyldt.
+// Hvis hele formen er 'true' instantieres et nyt objekt med de valide informationer, der gemmes i Map defineret tidligere.
+function validateDeliveryInformation() {
+    // Definerer variable i toppen pga. scoping.
+    // Anvender DOM-properties (.options, .selectedIndex, .text, .value) for at tilgå værdierne i input-felterne.
+    // Disse bindes til en variabel og bruges til validation.
+    let objHours = document.getElementById("delivery_time-hours");
+    let selectedHours  = objHours.options[objHours.selectedIndex].text;
+    let objMin = document.getElementById("delivery_time-minutes");
+    let selectedMinutes = objMin.options[objMin.selectedIndex].text;
+    let deliveryTime = `${selectedHours}:${selectedMinutes}`;
+    var address = document.getElementById("delivery_address").value;
+    var region = document.getElementById("delivery_region").value;
+    var city = document.getElementById("delivery_city").value;
+    var comment = document.getElementById("delivery_comment").value;
+
+
+    // Variabel bindes til DOM-element for paragraf, hvor meddelelse vises, når levering er registreret korrekt.
+    let paraDelRegistered = document.getElementById("delivery-registered");
+
+
+    // Definerer variablen delRadioBtn der bindes til radiobuttons-noderne vha. DOM-metoden querySelectorAll().                // querySelectorAll,322
+    // delRadioBtn er en NodeList der indeholder to objekter for hver radiobtn-node. Formålet er, at Radiobtns værdier                                  // NodeList, 227
+    // skal tilgås, for at validere om leveringsmetode er blevet valgt.
+    // NodeList property .length anvendes for at returnere antallet af items i delRadioBtn.
+    let delRadioBtn = document.querySelectorAll("[name=delivery-methods]");
+    let len = delRadioBtn.length;
+    let radioInput = false;
+
+//Validation af hele leverings/afhentningsformen
+    // Deklarerer variblen 'formValid' der bruges til at validere formen for leverings/oplysninger som kunde har indtastet.
+    // Værdien defineres til booleansk udtryk 'true' som initiel værdi. Hvis try/catch fanger fejl vil den ændres til "false"
+    // Hvis formValids booleanske værdi er falsk betyder det, at én eller flere felter, som kunde skal udfylde,
+    // ikke er udfyldt korrekt, hvormed fejlbesked vil blive alerted. Alle fejl gemmes i validationMessage. Hvis formValid
+    // er true er alle påkrævede felter udfyldt korrekt og de gemmes som et instantieret objekt i deliverySaved-Map'et.
+    // !!!! Lige nu er der både en alert + fejlmeddelselser vises i HTML vha. DOM-metode .innerHTML.****
+    let formValid = true;
+    let validationMessage ="";
+
+//Validation af leveringsmetode
+    // For-loop med formål at undersøge om kunde har valgt leveringsmetode og dermed om radiobtns er checked.
+    // Itererer gennem hver node i Nodelist. Bruger DOM-attributten .checked på hvert index i for-loop, dvs.
+    // Anvender DOM property .checked til at for hver radiobtn undersøge om den er checked eller ej.
+    // Bruger variabel deklareret til en booleansk værdi der sættes til 'true' hvis én radiobtn er checked, og 'false' hvis ikke.
+
+    // !!! Kunne bare bruge delivery.deliverySelected som er defineret i funktionen deliveryMethodSelected
+    for (var i = 0; i < len; i++) {                                                      // H: Virker ikke hvis man bruger "use strict;
+        if (delRadioBtn[i].checked) {                                                     // ReferenceError: "i is not deifined"
+            radioInput = true;
+        }
+    }
+    // try/catch blok der anvender boolean værdi til at kontrollere om radiobtn er blevet checked.
+    // Hvis false er ingen radiobutton blevet valgt og increment operator bruges til at tilføje fejlmeddelelse til
+    // variablen validationMessage.
+    try {
+        if (radioInput === false) throw "\nDu skal vælge leveringsmetode "
+        }
+    catch(error) {
+            validationMessage += error;
+            formValid = false;
+        }
+
+//Validation: Leverings/afhentningstid
+    // Anvender DOM property .selectedIndex for at undersøge om der er valgt et element i drop-down list.
+    let hoursIndex = objHours.selectedIndex;
+    let minIndex = objMin.selectedIndex;
+
+    // Anvender nested try/catch i if-statement, da validation af leverings/afhentningstid kun skal eksekveres
+    // hvis kunde har valgt leveringsmetode, men skal gælde for både valg af 'levering' og 'afhentning'.
+    // Det nestede try/catch vil kun eksekvere hvis ydre if-statement er true.
+    // Logisk OR-operator anvendes til at kontrollere at der er valgt 'timer' og 'minutter', dvs. begge drop-down
+    // lister har en selected option.
+
+    if (delivery.deliverySelected !== null) {
+        try {
+            if (hoursIndex === 0 || minIndex === 0) throw "\nDu skal vælge et gyldigt leverings/afhentningstidspunkt";
+
+
+        //Validation: comment
+            // If-statement der anvender relational operator til at undersøge om input i kommentarfelt overskrider
+            // max antal tegn. Kommentaren er en string der derfor kaldes med metoden .length for at kontrollere længde.
+
+            if (comment.length > 255) throw "\nKommentar overskrider maks på 255 antal tegn";
+        }
+        catch(error) {
+            validationMessage += error;
+            formValid = false;
+        }
+    }
+
+//Validation: leveringsaddresse
+    // Nested if-statement anvendes da addresse, post nr. og by kun er påkrævet hvis "levering" er valgt.
+    // if-statement kontrollerer at delivery-objektets deliverySelected attribut er 'true' hvormed 'levering' er blevet valgt.
+    // Indre if-stament tjekker om feltet for addresse er blevet udfyldt korrekt.
+    // For at kontrollere at der ikke kun er indtastet white spaces anvendes string metoden trim() på variablen
+    // 'address' der binder en string. Bruger dernæst identity operator for at checke om den efter trim er en empty.
+
+    if (delivery.deliverySelected=== true) {
+        try {
+            if (address === null || address === "" || address.trim() === "")            // !!!!!!! Den kontrollerer ikke hvis man skriver mellemrum
+                throw "\nDu skal indtaste addresse";
+
+//Validation: post nr.
+    // Kontrollerer at felt er udfyldt.
+
+            if (region === "" || region === null || region.trim() === "")        // ZIP code input is empty
+                throw "\nDu mangler at udfylde post nr.";
+
+            // Kalder isNaN-funktionen i et if statement for at kontrollere at der kun er indtastet
+            // tal, da post nr kun kan bestå af tal.
+            if (isNaN(region)) throw "\nPost nr. kan kun bestå af tal";
+
+            // Post nr. kan kun bestå af 4 cifre
+            if (region.length !== 4) throw "\nPost nr. skal bestå af 4 cifre";
+
+
+//Validation: by
+            // Kontrollerer at felt ikke er tomt
+            if (city === "" || city === null || city.trim()==="") throw "\nDu skal udfylde by";
+
+            // Anvender not-operator på isNaN-funktionen der skal kontrollere at der ikke er indtastet et tal
+            // !!!!virker ikke optimalt =>  KUN hvis der udelukkende indtastet et tal
+            if (!isNaN(city)) throw "\nBy kan ikke indeholde tal";
+
+        }
+        // catch block der fanger fejl i den respektive try block, gælder kun for valg af 'levering'.
+        catch(error) {
+            validationMessage += error;
+            formValid = false;
+        }
+    }
+
+// Validation af leverings/afhentningsformen vha. conditional statement
+    // Kontrollerer om både formValid er true og at der er valgt 'levering' vha. logisk AND-operator.
+    // Hvis alle felter er udfyldt korrekt og der er valgt 'levering' instantieres nyt delivery-objekt med
+    // de indtastede oplysninger.
+
+    if (formValid && delivery.deliverySelected === true) {
+        let deliveryObj = new DeliveryInfo(
+            "Levering",
+            deliveryTime,
+            address,
+            region,
+            city,
+            comment
+        );
+
+        // Kalder Delivery-klassens metode der alerter de registrerde leveringsoplysninger, hvis validation
+        // er approved.
+
+        deliveryObj.deliveryInfoSucced();
+
+        // Anvender Map set()-metoden for at tilføje det instantierede deliveryObj til savedDelivery-Map.
+        // ELementet deliveryObj gemmes som et objekt i Map'et. key defineres som værdien af delivery-objektets
+        // product-ID attribut og selve deliveryObj-objektet som værdi.
+        mapDelivery.set(delivery.productID, deliveryObj);
+
+        // localStorage.setItem("deliveryInformation", JSON.stringify(mapDelivery.get("1")));
+        //console.log(JSON.parse(localStorage.getItem("deliveryInformation")));
+
+        // Bekræftelse på leveringsoplysninger er registreret skrives i HTML-paragraf.
+        paraDelRegistered.innerHTML="Leveringsoplysninger er gemt.";
+        console.log("Leveringsoplysninger er registreret");
+
+        // else if, der eksekveres hvis kunde har valgt 'afhentning'. Da vil ske samme som ovenstående.
+        // De validerede oplysninger defineres dog til attributterne af et pick-up objekt
+        // der også er en instanitering af Delivery-klassen. Addresse, post nr, og by gemmes ikke.
+
+    } else if (formValid && delivery.deliverySelected === false) {
+        //instanitering af instance af Delivery-objekt med afhentningsoplysninger
+        let pickupObj = new DeliveryInfo (
+            "Afhentning",
+            deliveryTime,
+            null,
+            null,
+            null,
+            comment
+        );
+
+        //Kalder Delivery-metode til alert af registrerede oplysninger
+        pickupObj.pickUpInfoSucced();
+
+        // Gemmer objekt i Map vha. set() og udskriver map i konsol.
+        mapDelivery.set(delivery.productID, pickupObj);
+        console.log(mapDelivery);
+
+
+        // Bekræftelse på afhentningsoplysninger er registreret skrives i HTML-paragraf.
+        paraDelRegistered.innerHTML="Leveringsoplysninger er gemt.";
+        console.log("Leveringsoplysninger er registreret");
+
+        // else-statement der eksekveres hvis form ikke er valideret
+        // Alert med fejlbeskeder
+        // Fejlbesked i HTML-dokument om at leveringsoplysninger ikke er gemt
+    } else {
+        alert("fejl!: " + validationMessage);
+        paraDelRegistered.innerHTML="Leveringsoplysninger er ikke gemt!!!.";
+        return false
+    }
+}
+*/
+    
+    
