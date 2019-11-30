@@ -2,10 +2,11 @@
 //Formålet med at oprette en klasse er at definere hvilke attributter (informationer) som en "ordre" består af.
 //Klassen defineres med en constructor med 3 properties der synes relevante for den ønskede funktion i programmet. /HG
 class Order {
-    constructor(orderID, orderDate, totalPrice) {
+    constructor(orderID, orderDate, totalPrice, orderItems) {
         this.orderID = orderID;
         this.orderDate = orderDate;
         this.totalPrice = totalPrice;
+        this.orderItems = orderItems;
     }
     //Metode der laver en alert når kunden bekræfter sin betaling
     orderConfirmation() {
@@ -15,6 +16,7 @@ class Order {
             Total pris: ${this.totalPrice}`);
     }
 }
+
 //Denne funktion kaldes af saveCreditCard (i Payment.js) og sørger for at slutbrugeren avancerer i vores flow. MB
 function acceptOrder() {
     var popUp= window.open("","_self");
@@ -22,6 +24,7 @@ function acceptOrder() {
 // Ordrebekræftelse der henter de gemte værdier fra sessionStorage ud fra de respektive keys og deres værdier.
     let customerInfo = JSON.parse(sessionStorage.getItem("customerInformation"));
     let deliveryInfo = JSON.parse(sessionStorage.getItem("deliveryInformation"));
+    let orderItems=JSON.parse(sessionStorage.getItem("itemInformation"));
     let totalPrice = JSON.parse(sessionStorage.getItem("totalOrderPrice"));
     let now = new Date();
     let orderDate = `${now.getDate()}/${now.getMonth()+1}-${now.getFullYear()}`;
@@ -56,9 +59,11 @@ function acceptOrder() {
         orderID,
         orderDate,
         totalPrice,
+        orderItems
     );
     //Kalder metode fra Order-klassen, der alerter oplysninger på ordre.
     order.orderConfirmation();
+    console.log(order.orderItems);
 
     //Her kaldes en ny funktion dette sker hver gang acceptOder executer men jeg har valgt at splitte op i 2
     //funktioner for overskueligheds skyld
