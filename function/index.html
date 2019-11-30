@@ -75,8 +75,8 @@
         </div>
 
         <form> <!--id bruges ikke-->
-            <input type="radio" name="delivery-methods" id="yes-delivery"   /> Tilføj levering <br>
-            <input type="radio" name ="delivery-methods" id="no-delivery" /> Hent selv<br>
+            <input type="radio" name="delivery-methods" id="yes-delivery" onclick="delMethodFunctions()"   /> Tilføj levering <br>
+            <input type="radio" name ="delivery-methods" id="no-delivery" onclick="delMethodFunctions()" /> Hent selv<br>
             <!-- <input type="radio" name="delivery-methods" class="select-delivery-method"  id="yes-delivery"  onClick=" deliveryYesNo();deliveryFee();displayItems();calculateTotalPrice();"/> Tilføj levering <br>
             //<input type="radio" name ="delivery-methods" class="select-delivery-method"   id="no-delivery" onClick="deliveryYesNo();deliveryFee();displayItems();calculateTotalPrice();"/> Hent selv<br>
         --> </form>
@@ -149,18 +149,16 @@
 
 <!-------------------------------------------------------------------------------------------------------------->
 
-<section id="basket_container"></section>
-<h2 id="basket_header">KURV</h2>
-<div id="basket_div">
-    <span id="basket_quantity">ANTAL</span>
-    <span id="basket_product">VARE</span>
-    <span id="basket_price"> PRIS</span>
-    <p id="displayed_items"></p>
-
-</div>
-
+<section id="basket_container">
+    <h2 id="basket_header">KURV</h2>
+    <div id="basket_div">
+        <span id="basket_quantity">ANTAL</span>
+        <span id="basket_product">VARE</span>
+        <span id="basket_price"> PRIS</span>
+        <p id="displayed_items"></p>
+    </div>
+</section>
 <br>
-
 
 <section id="discountField">
     <h4>Tilføj en rabatkode</h4>
@@ -168,35 +166,27 @@
     <button onclick="calculateTotalPrice()">Tilføj</button>
     <p id="activatedCoupons"></p>
     <p id="discountError"></p>
-
 </section>
 <br>
 
-
-<div id="BasketPrice">
-
-</div>
-
-<div id="items_basket_container"></div>
-
-<div id="total_basket_container">
+<section>
     <h3 id="total_basket_header"> PRIS FOR KURV I ALT</h3>
     <div>
         <p id="basketTotalPrice">Pris for produkter 0 KR.</p>
         <p id="discount"> Rabat 0 KR.</p>
         <p id="totalPriceWithDiscount"> Total pris 0 KR.</p>
     </div>
-</div>
-<div id="order_button_div">
-    <button id="order_button">Bestil</button>
-    <!--<div id="order_button_div"><button onclick="goToCustomerInfo()">Bestil</button>-->
 
-</div>
-
+    <div id="order_button_div">
+        <button id="order_button">Bestil</button>
+        <!--<div id="order_button_div"><button onclick="goToCustomerInfo()">Bestil</button>-->
+    </div>
+</section>
 
 </body>
 
 <script charset="UTF-8" src="Tester.js"></script>
 <script charset="UTF-8" src="DeliveryInfo.js"></script>
+
 
 </html>

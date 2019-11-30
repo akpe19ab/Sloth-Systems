@@ -29,6 +29,8 @@ class Product {
         /*Denne metode er modstykket til addProduct sådan at vi også kan fjerne "produkter"/objekter i vores array. MB
     */
     }
+
+    //HUSK skal reassigne til 0 hvis quantity er mindre end 0!!!
     removeProduct() {
         this.productQuantity--;
         //Her bruges et for loop til at itere igennem hele arrayet, item
@@ -40,6 +42,7 @@ class Product {
                 break; // Uden break(stopper for-loopet) vil for-loopet fortsætte efter, at der er blevet fjernet et produkt.
             }
         console.log(JSON.stringify(item));
+
     }
     /* Jeg kender ikke til denne metode og ved ikke hvad meningen er med den. Den bliver ikke kaldt. MB
     ArrayCounter() {
@@ -72,21 +75,16 @@ let fries = new Extras("Pomfritter", 3, 15, 0);
 
 
 //---------------------------------------------------------------------------------------
-// Delivery subclass
+
 
 //Optimering: javascript reduce dom access (ikke gjort endnu)
-// Nedarvning af Product: "Delivery"
 // HUSK - man skal ikke kumne vælge levering hvis ikke man har valgt produkter
 
-/* Deklarerer subklassen 'Delivery' som nedarvning der extender superklassen 'Product'.
- * (Klassenotation og deklaration, s. 102, extend 113)
- */
+//Deklarerer subklassen 'Delivery' som nedarvning der extender superklassen 'Product'.    (Klassenotation og deklaration, s. 102, extend 113),
+//Definerer klassens constructor med properties der nedarves fra superklassen, og properties der er unikke
+//for 'Delivery'.  (Constructor funktion, 102)
 class Delivery extends Product {
-    /* Definerer klassens constructor med properties der nedarves fra superklassen,
-     * og properties der er unikke for 'Delivery'. (Constructor funktion, 102)
-     * Kalder superklassens constructor med super-keyword, hvormed Delivery nedarver attributter og metoder fra 'Product'. (Extends, 113)
-     * (this.-keyword s. 99)
-     */
+    //Kalder superklassens constructor med super-keyword, hvormed Delivery nedarver attributter og metoder fra 'Product'. (this.-keyword s. 99)
     constructor(productName, productID, productPrice, initialProductQuantity, deliverySelected) {
         super(productName, productID, productPrice, initialProductQuantity);
         this.deliverySelected = deliverySelected;
@@ -94,11 +92,11 @@ class Delivery extends Product {
 }
 
 
-// Instantierer et objekt af klassen 'Delivery' med properties fra 'Delivery'-klassen, der definerer hvad et
-// objekt i klassen 'Delivery' består af.
-// Objektet 'delivery' er prædefineret og fungerer som et "produkt" hvis kunden vælger levering eller afhentning.
-// Dens definerede værdier anvendes også til validation af info, som brugeren indtaster i HTML.
-// Sætter en del af properties lig den empty value 'null' da disse ændres når bruger indtaster valide værdier. (null, 18)
+/*  Instantierer et objekt af klassen 'Delivery' med properties fra 'Delivery'-klassen, der definerer hvad et
+    objekt i klassen 'Delivery' består af. Objektet 'delivery' er prædefineret og fungerer som et "produkt" hvis kunden
+    vælger levering eller afhentning. Formålet med den for Delivery-klassen unikke attribut "deliverySelected" er, at
+    den deklareres senere hen med en booleansk værdi på "true/false" afhængigt af, om kunden vælger hhv. levering/afhentning.
+    */
 let delivery = new Delivery(
     "Levering",
     "1",
@@ -108,20 +106,16 @@ let delivery = new Delivery(
 );
 
 
-/* Funktion med formål at tjekke hvilken leveringsmetode kunden har valgt (levering/afhentning) efter hvilken radiobutton
- * der er tjekket.(radiobutton, 322)
- * Definerer variable vha. .get
- * Anvender assignment operator til at definere variable til værdien af en specifik node i HTML DOM'en.
- * DOM metoden .getElementById bruges til at finde den specifikke node for hver af de to radiobuttons.
- * Bruger conditional execution i form af if- else if - else statement: først et if-else der assigner "deliverySelected"
- * til en boolean (true/false) alt efter hvilken radiobutton der er tjekket af.
-* */
+/*  Funktion med formål at tjekke hvilken leveringsmetode kunden har valgt (levering/afhentning) efter hvilken radiobutton
+    der er tjekket.(radiobutton, 322). Anvender assignment operator til at definere variable til værdien af en specifik
+    node i HTML DOM'en. DOM metoden .getElementById bruges til at finde den specifikke node for hver af de to radiobuttons.
+    Bruger conditional execution i form af if- else if - else statement: først et if-else der assigner "deliverySelected"
+    til en boolean (true/false) alt efter hvilken radiobutton der er tjekket af. */
 
-/*Funktionen "deliveryFee" vil tilføje leveringsgebyer, hvis man har trykket på "Vælg levering" hvormed "deliverySelected=true".
- Hvis man derimod trykker "hent selv" vil den igen fjerne leveringsgebyr, da "deliverySelected=false".*/
 function deliveryMethodSelected() {
     let yesDelRadioBtn = document.getElementById('yes-delivery');
     let noDelRadioBtn = document.getElementById('no-delivery');
+
     // Conditional statement der tjekker hvilken leveringsmetode kunden har valgt.
     // if-statement der anvender operatorer der tjekker om radiobtn for levering har en checked-property lig true OG
     // radiobtn for afhentning dermed er false.
@@ -149,9 +143,11 @@ function deliveryMethodSelected() {
     }
 
     // Anvender if else statement for at tjekke om der skal tilføjes leveringsgebyer til den totale pris.
-
+    // Der tilføjes leveringsgebyer, hvis man har trykket på "Vælg levering" hvormed "deliverySelected=true"
+    // Hvis man derimod trykker "hent selv" vil den igen fjerne leveringsgebyr, da "deliverySelected=false".*/
     // if-statement der kalder superklassens metode addProduct hvis der er valgt levering
     // delivery-objektet pushes dermed i item-array.
+
     if (delivery.deliverySelected === true) {
         delivery.addProduct();
         console.log(JSON.stringify(item)); // Dette er kun relevant for console.log
@@ -171,6 +167,7 @@ function deliveryMethodSelected() {
 }
 
 // Deklarerer funktion der kalder flere funktioner i et nested scope (nested scope, 42)
+// kaldes ved onclick
 function delMethodFunctions() {
     deliveryMethodSelected();
     displayItems();
@@ -180,11 +177,12 @@ function delMethodFunctions() {
 // addEventListener på radiobuttons for leveringsmetode bruges til at registrere event handler på de to radiobuttons.
 // Eventet defineres ved typen "change", så når radiobtn ændres ved at den tjekkes af, så
 // kaldes funktionen hvormed leveringsmetoden registreres.
+/*
 let noDelRadioBtn = document.getElementById('no-delivery');
 let yesDelRadioBtn = document.getElementById('yes-delivery');
 noDelRadioBtn.addEventListener("change", delMethodFunctions);                                                    // addEventListener, 244)
 yesDelRadioBtn.addEventListener("change", delMethodFunctions);
-
+*/
 
 
 
@@ -302,6 +300,9 @@ function calculateTotalPrice(){
     // Dette er kun relevant for console.log (Dette viser total price i console.log)
     console.log("Den totale pris er: " + totalPrice + " kr"); //(denne er derfor kun for at skabe overblik)
     console.log("-----------------------------------------------");
+
+    //Gemmer totalPrice i sessionStorage, så den kan tilgås under betaling.
+    sessionStorage.setItem("totalOrderPrice", JSON.stringify(totalPrice));
 }
 
 
@@ -314,6 +315,15 @@ function validateCart() {
     var cartValidated = true;
 
     try {
+        if (item.length === 0 && delivery.deliverySelected===null && savedDelivery.length === 0 ) throw "Du skal lægge varer i kurven og vælge leveringsmetode";
+        if (item.length !== 0 && delivery.deliverySelected===null) throw "Du skal vælge leveringsmetode";
+        if (item.length === 1 && delivery.deliverySelected ===true && savedDelivery.length === 0) throw "Du kan ikke vælge levering uden at have varer i kurven.";
+        if (item.length === 0 && delivery.deliverySelected ===false && savedDelivery.length === 0) throw "Du kan ikke vælge afhentning uden at have varer i kurven.";
+        if (item.length === 1 && delivery.deliverySelected ===true && savedDelivery.length === 1 ) throw "Du kan ikke vælge levering uden at have lagt varer i kurven";
+        if (item.length === 0 && delivery.deliverySelected ===false && savedDelivery.length === 1) throw "Du kan ikke vælge afhentning uden at have lagt varer i kurven";
+        if (item.length >=1  && delivery.deliverySelected !==null && savedDelivery.length === 0 ) throw "Leverings/afhentningsoplysninger er ikke gemt";
+
+        /* Maps:
         if (item.length === 0 && delivery.deliverySelected===null && mapDelivery.size === 0 ) throw "Du skal lægge varer i kurven og vælge leveringsmetode";
         if (item.length !== 0 && delivery.deliverySelected===null) throw "Du skal vælge leveringsmetode";
         if (item.length === 1 && delivery.deliverySelected ===true && mapDelivery.size ===0) throw "Du kan ikke vælge levering uden at have varer i kurven.";
@@ -321,7 +331,7 @@ function validateCart() {
         if (item.length === 1 && delivery.deliverySelected ===true && mapDelivery.size === 1 ) throw "Du kan ikke vælge levering uden at have lagt varer i kurven";
         if (item.length === 0 && delivery.deliverySelected ===false && mapDelivery.size === 1) throw "Du kan ikke vælge afhentning uden at have lagt varer i kurven";
         if (item.length >=1  && delivery.deliverySelected !==null && mapDelivery.size === 0 ) throw "Leverings/afhentningsoplysninger er ikke gemt";
-
+*/
     } catch (error) {
         alert("Hov - du kan ikke gå videre endnu: " + error);
         cartValidated = false;
@@ -339,6 +349,7 @@ function goToCustomerInfo() {
     window.close(currentPage);
     const customerPage=window.location="Customer.html";
     window.open(customerPage);
+
 }
 
 

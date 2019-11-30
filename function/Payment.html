@@ -6,13 +6,13 @@
 </head>
 <body>
 <p>Her betales der for din ordre:</p>
-
 <section id="basket_payment">
-    <span id="basket_quantity">ANTAL</span>
-    <span id="basket_product">VARE</span>
-    <span id="basket_price"> PRIS</span>
-    <p id="totalPriceWithDiscount"> Total pris 0 KR.</p>
+    <span>Total pris for ordre: </span>
+    <span id="totalPriceWithDiscount"> 0 </span>
+    <span>Kr. </span>
 </section>
+
+
 <h4>Kortnummer</h4>
 
 <input value="" id="cardNumber"><br>
@@ -29,6 +29,9 @@
 
 <button id="paymentButton" onclick="validateCreditCard()">Betal</button>
 
+
+
 </body>
+
 <script src="Payment.js"></script>
 </html>

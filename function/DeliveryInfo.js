@@ -41,12 +41,20 @@ class DeliveryInfo {
     }
 }
 
+/*Skifter Map ud med Array
 // Kreerer et nyt Map bundet til variabel, med formålet at have en let data struktur til at opbevare og tilgå registrerede
 // leveringsoplysninger. Dermed bruges et Map til senere hen at opbevare en instantiering af et deliveryInfo-objekt.         (Maps, 104) (let-keyword, binding, assignment operator, 23)
 // Når en kunde har registreret korrekte oplysninger gemmes oplysningerne som properties til et nyt
 // delivery-objekt der med .set-metoden gemmes i vores Map. Objektet gemmes i Map med en key med en tilknyttet
 // værdi der indeholder selve delivery-objektet.
 let mapDelivery = new Map();
+*/
+
+// Deklarerer et nyt Array bundet til variabel, med formålet at have en let data struktur til at opbevare og tilgå registrerede
+// leveringsoplysninger. Dermed bruges et array til senere hen at opbevare en instantiering af et deliveryInfo-objekt.
+// Når en kunde har registreret korrekte oplysninger gemmes oplysningerne som properties til et nyt
+// delivery-objekt der pushes til arrayet.
+let savedDelivery = [];
 
 
 
@@ -228,15 +236,25 @@ function validateDeliveryInformation() {
         // Anvender Map set()-metoden for at tilføje det instantierede deliveryObj til savedDelivery-Map.
         // ELementet deliveryObj gemmes som et objekt i Map'et. key defineres som værdien af delivery-objektets
         // product-ID attribut og selve deliveryObj-objektet som værdi.
-        mapDelivery.set(delivery.productID, deliveryObj);
+
+        //mapDelivery.set(delivery.productID, deliveryObj);
+
+        savedDelivery.push(deliveryObj);
+        console.log(savedDelivery);
+
+        //Gemmer savedDelivery-array med deliveryObj-objektet i sessionStorage og printer array i konsol for kontrol.
+        sessionStorage.setItem("deliveryInformation", JSON.stringify(savedDelivery));
+        console.log(JSON.parse(sessionStorage.getItem("deliveryInformation")));
+
+        //
+        // Klippet ud: Map er nu erstatte af array
+        // localStorage.setItem("deliveryInformation", JSON.stringify(mapDelivery.get("1")));
+        //console.log(JSON.parse(localStorage.getItem("deliveryInformation")));
 
         // Kalder Delivery-klassens metode der alerter de registrerde leveringsoplysninger, hvis validation
         // er approved.
         deliveryObj.deliveryInfoSucced();
 
-
-       // localStorage.setItem("deliveryInformation", JSON.stringify(mapDelivery.get("1")));
-        //console.log(JSON.parse(localStorage.getItem("deliveryInformation")));
 
         // Bekræftelse på leveringsoplysninger er registreret skrives i HTML-paragraf.
         paraDelRegistered.innerHTML="Leveringsoplysninger er gemt.";
@@ -250,18 +268,20 @@ function validateDeliveryInformation() {
         let pickupObj = new DeliveryInfo (
             "Afhentning",
             deliveryTime,
-            null,
-            null,
-            null,
+            "",
+            "",
+            "",
             comment
         );
-        // Gemmer objekt i Map vha. set() og udskriver map i konsol.
-        mapDelivery.set(delivery.productID, pickupObj);
-        console.log(mapDelivery);
+        // Pusher det nye instantierede objekt til savedDelivery-array.
+        savedDelivery.push(pickupObj);
+
+        //Gemmer savedDelivery-array med pickupObj-objektet i sessionStorage og printer array i konsol for kontrol.
+        sessionStorage.setItem("deliveryInformation", JSON.stringify(savedDelivery));
+        console.log(JSON.parse(sessionStorage.getItem("deliveryInformation")));
 
         //Kalder Delivery-metode til alert af registrerede oplysninger
         pickupObj.pickUpInfoSucced();
-
 
         // Bekræftelse på afhentningsoplysninger er registreret skrives i HTML-paragraf.
         paraDelRegistered.innerHTML="Leveringsoplysninger er gemt.";
@@ -281,7 +301,8 @@ function validateDeliveryInformation() {
 //Funktion der først tjekker om man har gemt oplysninger én gang, så der kun gemmes ét objekt med oplysninger
 // i mapDelivery.
 function submitDeliveryInfo() {
-    if (mapDelivery.size!==0) {
+   // if (mapDelivery.size!==0) {
+    if (savedDelivery.length!==0) {
         alert("Oplysninger er allerede gemt. Tryk 'Rediger oplysninger', hvis du ønsker at ændre i de gemte oplysninger");
     }   else {
         validateDeliveryInformation();
@@ -292,14 +313,17 @@ function submitDeliveryInfo() {
 function changeDeliveryInfo() {
     let paraDelRegistered = document.getElementById("delivery-registered");
 
-    if (mapDelivery.delete("1")) {
-        mapDelivery.clear();
+   // if (mapDelivery.delete("1")) {
+    //    mapDelivery.clear();
+    if (savedDelivery.length===1) {
+        savedDelivery.splice(0,1);
         paraDelRegistered.innerHTML="Leveringsoplysninger er ikke gemt.";
 
     } else {
         alert("Du har ikke gemt nogle oplysninger endnu");
     }
-    console.log(mapDelivery);
+    //console.log(mapDelivery);
+    console.log(savedDelivery);
 }
 
 

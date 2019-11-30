@@ -1,10 +1,16 @@
+
+// Definerer variabel der henter totalprisen på ordren fra sessionStorage ud fra specifik key.
+// Viser totalPrice i html-dokument
+let totalPrice = JSON.parse(sessionStorage.getItem("totalOrderPrice"));
+document.getElementById("totalPriceWithDiscount").innerHTML = totalPrice;
+
 // Formålet med at oprette en variabel der er et array er at kunne opbevare kreditinformationer. MB
 var creditCards=[];
+
 
 //Formålet med at oprette en klasse er at definere hvilke informationer en "betaling" består af
 //Klassen er ud fra en constructor givet 6 parametre der synes relevante for den ønskede funktion i programmet MB
 class payment {
-
     constructor(cardNumber,expiryDateMonth,expiryDateYear,CVC,cardHoldersName,paymentID) {
         this.cardNumber = cardNumber;
         this.expiryDateMonth = expiryDateMonth;
@@ -155,6 +161,7 @@ function acceptOrder() {
     // faktisk vise en kvittering for hvad man har købt
     popUp.document.write("Dette er din bekræftelse på din bestilling"+"<br>");
     popUp.document.write("Du bliver nu ført tilbage til forsiden");
+    createOrder();
 
     //Her kaldes en ny funktion dette sker hver gang acceptOder executer men jeg har valgt at splitte op i 2
     //funktioner for overskueligheds skyld
@@ -162,6 +169,39 @@ function acceptOrder() {
     //hvis der ikke er timeout går det så hurtigt at man ikke ligger mærke til det
     setTimeout(redirectToFrontPage,3000);
 
+}
+
+// Ordrebekræftelse der henter de gemte værdier fra sessionStorage ud fra de respektive keys og deres værdier.
+function createOrder() {
+    let customerInfo = JSON.parse(sessionStorage.getItem("customerInformation"));
+    console.log(customerInfo);
+    let orderDate = new Date();
+
+    let orderID = customerInfo[0]["customer_Number"];
+    let name = customerInfo[0]["customer_Name"];
+    let email = customerInfo[0]["customer_Mail"];
+    let phone = customerInfo[0]["customer_Number"];
+
+    let deliveryInfo = JSON.parse(sessionStorage.getItem("deliveryInformation"));
+    console.log(deliveryInfo);
+    let dispatchType = deliveryInfo[0]["deliveryMethod"];
+    let time = deliveryInfo[0]["deliveryTime"];
+    let comment = deliveryInfo[0]["deliveryComment"];
+    let address = deliveryInfo[0]["deliveryAddress"];
+    let region = deliveryInfo[0]["deliveryRegion"];
+    let city = deliveryInfo[0]["deliveryCity"];
+
+    alert(`Hej ${name}. Tak for din bestilling!
+    Ordrebekræftelse:
+    Dato for bestilling: ${orderDate}
+    Ordre-ID: ${orderID}
+    Leveringsmetode: ${dispatchType}
+    Tidspunkt for levering/afhentning: ${time}
+    E-mail: ${email}
+    Telefonnr.: ${phone}
+    Evt. kommentar til bestilling: ${comment}
+    Leveringsaddresse: ${address}, ${region}, ${city}. 
+    `);
 }
 
 //Laver en "cirkelslutning" sådan at vi kommer tilbage til vores forside "index.html" når betalingen er gennemført

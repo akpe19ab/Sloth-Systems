@@ -108,6 +108,11 @@ class Customer {
         if (validated===0){
             savedCustomer.push(newCustomer);
             alert(JSON.stringify(savedCustomer));
+
+            // Gemmer array i sessionStorage så den kan tilgås under betaling HG
+            sessionStorage.setItem("customerInformation", JSON.stringify(savedCustomer));
+            console.log(JSON.parse(sessionStorage.getItem("customerInformation")));
+
             goToPayment();
         }}
 }
@@ -135,3 +140,4 @@ function goToPayment() {
 
 //Ved demonstration er det vigtigt at vide at window.close kun kan lukke faner der er åbnet af et script
 //hvilket betyder at vi skal gennemgå flow i kronologisk rækkefølge for at et flow har åbnet dem og det fungerer som ønsket
+
