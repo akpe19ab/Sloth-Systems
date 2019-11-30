@@ -124,7 +124,6 @@ function Submit() {
     name = document.getElementById("user_name").value;
     number = document.getElementById("user_number").value;
     mail = document.getElementById("user_mail").value;
-    alert("test")
     let customer = new Customer (name,number,mail);
     customer.submitCustomerInfomation();
 }

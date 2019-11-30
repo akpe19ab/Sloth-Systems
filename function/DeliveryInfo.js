@@ -41,15 +41,6 @@ class DeliveryInfo {
     }
 }
 
-/*Skifter Map ud med Array
-// Kreerer et nyt Map bundet til variabel, med formålet at have en let data struktur til at opbevare og tilgå registrerede
-// leveringsoplysninger. Dermed bruges et Map til senere hen at opbevare en instantiering af et deliveryInfo-objekt.         (Maps, 104) (let-keyword, binding, assignment operator, 23)
-// Når en kunde har registreret korrekte oplysninger gemmes oplysningerne som properties til et nyt
-// delivery-objekt der med .set-metoden gemmes i vores Map. Objektet gemmes i Map med en key med en tilknyttet
-// værdi der indeholder selve delivery-objektet.
-let mapDelivery = new Map();
-*/
-
 // Deklarerer et nyt Array bundet til variabel, med formålet at have en let data struktur til at opbevare og tilgå registrerede
 // leveringsoplysninger. Dermed bruges et array til senere hen at opbevare en instantiering af et deliveryInfo-objekt.
 // Når en kunde har registreret korrekte oplysninger gemmes oplysningerne som properties til et nyt
@@ -233,23 +224,13 @@ function validateDeliveryInformation() {
             city,
             comment
         );
-        // Anvender Map set()-metoden for at tilføje det instantierede deliveryObj til savedDelivery-Map.
-        // ELementet deliveryObj gemmes som et objekt i Map'et. key defineres som værdien af delivery-objektets
-        // product-ID attribut og selve deliveryObj-objektet som værdi.
-
-        //mapDelivery.set(delivery.productID, deliveryObj);
-
+        // Anvender .push for at tilføje det instantierede deliveryObj til savedDelivery-arrayet.
         savedDelivery.push(deliveryObj);
-        console.log(savedDelivery);
 
         //Gemmer savedDelivery-array med deliveryObj-objektet i sessionStorage og printer array i konsol for kontrol.
         sessionStorage.setItem("deliveryInformation", JSON.stringify(savedDelivery));
         console.log(JSON.parse(sessionStorage.getItem("deliveryInformation")));
 
-        //
-        // Klippet ud: Map er nu erstatte af array
-        // localStorage.setItem("deliveryInformation", JSON.stringify(mapDelivery.get("1")));
-        //console.log(JSON.parse(localStorage.getItem("deliveryInformation")));
 
         // Kalder Delivery-klassens metode der alerter de registrerde leveringsoplysninger, hvis validation
         // er approved.
@@ -313,8 +294,6 @@ function submitDeliveryInfo() {
 function changeDeliveryInfo() {
     let paraDelRegistered = document.getElementById("delivery-registered");
 
-   // if (mapDelivery.delete("1")) {
-    //    mapDelivery.clear();
     if (savedDelivery.length===1) {
         savedDelivery.splice(0,1);
         paraDelRegistered.innerHTML="Leveringsoplysninger er ikke gemt.";

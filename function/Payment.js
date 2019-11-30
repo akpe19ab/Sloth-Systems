@@ -1,6 +1,7 @@
 
 // Definerer variabel der henter totalprisen på ordren fra sessionStorage ud fra specifik key.
 // Viser totalPrice i html-dokument
+
 let totalPrice = JSON.parse(sessionStorage.getItem("totalOrderPrice"));
 document.getElementById("totalPriceWithDiscount").innerHTML = totalPrice;
 
@@ -153,6 +154,11 @@ function saveCreditCard(){
     acceptOrder();
 }
 
+
+
+
+/*  Den oprindelig funktion - udvidet så der vises oplysninger på ordre - ligger under "Order.js"
+
 //Denne funktion kaldes af saveCreditCard og sørger for at slutbrugeren avancerer i vores flow. MB
 function acceptOrder() {
     var popUp= window.open("","_self");
@@ -171,42 +177,11 @@ function acceptOrder() {
 
 }
 
-// Ordrebekræftelse der henter de gemte værdier fra sessionStorage ud fra de respektive keys og deres værdier.
-function createOrder() {
-    let customerInfo = JSON.parse(sessionStorage.getItem("customerInformation"));
-    console.log(customerInfo);
-    let orderDate = new Date();
-
-    let orderID = customerInfo[0]["customer_Number"];
-    let name = customerInfo[0]["customer_Name"];
-    let email = customerInfo[0]["customer_Mail"];
-    let phone = customerInfo[0]["customer_Number"];
-
-    let deliveryInfo = JSON.parse(sessionStorage.getItem("deliveryInformation"));
-    console.log(deliveryInfo);
-    let dispatchType = deliveryInfo[0]["deliveryMethod"];
-    let time = deliveryInfo[0]["deliveryTime"];
-    let comment = deliveryInfo[0]["deliveryComment"];
-    let address = deliveryInfo[0]["deliveryAddress"];
-    let region = deliveryInfo[0]["deliveryRegion"];
-    let city = deliveryInfo[0]["deliveryCity"];
-
-    alert(`Hej ${name}. Tak for din bestilling!
-    Ordrebekræftelse:
-    Dato for bestilling: ${orderDate}
-    Ordre-ID: ${orderID}
-    Leveringsmetode: ${dispatchType}
-    Tidspunkt for levering/afhentning: ${time}
-    E-mail: ${email}
-    Telefonnr.: ${phone}
-    Evt. kommentar til bestilling: ${comment}
-    Leveringsaddresse: ${address}, ${region}, ${city}. 
-    `);
-}
-
 //Laver en "cirkelslutning" sådan at vi kommer tilbage til vores forside "index.html" når betalingen er gennemført
 // og i den virkelige verden en kunde vil være færdig med at bruge vores hjemmeside
 function redirectToFrontPage() {
     var frontPage=window.location="index.html";
     window.open(frontPage);
 }
+*/
+

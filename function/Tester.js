@@ -26,8 +26,11 @@ class Product {
         item.push(newProduct); //Pusher newProduct til arrayet item
         console.log(JSON.stringify(item));
 
-        /*Denne metode er modstykket til addProduct sådan at vi også kan fjerne "produkter"/objekter i vores array. MB
-    */
+        //Gemmer items-array med product-objektet i sessionStorage og printer array i konsol for kontrol.
+        sessionStorage.setItem("itemInformation", JSON.stringify(item));
+        console.log(JSON.parse(sessionStorage.getItem("itemInformation")));
+
+        /*Denne metode er modstykket til addProduct sådan at vi også kan fjerne "produkter"/objekter i vores array. MB*/
     }
 
     //HUSK skal reassigne til 0 hvis quantity er mindre end 0!!!
@@ -42,6 +45,11 @@ class Product {
                 break; // Uden break(stopper for-loopet) vil for-loopet fortsætte efter, at der er blevet fjernet et produkt.
             }
         console.log(JSON.stringify(item));
+
+        //Gemmer items-array med product-objektet i sessionStorage og printer array i konsol for kontrol.
+        sessionStorage.setItem("itemInformation", JSON.stringify(item));
+        console.log(JSON.parse(sessionStorage.getItem("itemInformation")));
+
 
     }
     /* Jeg kender ikke til denne metode og ved ikke hvad meningen er med den. Den bliver ikke kaldt. MB
@@ -323,15 +331,6 @@ function validateCart() {
         if (item.length === 0 && delivery.deliverySelected ===false && savedDelivery.length === 1) throw "Du kan ikke vælge afhentning uden at have lagt varer i kurven";
         if (item.length >=1  && delivery.deliverySelected !==null && savedDelivery.length === 0 ) throw "Leverings/afhentningsoplysninger er ikke gemt";
 
-        /* Maps:
-        if (item.length === 0 && delivery.deliverySelected===null && mapDelivery.size === 0 ) throw "Du skal lægge varer i kurven og vælge leveringsmetode";
-        if (item.length !== 0 && delivery.deliverySelected===null) throw "Du skal vælge leveringsmetode";
-        if (item.length === 1 && delivery.deliverySelected ===true && mapDelivery.size ===0) throw "Du kan ikke vælge levering uden at have varer i kurven.";
-        if (item.length === 0 && delivery.deliverySelected ===false && mapDelivery.size ===0) throw "Du kan ikke vælge afhentning uden at have varer i kurven.";
-        if (item.length === 1 && delivery.deliverySelected ===true && mapDelivery.size === 1 ) throw "Du kan ikke vælge levering uden at have lagt varer i kurven";
-        if (item.length === 0 && delivery.deliverySelected ===false && mapDelivery.size === 1) throw "Du kan ikke vælge afhentning uden at have lagt varer i kurven";
-        if (item.length >=1  && delivery.deliverySelected !==null && mapDelivery.size === 0 ) throw "Leverings/afhentningsoplysninger er ikke gemt";
-*/
     } catch (error) {
         alert("Hov - du kan ikke gå videre endnu: " + error);
         cartValidated = false;
