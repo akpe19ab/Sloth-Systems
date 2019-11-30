@@ -1,4 +1,4 @@
-
+/**/
 //Formålet med at oprette en klasse er at definere hvilke attributter (informationer) som en "ordre" består af.
 //Klassen defineres med en constructor med 3 properties der synes relevante for den ønskede funktion i programmet. /HG
 class Order {
@@ -13,10 +13,10 @@ class Order {
         alert(`Tak for din bestilling!
             Dato for bestilling: ${this.orderDate}
             Ordre-ID: ${this.orderID}
-            Total pris: ${this.totalPrice}`);
+            Total pris: ${this.totalPrice} kr.`);
     }
 }
-
+// 
 //Denne funktion kaldes af saveCreditCard (i Payment.js) og sørger for at slutbrugeren avancerer i vores flow. MB
 function acceptOrder() {
     var popUp= window.open("","_self");
@@ -78,3 +78,4 @@ function redirectToFrontPage() {
     var frontPage=window.location="index.html";
     window.open(frontPage);
 }
+
