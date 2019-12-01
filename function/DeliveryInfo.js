@@ -1,6 +1,6 @@
 
-//Formålet med at oprette en klasse er at definere hvilke attributter (informationer) som "leveringsinformation" bestå af.
-//Klassen defineres med en constructor med 6 properties der synes relevante for den ønskede funktion i programmet. /HG
+// Formålet med at oprette klassen 'DeliveryIndo' er at definere hvilke attributter (informationer) som "leveringsinformation" bestå af.
+// Klassen defineres med en constructor med 6 properties der synes relevante for den ønskede funktion i programmet. /HG
 class DeliveryInfo {
     // Definerer klassens constructor med properties. (Constructor funktion, 102), (this.-keyword s. 99)
     constructor(deliveryMethod, deliveryTime, deliveryAddress, deliveryRegion, deliveryCity, deliveryComment) {
@@ -17,8 +17,6 @@ class DeliveryInfo {
     // Formålet er at brugeren får en alert, når de indtastede oplysninger er valideret og registreret.
     // Metoden anvender alert til at vise dialogbox med en string om at leveringsinfo er registreret samt værdierne
     // bundet til de respektive attributter.
-
-    /*Anvender escape character til at lave newline i string. (escape character newline, 14) (alert funktion, 221)*/
     deliveryInfoSucced(){
         alert("Leveringsoplysninger er blevet registreret:"
             + "\n Leveringsmetode: " + this.deliveryMethod
@@ -91,7 +89,7 @@ function validateDeliveryInformation() {
     let len = delRadioBtn.length;
     let radioInput = false;
 
-//Validation af hele leverings/afhentningsformen
+// Validation af hele leverings/afhentningsformen
     // Deklarerer variblen 'formValid' der bruges til at validere formen for leverings/oplysninger som kunde har indtastet.
     // Værdien defineres til booleansk udtryk 'true' som initiel værdi. Hvis if-statement fanger fejl vil den ændres til "false"
     // Hvis formValids booleanske værdi er falsk betyder det, at én eller flere felter, som kunde skal udfylde,
@@ -101,7 +99,7 @@ function validateDeliveryInformation() {
     let formValid = true;
     let validationMessage = "";
 
-//Validation af leveringsmetode
+// Validation af leveringsmetode
     // For-loop med formål at undersøge om kunde har valgt leveringsmetode og dermed om radiobtns er checked.
     // Itererer gennem hver node i Nodelist. Bruger DOM-attributten .checked på hvert index i for-loop, dvs.
     // Anvender DOM property .checked til at for hver radiobtn undersøge om den er checked eller ej.
@@ -130,7 +128,7 @@ function validateDeliveryInformation() {
 // Det nestede if-statement vil kun eksekvere hvis boolean er 'true'.
     if (radioInput === true) {
 
-//Validation: Leverings/afhentningstid
+// alidation: Leverings/afhentningstid
         // Anvender DOM property .selectedIndex for at undersøge om der er valgt et element i drop-down list.
         // Logisk OR-operator anvendes til at kontrollere at der er valgt 'timer' og 'minutter', dvs. begge drop-down
         // lister har en selected option. Hvis 'false', vises fejlmeddelelse vha. Element-property .innerHTML.
@@ -141,7 +139,7 @@ function validateDeliveryInformation() {
         } else {
             paraValTime.innerHTML = null;
         }
-//Validation: comment
+// Validation: comment
         // If-statement der anvender relational operator til at undersøge om input i kommentarfelt overskrider
         // max antal tegn. Kommentaren er en string der derfor kaldes med metoden .length for at kontrollere længde.
         if (comment.length > 255) {
@@ -153,7 +151,7 @@ function validateDeliveryInformation() {
 
 // Nested if-else statement anvendes da addresse, post nr. og by kun er påkrævet hvis "levering" er valgt.
 
-//Validation: leveringsaddresse
+// Validation: leveringsaddresse
     // if-statement kontrollerer at delivery-objektets deliverySelected attribut er 'trueø hvormed 'levering' er blevet valgt.
     // Indre if-stament tjekker om feltet for addresse er blevet udfyldt korrekt.
     // For at kontrollere at der ikke kun er indtastet white spaces anvendes string metoden trim() på variablen
@@ -167,7 +165,7 @@ function validateDeliveryInformation() {
             paraValAddress.innerHTML = null;
         }
 
-//Validation: post nr.
+// Validation: post nr.
          // Kontrollerer at felt er udfyldt.
         if (region === "" || region === null || region.trim()==="") {
             validationMessage += "Du mangler at udfylde post nr.\n";
@@ -192,7 +190,7 @@ function validateDeliveryInformation() {
         }
 
 
-//Validation: by
+// Validation: by
         // Kontrollerer felt ikke er tomt
         if (city === "" || city === null || city.trim()==="") {
             validationMessage += "Du skal udfylde by\n";
@@ -227,7 +225,7 @@ function validateDeliveryInformation() {
         // Anvender .push for at tilføje det instantierede deliveryObj til savedDelivery-arrayet.
         savedDelivery.push(deliveryObj);
 
-        //Gemmer savedDelivery-array med deliveryObj-objektet i sessionStorage og printer array i konsol for kontrol.
+        // Gemmer savedDelivery-array med deliveryObj-objektet i sessionStorage og printer array i konsol for kontrol.
         sessionStorage.setItem("deliveryInformation", JSON.stringify(savedDelivery));
         console.log(JSON.parse(sessionStorage.getItem("deliveryInformation")));
 
@@ -245,7 +243,7 @@ function validateDeliveryInformation() {
         // De validerede oplysninger defineres dog til attributterne af et pick-up objekt
         // der også er en instanitering af Delivery-klassen. Addresse, post nr, og by gemmes ikke.
     } else if (formValid && delivery.deliverySelected === false) {
-        //instanitering af instance af Delivery-objekt med afhentningsoplysninger
+        // Instanitering af instance af Delivery-objekt med afhentningsoplysninger
         let pickupObj = new DeliveryInfo (
             "Afhentning",
             deliveryTime,
@@ -257,18 +255,19 @@ function validateDeliveryInformation() {
         // Pusher det nye instantierede objekt til savedDelivery-array.
         savedDelivery.push(pickupObj);
 
-        //Gemmer savedDelivery-array med pickupObj-objektet i sessionStorage og printer array i konsol for kontrol.
+        // Gemmer savedDelivery-array med pickupObj-objektet i sessionStorage for at oplysninger kan tilgås
+        // i ordrebekræftelse. Printer array i konsol for kontrol.
         sessionStorage.setItem("deliveryInformation", JSON.stringify(savedDelivery));
         console.log(JSON.parse(sessionStorage.getItem("deliveryInformation")));
 
-        //Kalder Delivery-metode til alert af registrerede oplysninger
+        // Kalder Delivery-metode til alert af registrerede oplysninger
         pickupObj.pickUpInfoSucced();
 
         // Bekræftelse på afhentningsoplysninger er registreret skrives i HTML-paragraf.
         paraDelRegistered.innerHTML="Leveringsoplysninger er gemt.";
         console.log("Leveringsoplysninger er registreret");
 
-        // Else statement der eksekveres hvis form ikke er valideret.
+        // Else-statement der eksekveres hvis form ikke er valideret.
         // Alert med fejlbeskeder gemt i 'validationMessage'.
         // Fejlbesked i HTML-dokument om at leveringsoplysninger ikke er gemt.
     } else {
@@ -279,10 +278,9 @@ function validateDeliveryInformation() {
 }
 
 
-//Funktion der først tjekker om man har gemt oplysninger én gang, så der kun gemmes ét objekt med oplysninger
-// i mapDelivery.
+// Funktion der først tjekker om man har gemt oplysninger én gang, så der kun gemmes ét objekt med oplysninger
+// i savedDelivery.
 function submitDeliveryInfo() {
-   // if (mapDelivery.size!==0) {
     if (savedDelivery.length!==0) {
         alert("Oplysninger er allerede gemt. Tryk 'Rediger oplysninger', hvis du ønsker at ændre i de gemte oplysninger");
     }   else {
@@ -290,29 +288,32 @@ function submitDeliveryInfo() {
     }
 }
 
-//Funktion der kan ændre i gemte oplysninger ved at slette det gemte objekt i Map.
+// Funktion der kan ændre i gemte oplysninger ved at slette det gemte objekt i array. Formålet er, at
+// kunde kan redigere, hvis der var skrevet forkerte oplysninger.
 function changeDeliveryInfo() {
     let paraDelRegistered = document.getElementById("delivery-registered");
 
+    // If-statement der skal tjekke om der i forvejen er gemt et objekt. Anvender .length-properte.
+    // Hvis 'true' har kunden tidligere gemt oplysninger, og det gemte objekt slettes vha. .splice-metoden.
     if (savedDelivery.length===1) {
         savedDelivery.splice(0,1);
         paraDelRegistered.innerHTML="Leveringsoplysninger er ikke gemt.";
 
+    // else-statement, der eksekveres, hvis der ikke er gemt et delivery-objekt i arrayet.
     } else {
         alert("Du har ikke gemt nogle oplysninger endnu");
     }
-    //console.log(mapDelivery);
+    // Printer det gemte array i konsollen
     console.log(savedDelivery);
 }
 
 
-
-//Eventlistener der kalder funktionen submitDelInfo når man trykker på knappen "gem oplysninger".
+// Eventlistener der kalder funktionen submitDelInfo() når man trykker på knappen "gem oplysninger".
 document.getElementById('submit-delivery-information').addEventListener("click", () => {
     submitDeliveryInfo();
 });
 
-//Eventlistener der kalder changeDeliveryInfo når der trykkes på knap "rediger".
+// Eventlistener der kalder changeDeliveryInfo() når der trykkes på knap "rediger".
 document.getElementById('edit-delivery-information').addEventListener("click", () => {
     changeDeliveryInfo();
 });

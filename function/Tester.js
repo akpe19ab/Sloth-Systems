@@ -1,7 +1,8 @@
 // Formålet med at oprette en variabel der er et array er at kunne opbevare de objekter vi vil tilføje i dette. MB
 let item = [];
-//Formålet med at oprette en klasse er at definere hvilke informationer et "produkt" består af
-//Klassen er ud fra en constructor givet 4 parametre der synes relevante for den ønskede funktion det skal have i programmet MB
+
+// Formålet med at oprette en klasse er at definere hvilke informationer et "produkt" består af
+// Klassen er ud fra en constructor givet 4 parametre der synes relevante for den ønskede funktion det skal have i programmet MB
 class Product {
     constructor(productName, productID, productPrice, initialProductQuantity) {
         this.productName = productName;
@@ -10,11 +11,10 @@ class Product {
         this.productQuantity = initialProductQuantity;
     }
 
-    /* Laver en metode addProduct() der tilføjer et produkt til vores array item. Helt simpelt tager funktionen addProduct(),
-    de tre constructors (productName,productID,productPrice) og koger ned til et objekt (newProduct),
-    som bliver pushet til arrayet item. Dette gør at de tre constructors er samlet på en plads i arrayet, istedet for eksempelvis 3
-     productQuantity bliver forøget med én som skal bruges længere nede i koden. MB*/
-
+    // Laver en metode addProduct() der tilføjer et produkt til vores array item. Helt simpelt tager funktionen addProduct(),
+    // de tre constructors (productName,productID,productPrice) og koger ned til et objekt (newProduct),
+    // som bliver pushet til arrayet item. Dette gør at de tre constructors er samlet på en plads i arrayet, istedet for eksempelvis 3
+    // productQuantity bliver forøget med én som skal bruges længere nede i koden. MB*/
     addProduct() {
         this.productQuantity++;
         var newProduct = {
@@ -23,17 +23,18 @@ class Product {
             product_Price: this.productPrice, //Sætter newProducts product_Price til at være lig produktets productPrice
         };
 
-        item.push(newProduct); //Pusher newProduct til arrayet item
+        //Pusher newProduct til arrayet item
+        item.push(newProduct);
         console.log(JSON.stringify(item));
 
         //Gemmer items-array med product-objektet i sessionStorage og printer array i konsol for kontrol.
         sessionStorage.setItem("itemInformation", JSON.stringify(item));
         console.log(JSON.parse(sessionStorage.getItem("itemInformation")));
 
-        /*Denne metode er modstykket til addProduct sådan at vi også kan fjerne "produkter"/objekter i vores array. MB*/
-    }
 
-    //HUSK skal reassigne til 0 hvis quantity er mindre end 0!!!
+    }
+    // Denne metode er modstykket til addProduct sådan at vi også kan fjerne "produkter"/objekter i vores array. MB
+    // HUSK skal reassigne til 0 hvis quantity er mindre end 0!!!
     removeProduct() {
         this.productQuantity--;
         //Her bruges et for loop til at itere igennem hele arrayet, item
@@ -46,7 +47,7 @@ class Product {
             }
         console.log(JSON.stringify(item));
 
-        //Gemmer items-array med product-objektet i sessionStorage og printer array i konsol for kontrol.
+        // Gemmer items-array med product-objektet i sessionStorage og printer array i konsol for kontrol.
         sessionStorage.setItem("itemInformation", JSON.stringify(item));
         console.log(JSON.parse(sessionStorage.getItem("itemInformation")));
 
@@ -62,49 +63,55 @@ class Product {
 }
 
 
-////////////////////////////////////////////////////////////////////////////////////////////////////////
-// Nedarvning af klasser, her oprettes vores underklasser og instatieret produkterne under dem
+//---------------------------------------------------------------------------------------
 
+// Her deklareres vores sub-klasser som nedarvinger til super-klassen 'Product' og der instantieres et
+// produkt-objekt under hver sub-klasse.
+// Sub-klasserne nedarver automatisk attributter og metoder fra 'Product'.
+
+
+// Deklarerer sub-klassen 'Food', der extender super-klassen 'Product'.
 class Food extends Product {
 }
 
-//Instantierer et produkt under klassen "Food"
+// Instantiering af objekt under klassen "Food" med specifikke property-values.
 let cheeseburger = new Food ("Cheeseburger", 2, 80, 0);
 
+// Deklararing af sub-klassen 'Drinks'.
 class Drinks extends Product {
 }
 
+// Instantiering af objekt under klassen "Drinks".
 let water = new Drinks("Vand", 1, 20, 0);
 
+// Deklararing af sub-klassen 'Extras'.
 class Extras extends Product {
 }
-
+// Instantiering af objekt under klassen "Extras".
 let fries = new Extras("Pomfritter", 3, 15, 0);
 
 
-//---------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------
 
-
-//Optimering: javascript reduce dom access (ikke gjort endnu)
+// Optimering: javascript reduce dom access (ikke gjort endnu)
 // HUSK - man skal ikke kumne vælge levering hvis ikke man har valgt produkter
 
-//Deklarerer subklassen 'Delivery' som nedarvning der extender superklassen 'Product'.    (Klassenotation og deklaration, s. 102, extend 113),
-//Definerer klassens constructor med properties der nedarves fra superklassen, og properties der er unikke
-//for 'Delivery'.  (Constructor funktion, 102)
+
+// Deklarerer subklassen 'Delivery' som nedarvning der extender superklassen 'Product'.
+// Definerer klassens constructor med properties der nedarves fra superklassen, og properties der er unikke
+// for 'Delivery'.                                                                                                           (Klassenotation og deklaration, s. 102, extend 113),
 class Delivery extends Product {
-    //Kalder superklassens constructor med super-keyword, hvormed Delivery nedarver attributter og metoder fra 'Product'. (this.-keyword s. 99)
+    // Kalder superklassens constructor med super-keyword, hvormed Delivery nedarver attributter og metoder fra 'Product'.   (this.-keyword s. 99)
     constructor(productName, productID, productPrice, initialProductQuantity, deliverySelected) {
         super(productName, productID, productPrice, initialProductQuantity);
         this.deliverySelected = deliverySelected;
     }
 }
 
-
-/*  Instantierer et objekt af klassen 'Delivery' med properties fra 'Delivery'-klassen, der definerer hvad et
-    objekt i klassen 'Delivery' består af. Objektet 'delivery' er prædefineret og fungerer som et "produkt" hvis kunden
-    vælger levering eller afhentning. Formålet med den for Delivery-klassen unikke attribut "deliverySelected" er, at
-    den deklareres senere hen med en booleansk værdi på "true/false" afhængigt af, om kunden vælger hhv. levering/afhentning.
-    */
+// Instantierer et objekt  med properties fra 'Delivery'-klassen, der definerer hvad et
+// objekt i klassen 'Delivery' består af. Objektet 'delivery' er prædefineret og fungerer som et "produkt" hvis kunden
+// vælger levering eller afhentning. Formålet med den for Delivery-klassen unikke attribut "deliverySelected" er, at
+// den deklareres senere hen med en booleansk værdi på "true/false" afhængigt af, om kunden vælger hhv. levering/afhentning.
 let delivery = new Delivery(
     "Levering",
     "1",
@@ -114,31 +121,28 @@ let delivery = new Delivery(
 );
 
 
-/*  Funktion med formål at tjekke hvilken leveringsmetode kunden har valgt (levering/afhentning) efter hvilken radiobutton
-    der er tjekket.(radiobutton, 322). Anvender assignment operator til at definere variable til værdien af en specifik
-    node i HTML DOM'en. DOM metoden .getElementById bruges til at finde den specifikke node for hver af de to radiobuttons.
-    Bruger conditional execution i form af if- else if - else statement: først et if-else der assigner "deliverySelected"
-    til en boolean (true/false) alt efter hvilken radiobutton der er tjekket af. */
-
+// Funktion med formål at definere hvilken leveringsmetode kunden har valgt (levering/afhentning) efter hvilken radiobutton
+// der er tjekket.                                                                                                          (radiobutton, 322).
+// Anvender assignment operator til at definere variable til værdien af en specifik node i HTML DOM'en.
+// DOM metoden .getElementById bruges til at finde den specifikke node for hver af de to radiobuttons.
+// Bruger conditional execution i form af if-else statement: først et if-else der assigner "deliverySelected"
+// til en boolean (true/false) alt efter hvilken radiobutton der er tjekket af.
 function deliveryMethodSelected() {
     let yesDelRadioBtn = document.getElementById('yes-delivery');
     let noDelRadioBtn = document.getElementById('no-delivery');
 
-    // Conditional statement der tjekker hvilken leveringsmetode kunden har valgt.
-    // if-statement der anvender operatorer der tjekker om radiobtn for levering har en checked-property lig true OG
-    // radiobtn for afhentning dermed er false.
-    // Hvis radiobtn for levering har checked boolean værdi lig true (levering) skal felter til udfyldning af leveringsoplysninger
-    // være synlige.
+    // If-statement der tjekker hvilken leveringsmetode kunden har valgt. Anvender operatorer der tjekker om radiobtn
+    // for levering har en checked-property lig true OG radiobtn for afhentning dermed er false.
+    // Hvis kunde har valgt (levering) skal inputfelter til udfyldning af leveringsoplysninger være synlige og
     // delivery-objektets property "deliverySelected" assignes til den booleanske værdi 'true'.
     // getElementByID-metoden anvendes til at mutere noden med det specifikke ID så dens style bliver synlig eller skjult.
-
     if  (yesDelRadioBtn.checked === true && noDelRadioBtn.checked ===false ) {                                               // (logisk operator &&, 17), (identity/strictly equal to operator, 19), (boolean, 16)
         delivery.deliverySelected = true;
         document.getElementById('if-yes-delivery').style.visibility = 'visible';                                   // (style, 236)
         document.getElementById('if-no-delivery').style.visibility = 'visible';
 
-        // else if der tjekker modsat af første radiobtn. delivery-objektets property assignes til 'true'
-        // Hvis kunde vælger "afhentning" skal addresse, post nr. og by ikke være synlig.
+        // else-if der tjekker modsat af første radiobtn. Hvis kunde vælger "afhentning" assignes boolean til 'false'.
+        // Hvis kunde vælger "afhentning" skal felter for addresse, post nr. og by ikke være synlige.
     } else if (yesDelRadioBtn.checked === false && noDelRadioBtn.checked ===true) {
         delivery.deliverySelected = false;
         document.getElementById('if-no-delivery').style.visibility = 'visible';
@@ -152,10 +156,9 @@ function deliveryMethodSelected() {
 
     // Anvender if else statement for at tjekke om der skal tilføjes leveringsgebyer til den totale pris.
     // Der tilføjes leveringsgebyer, hvis man har trykket på "Vælg levering" hvormed "deliverySelected=true"
-    // Hvis man derimod trykker "hent selv" vil den igen fjerne leveringsgebyr, da "deliverySelected=false".*/
-    // if-statement der kalder superklassens metode addProduct hvis der er valgt levering
-    // delivery-objektet pushes dermed i item-array.
-
+    // Hvis man derimod trykker "hent selv" vil den igen fjerne leveringsgebyr, da "deliverySelected=false".
+    // if-statement der kalder superklassens metode addProduct, hvis der er valgt levering hvormed
+    // delivery-objektet pushes i item-array.
     if (delivery.deliverySelected === true) {
         delivery.addProduct();
         console.log(JSON.stringify(item)); // Dette er kun relevant for console.log
@@ -168,14 +171,14 @@ function deliveryMethodSelected() {
         console.log(JSON.stringify(item)); // Dette er kun relevant for console.log
 
         // Hvis kunden endnu ikke har valgt leveringsmetode er delivery.deliverySelected lig null, og
-        // delivery-objektets productQuantity-attribut assignes til 0.
+        // delivery-objektets productQuantity-attribut assignes til 0. Undgår at productQuantity bliver negativ.
     } else {
         delivery.productQuantity=0;
     }
 }
 
-// Deklarerer funktion der kalder flere funktioner i et nested scope (nested scope, 42)
-// kaldes ved onclick
+// Deklarerer funktion der kalder flere funktioner i et nested scope                                                        (nested scope, 42)
+// kaldes ved buttons onclick-property i html.
 function delMethodFunctions() {
     deliveryMethodSelected();
     displayItems();
@@ -188,14 +191,14 @@ function delMethodFunctions() {
 /*
 let noDelRadioBtn = document.getElementById('no-delivery');
 let yesDelRadioBtn = document.getElementById('yes-delivery');
-noDelRadioBtn.addEventListener("change", delMethodFunctions);                                                    // addEventListener, 244)
+noDelRadioBtn.addEventListener("change", delMethodFunctions);                                                                // addEventListener, 244)
 yesDelRadioBtn.addEventListener("change", delMethodFunctions);
 */
 
 
 
 
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//----------------------------------------------------------------------------------------
 // Anvendte funktioner:
 
 // Funktion til at vise valgte items
@@ -203,8 +206,8 @@ function displayItems() {
 
     document.getElementById("displayed_items").innerHTML = "";
 
-    //Conditional statements der sørger for kun at ændre DOM værdierne hvis productQuantity for det anførte objekt er over 0
-    //Ikke brug for noget else da der ikke skal gøres noget hvis ingen af disse statements er opfyldt. MB
+    // Conditional statements der sørger for kun at ændre DOM værdierne hvis productQuantity for det anførte objekt er over 0
+    // Ikke brug for noget else da der ikke skal gøres noget hvis ingen af disse statements er opfyldt. MB
     if (cheeseburger.productQuantity > 0) {
         document.getElementById("displayed_items").innerHTML += cheeseburger.productQuantity + " X " + cheeseburger.productName + " " + cheeseburger.productPrice*cheeseburger.productQuantity + " KR." + "<br>"
     }
@@ -234,7 +237,7 @@ function calculateTotalPrice(){
     var totalPrice = 0;
     var discount = 0;
 
-    //Ideen med denne variabel er at nedenstående conditional statements ville sætte den til 1
+    // Ideen med denne variabel er at nedenstående conditional statements ville sætte den til 1
     // På den måde ville vi kunne registrere om en gydig rabatkode var indstastet og blokere for at andre kunne bruges
     // Man kan dog kun bruge en ad gangen så indtil videre kan man bare vælge hvilken kode man vil bruge uden at den blokerer. MB
     //var couponsUsed=0;
@@ -242,25 +245,25 @@ function calculateTotalPrice(){
     // Dette for-loop gennemgår arrayet i item for dets længde
     for (var x = 0; x < item.length; x++) {
 
-        //Hvis der ikke indstastes en rabatkode udregnes samlet pris for kurven ved at for loopet gennemgår hele vores array
+        // Hvis der ikke indstastes en rabatkode udregnes samlet pris for kurven ved at for loopet gennemgår hele vores array
         // Og vi derefter ganger objekterne med .product_price, dette gentages i loopet for ikke at overskrive resultatet. MB
         if (discountField==="") {
             totalPrice = item[x].product_Price + totalPrice;
         }
 
-        //Hvis der indstastes noget udregnes prisen på hele kurven
-        //Uden denne Else vil prisen blive 0 hvis man indtaster en ikke aktiv rabatkode, fordi ingen af if statements vil execute prisudregningen
-        //Hvis der indtastes en kode giver den en fejlmeddelses, hvis et if statement nedenunder er sandt, overskriver det fejlmeddelsen. MB
+        // Hvis der indstastes noget udregnes prisen på hele kurven
+        // Uden denne Else vil prisen blive 0 hvis man indtaster en ikke aktiv rabatkode, fordi ingen af if statements vil execute prisudregningen
+        // Hvis der indtastes en kode giver den en fejlmeddelses, hvis et if statement nedenunder er sandt, overskriver det fejlmeddelsen. MB
         else{
             totalPrice = item[x].product_Price + totalPrice;
             document.getElementById("activatedCoupons").innerHTML="";
             document.getElementById("discountError").innerHTML="Koden du har indtastet er ikke gyldig.";
         }
 
-        //Hvis der indtastes noget i rabatkode feltet der matcher med en rabatkode udregnes discount.
-        //Discount bliver udregnet og pga. ovenstående if/else har vi allerede udregnet totalPrice
-        //Disse if statements "sletter" også else sætningens fejlmeddelelse.
-        //Der findes 4 rabatkoder. 1. "burger10" 2. "rice10" 3. "water10" 4. "ALL10" . MB
+        // Hvis der indtastes noget i rabatkode feltet der matcher med en rabatkode udregnes discount.
+        // Discount bliver udregnet og pga. ovenstående if/else har vi allerede udregnet totalPrice
+        // Disse if statements "sletter" også else sætningens fejlmeddelelse.
+        // Der findes 4 rabatkoder. 1. "burger10" 2. "rice10" 3. "water10" 4. "ALL10" . MB
         if (discountField==="burger10" && cheeseburger.productQuantity>0){
             document.getElementById("discountError").innerHTML="";
             discount=(cheeseburger.productQuantity*cheeseburger.productPrice)/10;
@@ -295,7 +298,7 @@ function calculateTotalPrice(){
 
     }
 
-    //Denne variabel er den egentlige totalpris da variablen totalPrice giver totale pris for kurven uden evt. discount
+    // Denne variabel er den egentlige totalpris da variablen totalPrice giver totale pris for kurven uden evt. discount
     // discount variablen bliver tildelt en anden værdi end 0 hvis et af if statements er sande
     // Hvis ingen af if statements er sande skal der ikke være disount men den er 0 så det er ligegyldigt at den fratrækkes. MB
     var totalPriceDiscount = totalPrice-discount;
@@ -309,16 +312,16 @@ function calculateTotalPrice(){
     console.log("Den totale pris er: " + totalPrice + " kr"); //(denne er derfor kun for at skabe overblik)
     console.log("-----------------------------------------------");
 
-    //Gemmer totalPrice i sessionStorage, så den kan tilgås under betaling.
+    // Gemmer totalPrice i sessionStorage, så dens værdi senere kan tilgås under betaling.
     sessionStorage.setItem("totalOrderPrice", JSON.stringify(totalPrice));
 }
 
 
 
-//H: har optimeret så den tjekker for flere ting inden man kan gå videre
+// H: har optimeret så den tjekker for flere ting inden man kan gå videre
 // Funktion der tjekker om man både har valgt varer OG har valgt leveringsmetode.
 // Try-catch, exeption handling der kontrollerer kunde har udfyldt oplysninger og valgt produkter.
-// Hvis sandt, så sendes man til betaling
+// Hvis true, kaldes funktion, der omdirigerer browser til side for indtastning af kunde-oplysninger.
 function validateCart() {
     var cartValidated = true;
 
@@ -341,8 +344,8 @@ function validateCart() {
     }
 }
 
-/*Denne funktion er lavet for at man kan avancere i flowet videre til næste sider
-  Hvis item er tom dvs. ingen produkter er valgt kommer an alert op på skærmen og man bliver ikke ført videre. MB*/
+// Denne funktion er lavet for at man kan avancere i flowet videre til næste sider
+// Hvis item er tom dvs. ingen produkter er valgt kommer an alert op på skærmen og man bliver ikke ført videre. MB*/
 function goToCustomerInfo() {
     const currentPage=window.location="index.html";
     window.close(currentPage);
@@ -352,8 +355,7 @@ function goToCustomerInfo() {
 }
 
 
-
-//Eventlistener der kalder funktionen validateCart.
+// Eventlistener der kalder funktionen validateCart ved klik på 'bestil'-knap.
 document.getElementById('order_button').addEventListener("click", () => {
     validateCart()
 });

@@ -1,6 +1,7 @@
-/**/
-//Formålet med at oprette en klasse er at definere hvilke attributter (informationer) som en "ordre" består af.
-//Klassen defineres med en constructor med 3 properties der synes relevante for den ønskede funktion i programmet. /HG
+
+// Formålet med at oprette 'Order'-klassen er at definere hvilke attributter (informationer) som en "ordre" består af.
+// Orderklassen anvendes, når kunde har bekræftet betaling og dermed placerer sin ordre.
+// Klassen defineres med en constructor med 3 properties der synes relevante for den ønskede funktion i programmet. /HG
 class Order {
     constructor(orderID, orderDate, totalPrice, orderItems) {
         this.orderID = orderID;
@@ -8,7 +9,7 @@ class Order {
         this.totalPrice = totalPrice;
         this.orderItems = orderItems;
     }
-    //Metode der laver en alert når kunden bekræfter sin betaling
+    // Metode der laver en alert med de definerede property-values når kunden bekræfter sin betaling.
     orderConfirmation() {
         alert(`Tak for din bestilling!
             Dato for bestilling: ${this.orderDate}
@@ -16,12 +17,12 @@ class Order {
             Total pris: ${this.totalPrice} kr.`);
     }
 }
-// 
-//Denne funktion kaldes af saveCreditCard (i Payment.js) og sørger for at slutbrugeren avancerer i vores flow. MB
+
+// Denne funktion kaldes af saveCreditCard() (i Payment.js) og sørger for at slutbrugeren avancerer i vores flow. MB
 function acceptOrder() {
     var popUp= window.open("","_self");
 
-// Ordrebekræftelse der henter de gemte værdier fra sessionStorage ud fra de respektive keys og deres værdier.
+// Ordrebekræftelse, der henter de gemte værdier fra sessionStorage ud fra de respektive keys og deres værdier.
     let customerInfo = JSON.parse(sessionStorage.getItem("customerInformation"));
     let deliveryInfo = JSON.parse(sessionStorage.getItem("deliveryInformation"));
     let orderItems=JSON.parse(sessionStorage.getItem("itemInformation"));
@@ -54,26 +55,27 @@ function acceptOrder() {
     <br>Leveringsaddresse: ${address}, ${region}, ${city}. 
     `);
 
-    //Instantierer nyt objekt fra Order-klassen, der bruges til at lave en ordrebekræftelse.
+    // Instantierer nyt objekt fra Order-klassen, der bruges til at lave en ordrebekræftelse.
     let order = new Order(
         orderID,
         orderDate,
         totalPrice,
         orderItems
     );
-    //Kalder metode fra Order-klassen, der alerter oplysninger på ordre.
+
+    // Kalder metode fra Order-klassen, der alerter oplysninger på ordre.
     order.orderConfirmation();
     console.log(order.orderItems);
 
-    //Her kaldes en ny funktion dette sker hver gang acceptOder executer men jeg har valgt at splitte op i 2
-    //funktioner for overskueligheds skyld
-    //set timeout forsinker kaldet til den nye funktion sådan at vi kan fremvise ovenstående strings
-    //hvis der ikke er timeout går det så hurtigt at man ikke ligger mærke til det
+    // Her kaldes en ny funktion dette sker hver gang acceptOder() executer men jeg har valgt at splitte op i 2
+    // funktioner for overskueligheds skyld
+    // set timeout forsinker kaldet til den nye funktion sådan at vi kan fremvise ovenstående strings
+    // hvis der ikke er timeout går det så hurtigt at man ikke lægger mærke til det
     setTimeout(redirectToFrontPage,300000);
 }
 
-//Laver en "cirkelslutning" sådan at vi kommer tilbage til vores forside "index.html" når betalingen er gennemført
-// og i den virkelige verden en kunde vil være færdig med at bruge vores hjemmeside
+// Laver en "cirkelslutning" sådan at vi kommer tilbage til vores forside "index.html" når betalingen er gennemført
+// og i den virkelige verden en kunde vil være færdig med at bruge vores hjemmeside.
 function redirectToFrontPage() {
     var frontPage=window.location="index.html";
     window.open(frontPage);
