@@ -1,4 +1,4 @@
-# Sloth.Food.Systems
+# Food Ordering System
 # Opgavebeskrivelse til projekt: 
 
 You’ll have to hand in a list of requirements, a description and a class diagram of your idea to a system that you wish to build. 
@@ -64,4 +64,4 @@ Vi har en idé om, at der skal kunne gives rabat baseret på madens udløbsdato,
 
 # 3. UML/Klasse-diagram over administrative system (Sammenhængen i systemet?):
 
-![UML klasse diagram](/UML_newest.png)
+![UML klasse diagram](/Billede1.png)
