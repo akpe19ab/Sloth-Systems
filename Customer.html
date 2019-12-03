@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Indtast kundeoplysninger</title>
+</head>
+<body>
+
+<form>
+
+
+    Name:
+    <input type="text" id="user_name" value="" placeholder="Indsæt navn" /> <br><br>
+
+
+    <!-- Laver tlf-nr. til type="number" - man kan derfor ikke lave bogstaver i dette felt -->
+    Tlf.nr:
+    <input type="number" id="user_number"  value="" placeholder="Indsæt telefon.nr" /> <br><br>
+
+
+    E-mail:
+    <input type="text" id="user_mail" value="" placeholder="Indsæt email" /> <br><br>
+
+    <!-- Submit-knap -->
+    <button type="submit" onclick="Submit()" style="cursor: pointer;">Submit :)</button>
+
+</form>
+
+</body>
+<script src="Customer.js"></script>
+</html>
