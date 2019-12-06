@@ -1,7 +1,8 @@
+//Order.js
 
 // Formålet med at oprette 'Order'-klassen er at definere hvilke attributter (informationer) som en "ordre" består af.
 // Orderklassen anvendes, når kunde har bekræftet betaling og dermed placerer sin ordre.
-// Klassen defineres med en constructor med 3 properties der synes relevante for den ønskede funktion i programmet. /HG
+// Klassen defineres med en constructor med 4 properties der synes relevante for den ønskede funktion i programmet. /HG
 class Order {
     constructor(orderID, orderDate, totalPrice, orderItems) {
         this.orderID = orderID;
@@ -9,7 +10,7 @@ class Order {
         this.totalPrice = totalPrice;
         this.orderItems = orderItems;
     }
-    // Metode der laver en alert med de definerede property-values når kunden bekræfter sin betaling.
+    // Metode der laver en alert med de definerede property-values når kunden bekræfter sin betaling. /HG
     orderConfirmation() {
         alert(`Tak for din bestilling!
             Dato for bestilling: ${this.orderDate}
@@ -22,7 +23,7 @@ class Order {
 function acceptOrder() {
     var popUp= window.open("","_self");
 
-// Ordrebekræftelse, der henter de gemte værdier fra sessionStorage ud fra de respektive keys og deres værdier.
+    // Definerer variable, der henter de gemte værdier fra sessionStorage ud fra de respektive keys og deres værdier. /HG
     let customerInfo = JSON.parse(sessionStorage.getItem("customerInformation"));
     let deliveryInfo = JSON.parse(sessionStorage.getItem("deliveryInformation"));
     let orderItems=JSON.parse(sessionStorage.getItem("itemInformation"));
@@ -41,7 +42,7 @@ function acceptOrder() {
     let city = deliveryInfo[0]["deliveryCity"];
 
     // Ordrebekræftelse der viser info fra tester.js, delivery.js, customer.js
-    // Der er dog ikke selve produkterne, for hvad kunde har købt //HG
+    // Der er dog ikke selve produkterne, for hvad kunde har købt. /HG
     popUp.document.write(`
     <br>Hej ${name}. Tak for din ordre! 
     <br> Dette er din ordrebekræftelse på din bestilling:<br>
@@ -55,7 +56,7 @@ function acceptOrder() {
     <br>Leveringsaddresse: ${address}, ${region}, ${city}. 
     `);
 
-    // Instantierer nyt objekt fra Order-klassen, der bruges til at lave en ordrebekræftelse.
+    // Instantierer nyt objekt fra Order-klassen, der bruges til at lave en ordrebekræftelse. /HG
     let order = new Order(
         orderID,
         orderDate,
@@ -63,10 +64,11 @@ function acceptOrder() {
         orderItems
     );
 
-    // Kalder metode fra Order-klassen, der alerter oplysninger på ordre.
+    // Kalder metode fra Order-klassen, der alerter oplysninger på ordre. /HG
     order.orderConfirmation();
     console.log(order.orderItems);
 
+    //MB:
     // Her kaldes en ny funktion dette sker hver gang acceptOder() executer men jeg har valgt at splitte op i 2
     // funktioner for overskueligheds skyld
     // set timeout forsinker kaldet til den nye funktion sådan at vi kan fremvise ovenstående strings
@@ -75,7 +77,7 @@ function acceptOrder() {
 }
 
 // Laver en "cirkelslutning" sådan at vi kommer tilbage til vores forside "index.html" når betalingen er gennemført
-// og i den virkelige verden en kunde vil være færdig med at bruge vores hjemmeside.
+// og i den virkelige verden en kunde vil være færdig med at bruge vores hjemmeside. MB
 function redirectToFrontPage() {
     var frontPage=window.location="index.html";
     window.open(frontPage);

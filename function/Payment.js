@@ -1,14 +1,12 @@
+// Udarbejdet af:
 
 // Definerer variabel der henter totalprisen på ordren fra sessionStorage ud fra specifik key.
-// Viser totalPrice i html-dokument
-
+// Viser totalPrice i html-dokument /HG
 let totalPrice = JSON.parse(sessionStorage.getItem("totalOrderPrice"));
 document.getElementById("totalPriceWithDiscount").innerHTML = totalPrice;
 
-
 // Formålet med at oprette en variabel der er et array er at kunne opbevare kreditinformationer. MB
 var creditCards=[];
-
 
 // Formålet med at oprette en klasse er at definere hvilke informationer en "betaling" består af
 // Klassen er ud fra en constructor givet 6 parametre der synes relevante for den ønskede funktion i programmet MB
@@ -56,8 +54,6 @@ function validateCreditCard() {
     // Jeg aner ikke hvorfor det ikke virker med var, men nedenstående fungerer altså fint... MB
     validated=0;
 
-
-
     // Try/catch for at teste slutbruger input i DOM felt der er defineret som cardnumber
     // Det skal siges at disse try/catch blocks ikke har fået nok opmærksomhed til at det er fejlfrit, langtfra.. MB
     try{
@@ -69,6 +65,7 @@ function validateCreditCard() {
         alert(error);
         validated=1;
     }
+
     // Try/catch for DOM-input expiryDateMonth
     // Jeg har løst mange af problemstillingerne med input i dette felt med funktionen corrrectDates og lidt i html med max værdier
     try{
@@ -85,8 +82,8 @@ function validateCreditCard() {
         alert(error);
         validated=1;
     }
-    // Try/catch for DOM input i CVC
 
+    // Try/catch for DOM input i CVC
     try{
         if (CVC==="") throw "Udfyld CVC";
         if (CVC.toString().length !==3) throw "CVC skal bestå af 3 tal";
@@ -96,6 +93,7 @@ function validateCreditCard() {
         alert(error);
         validated=1;
     }
+
     // Try/catch for cardHoldersName, mangler tjek for:
     // 1. Hvis string indeholder tal (eksl operatorer som f.eks. bindestreg der gerne må være med
     // 2. Hvis man indtaster mellemrum fejler den men får beskeden et navn må ikke være tal, evt. fiks det.
@@ -122,7 +120,6 @@ function validateCreditCard() {
 // De mest væsentlige problemer uden at skulle kaste en fejl til slutbrugeren hele tiden men istedet overskrive deres input
 // Forskellen og brugen af if og try/catch kan diskuteres ud fra dette eksempel. MB
 function correctDates() {
-
     var expiryDateMonth = document.getElementById("expiryDateMonth").value;
 
     if (expiryDateMonth > 12 || expiryDateMonth < 01) {
@@ -133,8 +130,8 @@ function correctDates() {
     if (expiryDateYear > 30 || expiryDateYear < 19) {
         document.getElementById("expiryDateYear").value= "";
     }
-
 }
+
 // funktion bliver kaldt af validateCreditCard men ud fra et conditional statement i denne.
 // Formålet med funktionen her er at skubbe input vi har fået fra brugeren i html op i et array for at gemme det
 // Det ville være meget nærliggende at bruge local storage så de ikke ligger i et array. MB
@@ -154,7 +151,6 @@ function saveCreditCard(){
     // grunden til opdeling er at det er mere overskueligt at dele op da formålene med funktioner er ret forskellige. MB
     acceptOrder();
 }
-
 
 
 /*  Den oprindelig funktion - udvidet så der vises oplysninger på ordre - ligger under "Order.js".

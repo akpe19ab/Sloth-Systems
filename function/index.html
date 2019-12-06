@@ -15,15 +15,13 @@
 
         <div id="cheeseburger_details">
             <p id="product_price"> 80,00 KR.</p>
-            <button onclick="cheeseburger.addProduct();displayItems();calculateTotalPrice();console.log(JSON.stringify(item))" > Tilføj til kurv</button>
+            <button onclick="cheeseburger.addProduct();displayItems();calculateTotalPrice();" > Tilføj til kurv</button>
         </div>
 
         <div id="cheeseburger_details">
             <button onclick="cheeseburger.removeProduct();displayItems();calculateTotalPrice()"> Fjern fra kurv</button>
         </div>
-
     </div>
-
 </section>
 
 
@@ -42,7 +40,6 @@
         </div>
 
     </div>
-
 </section>
 
 
@@ -70,21 +67,25 @@
         <p class="product_name"> Leveringsmetode </p>
 
         <div class="product_details">
-            <p class="product_name"> Levering </p>
-            <p class="product_price"> 45,00 KR.</p>
+            <span class="product_name"> Levering:  </span>
+            <span class="product_price"> 45,00 KR.</span>
         </div>
 
-        <form> <!--id bruges ikke-->
-            <input type="radio" name="delivery-methods" id="yes-delivery" onclick="delMethodFunctions()"   /> Tilføj levering <br>
-            <input type="radio" name ="delivery-methods" id="no-delivery" onclick="delMethodFunctions()" /> Hent selv<br>
-            <!-- <input type="radio" name="delivery-methods" class="select-delivery-method"  id="yes-delivery"  onClick=" deliveryYesNo();deliveryFee();displayItems();calculateTotalPrice();"/> Tilføj levering <br>
-            //<input type="radio" name ="delivery-methods" class="select-delivery-method"   id="no-delivery" onClick="deliveryYesNo();deliveryFee();displayItems();calculateTotalPrice();"/> Hent selv<br>
-        --> </form>
-        <p id="validate-del-method" style="color: red; margin-top: 1px; margin-bottom: 1px;"></p>
-    </div>
-    <br/>
+        <form>
+            <!-- FEJL: funktioner kaldes ved "onclick", som var grund til at man kunne tilføje flere 'leveringer' til kurven.
+            <input type="radio" name="delivery-methods" class="select-delivery-method"  id="yes-delivery"  onclick="delMethodFunctions()"/> Tilføj levering <br>
+            <input type="radio" name ="delivery-methods" class="select-delivery-method"   id="no-delivery" onclick="delMethodFunctions()"/> Hent selv<br>-->
+            <input type="radio" name="delivery-methods" id="yes-delivery"   /> Tilføj levering <br>
+            <input type="radio" name ="delivery-methods" id="no-delivery" /> Hent selv<br>
+        </form>
+         <p id="validate-del-method" style="color: red; margin-top: 1px; margin-bottom: 1px;"></p>
+     </div>
+     <br/>
 
-    <form>
+
+
+     <form>
+         <!-- Knap der sletter indhold i alle felter-->
         <input type="reset" value="Nulstil alle felter">
         <div id="if-no-delivery" style="visibility: visible">
             Afhentningstids/-leveringstidspunkt:
@@ -123,13 +124,13 @@
         </div>
 
         <div id="if-yes-delivery" style="visibility: visible">
-            Addresse: <input type="text" id="delivery_address"/>
-            <p id="validate-address" style="color: red; margin-top: 1px; margin-bottom: 1px;"></p>
+            Addresse: <input type="text" id="delivery_address" placeholder="Indsæt addresse"/>
+            <p id="validate-address"  style="color: red; margin-top: 1px; margin-bottom: 1px;"></p>
 
-            Post-nr: <input type="number" id="delivery_region"/>
+            Post-nr: <input type="number" id="delivery_region" placeholder="Indsæt postnr."/>
             <p id="validate-region" style="color: red; margin-top: 1px; margin-bottom: 1px;"></p>
 
-            By: <input type="text" id="delivery_city"/>
+            By: <input type="text" placeholder="Indsæt by" id="delivery_city"/>
             <p id="validate-city" style="color: red; margin-top: 1px; margin-bottom: 1px;"></p>
         </div>
         <br/>
@@ -187,6 +188,5 @@
 
 <script charset="UTF-8" src="Tester.js"></script>
 <script charset="UTF-8" src="DeliveryInfo.js"></script>
-
 
 </html>
