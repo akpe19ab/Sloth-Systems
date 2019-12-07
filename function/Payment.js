@@ -55,7 +55,7 @@ function validateCreditCard() {
     validated=0;
 
     // Try/catch for at teste slutbruger input i DOM felt der er defineret som cardnumber
-    // Det skal siges at disse try/catch blocks ikke har fået nok opmærksomhed til at det er fejlfrit, langtfra.. MB
+    // Det skal siges at disse try/catch blocks ikke har fået nok opmærksomhed til at det er fejlfrit, langtfra. MB
     try{
         if (cardNumber ==="") throw "Udfyld kortnummer";
         if (cardNumber.toString().length !== 16) throw "Kortnummer skal bestå af 16 cifre";
@@ -66,8 +66,9 @@ function validateCreditCard() {
         validated=1;
     }
 
-    // Try/catch for DOM-input expiryDateMonth
-    // Jeg har løst mange af problemstillingerne med input i dette felt med funktionen corrrectDates og lidt i html med max værdier
+    // Try/catch for DOM-input expiryDateMonth.
+    // Jeg har løst mange af problemstillingerne med input i dette felt med funktionen corrrectDates og lidt i html
+    // med max værdier.
     try{
         if (expiryDateMonth==="") throw "Udfyld udløbsdato måned";
     }
@@ -117,7 +118,7 @@ function validateCreditCard() {
 // Funktionen der tilretter forkerte input i felterne expiryDateMonth og -Year. bliver kaldt ved onblur fra payment.html
 // onblur kører et script når brugeren ikke længere har markeret feltet i html formen.
 // Det var lidt mere overskueligt at lave function til denne da man hurtigt ved hjælp af if statements kunne løse
-// De mest væsentlige problemer uden at skulle kaste en fejl til slutbrugeren hele tiden men istedet overskrive deres input
+// De væsentligste problemer uden at skulle kaste en fejl til slutbrugeren hele tiden men istedet overskrive deres input
 // Forskellen og brugen af if og try/catch kan diskuteres ud fra dette eksempel. MB
 function correctDates() {
     var expiryDateMonth = document.getElementById("expiryDateMonth").value;

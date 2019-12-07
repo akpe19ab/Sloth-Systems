@@ -4,7 +4,7 @@
 let item = [];
 
 // Formålet med at oprette en klasse er at definere hvilke informationer et "produkt" består af
-// Klassen er ud fra en constructor givet 4 parametre der synes relevante for den ønskede funktion det skal have i programmet MB
+// Klassen er ud fra en constructor givet 4 parametre der synes relevante for den ønskede funktion i programmet MB
 class Product {
     constructor(productName, productID, productPrice, initialProductQuantity) {
         this.productName = productName;
@@ -13,10 +13,10 @@ class Product {
         this.productQuantity = initialProductQuantity;
     }
 
-    // Laver en metode addProduct() der tilføjer et produkt til vores array item. Helt simpelt tager funktionen addProduct(),
-    // de tre constructors (productName,productID,productPrice) og koger ned til et objekt (newProduct),
-    // som bliver pushet til arrayet item. Dette gør at de tre constructors er samlet på en plads i arrayet, istedet for eksempelvis 3
-    // productQuantity bliver forøget med én som skal bruges længere nede i koden. MB*/
+    // Laver en metode addProduct() der tilføjer et produkt til vores array item. Helt simpelt tager funktionen
+    // addProduct(), de tre constructors (productName,productID,productPrice) og koger ned til et objekt (newProduct),
+    // som bliver pushet til arrayet item. Dette gør at de tre constructors er samlet på en plads i arrayet, istedet
+    // for eksempelvis 3 productQuantity bliver forøget med én som skal bruges længere nede i koden. MB*/
     addProduct() {
         this.productQuantity++;
         var newProduct = {
@@ -44,7 +44,7 @@ class Product {
             //Conditional statement der sørger for at fjerne det relevante produkt
             if (item[x].product_ID === this.productID) {
                 item.splice(x, 1);
-                break; // Uden break(stopper for-loopet) vil for-loopet fortsætte efter, at der er blevet fjernet et produkt.
+                break; // Uden break(stopper for-loopet) vil for-loop fortsætte efter et produkt er fjernet.
             }
         console.log(JSON.stringify(item));
 
@@ -95,17 +95,17 @@ let fries = new Extras("Pomfritter", 3, 15, 0);
 // Definerer klassens constructor med properties der nedarves fra superklassen, og properties der er unikke
 // for 'Delivery'. /HG                                                                                                          (Klassenotation og deklaration, s. 102, extend 113),
 class Delivery extends Product {
-    // Kalder superklassens constructor med super-keyword, hvormed Delivery nedarver attributter og metoder fra 'Product'.      (this.-keyword s. 99)
+    // Kalder superklasses constructor med super-keyword, hvormed Delivery nedarver attributter og metoder fra 'Product'.      (this.-keyword s. 99)
     constructor(productName, productID, productPrice, initialProductQuantity, deliverySelected) {
         super(productName, productID, productPrice, initialProductQuantity);
         this.deliverySelected = deliverySelected;
     }
 }
 
-// Instantierer et objekt  med properties fra 'Delivery'-klassen, der definerer hvad et
-// objekt i klassen 'Delivery' består af. Objektet 'delivery' er prædefineret og fungerer som et "produkt" hvis kunden
-// vælger levering eller afhentning. Formålet med den for Delivery-klassen unikke attribut "deliverySelected" er, at
-// den deklareres senere hen med en boolsk værdi på "true/false" afhængigt af, om kunden vælger hhv. levering/afhentning. /HG
+// Instantierer et objekt  med properties fra 'Delivery'-klassen, der definerer hvad et objekt i klassen 'Delivery'
+// består af. Objektet 'delivery' er prædefineret og fungerer som et "produkt" hvis kunden vælger levering eller
+// afhentning. Formålet med den for Delivery-klassen unikke attribut "deliverySelected" er, at den deklareres senere
+// hen med en boolsk værdi på "true/false" afhængigt af, om kunden vælger hhv. levering/afhentning. /HG
 let delivery = new Delivery(
     "Levering",
     "1",
@@ -115,8 +115,8 @@ let delivery = new Delivery(
 );
 
 
-// Funktion med formål at definere hvilken leveringsmetode kunden har valgt (levering/afhentning) efter hvilken radiobutton
-// der er tjekket.                                                                                                          (radiobutton, 322).
+// Funktion med formål at definere hvilken leveringsmetode kunden har valgt (levering/afhentning) efter hvilken
+// radiobutton der er tjekket.                                                                                                          (radiobutton, 322).
 // DOM metoden .getElementById bruges til at finde den specifikke node for hver af de to radiobuttons.
 // Bruger conditional execution i form af if-else statement: først et if...else der assigner "deliverySelected"
 // til en boolean (true/false) alt efter hvilken radiobutton der er tjekket af. /HG
@@ -127,8 +127,8 @@ function deliveryMethodSelected() {
     // If-statement der tjekker hvilken leveringsmetode kunden har valgt. Anvender operatorer der tjekker om radiobtn
     // for levering har en checked-property lig true OG radiobtn for afhentning dermed er false.
     // Hvis kunde har valgt (levering) skal inputfelter til udfyldning af leveringsoplysninger være synlige og
-    // delivery-objektets property "deliverySelected" assignes til den boolsk værdi 'true'.
-    // getElementByID-metoden anvendes til at mutere noden med det specifikke ID så dens style bliver synlig eller skjult./HG
+    // delivery-objektets property "deliverySelected" assignes til den boolsk værdi 'true'. getElementByID-metoden
+    // anvendes til at mutere noden med det specifikke ID så dens style bliver synlig eller skjult./HG
     if  (yesDelRadioBtn.checked === true && noDelRadioBtn.checked ===false ) {
         delivery.deliverySelected = true;
         document.getElementById('if-yes-delivery').style.visibility = 'visible';                                    //(style', Haverbakee, s. 236)
@@ -198,20 +198,27 @@ function displayItems() {
     // Conditional statements der sørger for kun at ændre DOM værdierne hvis productQuantity for det anførte objekt er over 0
     // Ikke brug for noget else da der ikke skal gøres noget hvis ingen af disse statements er opfyldt. MB
     if (cheeseburger.productQuantity > 0) {
-        document.getElementById("displayed_items").innerHTML += cheeseburger.productQuantity + " X " + cheeseburger.productName + " " + cheeseburger.productPrice*cheeseburger.productQuantity + " KR." + "<br>"
+        document.getElementById("displayed_items").innerHTML += cheeseburger.productQuantity
+            + " X " + cheeseburger.productName + " "
+            + cheeseburger.productPrice*cheeseburger.productQuantity + " KR." + "<br>"
     }
-
     if (water.productQuantity > 0) {
-        document.getElementById("displayed_items").innerHTML += water.productQuantity + " X " + water.productName + " " + water.productPrice*water.productQuantity + " KR. " + "<br>";
+        document.getElementById("displayed_items").innerHTML += water.productQuantity
+            + " X " + water.productName + " "
+            + water.productPrice*water.productQuantity + " KR. " + "<br>";
     }
     if (fries.productQuantity > 0) {
-        document.getElementById("displayed_items").innerHTML += fries.productQuantity + " X " + fries.productName + " " + fries.productPrice*fries.productQuantity + " KR. " + "<br>";
+        document.getElementById("displayed_items").innerHTML += fries.productQuantity
+            + " X " + fries.productName + " "
+            + fries.productPrice*fries.productQuantity + " KR. " + "<br>";
 
         // Fjerner først evt. værdi i HTML
         //document.getElementById("displayed_items").innerHTML="";
     }
     if (delivery.productQuantity > 0) {
-        document.getElementById("displayed_items").innerHTML += delivery.productQuantity + " X " + delivery.productName + " " + delivery.productPrice*delivery.productQuantity + " KR. " + "<br>";
+        document.getElementById("displayed_items").innerHTML += delivery.productQuantity
+            + " X " + delivery.productName + " "
+            + delivery.productPrice*delivery.productQuantity + " KR. " + "<br>";
     }
 }
 
@@ -226,24 +233,27 @@ function calculateTotalPrice(){
     var totalPrice = 0;
     var discount = 0;
 
-    // Ideen med denne variabel er at nedenstående conditional statements ville sætte den til 1
+    // Ideen med denne variabel er at nedenstående conditional statements ville sætte den til 1.
     // På den måde ville vi kunne registrere om en gydig rabatkode var indstastet og blokere for at andre kunne bruges
-    // Man kan dog kun bruge en ad gangen så indtil videre kan man bare vælge hvilken kode man vil bruge uden at den blokerer. MB
-    //var couponsUsed=0;
-
+    // Man kan dog kun bruge en ad gangen så indtil videre kan man bare vælge hvilken kode man vil bruge uden at den
+    // blokerer. MB
+    // var couponsUsed=0;
 
     // Dette for-loop gennemgår arrayet i item for dets længde
     for (var x = 0; x < item.length; x++) {
 
-        // Hvis der ikke indstastes en rabatkode udregnes samlet pris for kurven ved at for loopet gennemgår hele vores array
-        // Og vi derefter ganger objekterne med .product_price, dette gentages i loopet for ikke at overskrive resultatet. MB
+        // Hvis der ikke indstastes en rabatkode udregnes samlet pris for kurven ved at for loopet gennemgår hele
+        // vores array. Og vi derefter ganger objekterne med .product_price, dette gentages i loopet for ikke at
+        // overskrive resultatet. MB
         if (discountField==="") {
             totalPrice = item[x].product_Price + totalPrice;
         }
 
-        // Hvis der indstastes noget udregnes prisen på hele kurven
-        // Uden denne Else vil prisen blive 0 hvis man indtaster en ikke aktiv rabatkode, fordi ingen af if statements vil execute prisudregningen
-        // Hvis der indtastes en kode giver den en fejlmeddelses, hvis et if statement nedenunder er sandt, overskriver det fejlmeddelsen. MB
+        // Hvis der indstastes noget udregnes prisen på hele kurven.
+        // Uden denne Else vil prisen blive 0 hvis man indtaster en ikke aktiv rabatkode, fordi ingen af if statements
+        // vil execute prisudregningen.
+        // Hvis der indtastes en kode giver den en fejlmeddelses, hvis et if statement nedenunder er sandt,
+        // overskriver det fejlmeddelsen. MB
         else{
             totalPrice = item[x].product_Price + totalPrice;
             document.getElementById("activatedCoupons").innerHTML="";
@@ -259,7 +269,8 @@ function calculateTotalPrice(){
             discount=(cheeseburger.productQuantity*cheeseburger.productPrice)/10;
             console.log(discount);
             //totalPrice = item[x].product_Price + totalPrice;
-            document.getElementById("activatedCoupons").innerHTML="Aktiverede rabatter" + "<br>" + "<b>Burger10:</b> Giver 10% rabat på din burger(e)"
+            document.getElementById("activatedCoupons").innerHTML="Aktiverede rabatter" + "<br>"
+                + "<b>Burger10:</b> Giver 10% rabat på din burger(e)"
         }
 
         if (discountField==="fries10" && fries.productQuantity>0) {
@@ -267,7 +278,8 @@ function calculateTotalPrice(){
             discount=(fries.productQuantity*fries.productPrice)/10;
             console.log(discount);
             //totalPrice = item[x].product_Price + totalPrice;
-            document.getElementById("activatedCoupons").innerHTML="Aktiverede rabatter" + "<br>" + "<b>fries10:</b> Giver 10% rabat på dine pomfritter"
+            document.getElementById("activatedCoupons").innerHTML="Aktiverede rabatter" + "<br>"
+                + "<b>fries10:</b> Giver 10% rabat på dine pomfritter"
         }
 
         if (discountField==="water10" && water.productQuantity>0){
@@ -275,7 +287,8 @@ function calculateTotalPrice(){
             discount=(water.productQuantity*water.productPrice)/10;
             console.log(discount);
             //totalPrice = item[x].product_Price + totalPrice;
-            document.getElementById("activatedCoupons").innerHTML="Aktiverede rabatter" + "<br>" + "<b>water10:</b> Giver 10% rabat på din vand"
+            document.getElementById("activatedCoupons").innerHTML="Aktiverede rabatter" + "<br>"
+                + "<b>water10:</b> Giver 10% rabat på din vand"
         }
 
         if (discountField==="ALL10"){
@@ -283,12 +296,14 @@ function calculateTotalPrice(){
             discount=totalPrice/10;
             console.log(discount);
             //totalPrice = item[x].product_Price + totalPrice;
-            document.getElementById("activatedCoupons").innerHTML="Aktiverede rabatter" + "<br>" + "<b>ALL10:</b> Giver 10% rabat på hele din ordre"
+            document.getElementById("activatedCoupons").innerHTML="Aktiverede rabatter"
+                + "<br>" + "<b>ALL10:</b> Giver 10% rabat på hele din ordre"
         }
     }
     // Denne variabel er den egentlige totalpris da variablen totalPrice giver totale pris for kurven uden evt. discount
-    // discount variablen bliver tildelt en anden værdi end 0 hvis et af if statements er sande
-    // Hvis ingen af if statements er sande skal der ikke være disount men den er 0 så det er ligegyldigt at den fratrækkes. MB
+    // discount variablen bliver tildelt en anden værdi end 0 hvis et af if statements er sande.
+    // Hvis ingen af if statements er sande skal der ikke være disount men den er 0 så det er ligegyldigt at
+    // den fratrækkes. MB
     var totalPriceDiscount = totalPrice-discount;
 
     document.getElementById("basketTotalPrice").innerHTML = "Pris for produkter " + totalPrice + " kr";
@@ -314,13 +329,20 @@ function validateCart() {
     var cartValidated = true;
 
     try {
-        if (item.length === 0 && delivery.deliverySelected===null && savedDelivery.length === 0 ) throw "Du skal lægge varer i kurven og vælge leveringsmetode";
-        if (item.length !== 0 && delivery.deliverySelected===null) throw "Du skal vælge leveringsmetode";
-        if (item.length === 1 && delivery.deliverySelected ===true && savedDelivery.length === 0) throw "Du kan ikke vælge levering uden at have varer i kurven.";
-        if (item.length === 0 && delivery.deliverySelected ===false && savedDelivery.length === 0) throw "Du kan ikke vælge afhentning uden at have varer i kurven.";
-        if (item.length === 1 && delivery.deliverySelected ===true && savedDelivery.length === 1 ) throw "Du kan ikke vælge levering uden at have lagt varer i kurven";
-        if (item.length === 0 && delivery.deliverySelected ===false && savedDelivery.length === 1) throw "Du kan ikke vælge afhentning uden at have lagt varer i kurven";
-        if (item.length >=1  && delivery.deliverySelected !==null && savedDelivery.length === 0 ) throw "Leverings/afhentningsoplysninger er ikke gemt";
+        if (item.length === 0 && delivery.deliverySelected===null && savedDelivery.length === 0 )
+            throw "Du skal lægge varer i kurven og vælge leveringsmetode";
+        if (item.length !== 0 && delivery.deliverySelected===null)
+            throw "Du skal vælge leveringsmetode";
+        if (item.length === 1 && delivery.deliverySelected ===true && savedDelivery.length === 0)
+            throw "Du kan ikke vælge levering uden at have varer i kurven.";
+        if (item.length === 0 && delivery.deliverySelected ===false && savedDelivery.length === 0)
+            throw "Du kan ikke vælge afhentning uden at have varer i kurven.";
+        if (item.length === 1 && delivery.deliverySelected ===true && savedDelivery.length === 1 )
+            throw "Du kan ikke vælge levering uden at have lagt varer i kurven";
+        if (item.length === 0 && delivery.deliverySelected ===false && savedDelivery.length === 1)
+            throw "Du kan ikke vælge afhentning uden at have lagt varer i kurven";
+        if (item.length >=1  && delivery.deliverySelected !==null && savedDelivery.length === 0 )
+            throw "Leverings/afhentningsoplysninger er ikke gemt";
 
     } catch (error) {
         alert("Hov - du kan ikke gå videre endnu: " + error);
@@ -346,7 +368,6 @@ function goToCustomerInfo() {
 document.getElementById('order_button').addEventListener("click", () => {
     validateCart()
 });
-
 
 
 /*Dette er et forsøg på at lave en funktion der tester om logikken ide forskellige dele af tester.js og tilhørende
@@ -379,10 +400,12 @@ function testerJS() {
             document.getElementById("discountCodeField").value="ALL10";
             setTimeout(validateDeliveryInformation,3000);
             correctResponse=1;}
-        else alert("Levering gik galt\nFejl opstod ved kondition:\ndelivery.deliverySelected==true\neller\ndelivery.productQuantity>1");
+        else alert("Levering gik galt\nFejl opstod ved kondition:\ndelivery.deliverySelected==true" +
+            "\neller\ndelivery.productQuantity>1");
 
     }
-    else alert("Noget gik galt med ved at tilføje produkter til kurven\nFejl opstod ved kondtion\ncheeseburger.productQuantity == 1 & water.productQuantity == 1 & fries.productQuantity == 1")
+    else alert("Noget gik galt med ved at tilføje produkter til kurven\nFejl opstod ved kondtion" +
+        "\ncheeseburger.productQuantity == 1 & water.productQuantity == 1 & fries.productQuantity == 1");
 
 
     //Igangsætter nu 1 funktion der kalder 3 andre som beskrevet nedenunder step=
@@ -390,8 +413,13 @@ function testerJS() {
 
         //Funktionen delMethodfunctions kalder deliveryMethodselected, calculateTotalPrice og displayItems
         setTimeout(delMethodFunctions,6000);
-        if (totalPriceWithDiscount!==document.getElementById("totalPriceWithDiscount" && delivery.productQuantity==1)){
-            alert("prisen stemmer ikke\nFejl opstod ved kondition\ntotalPriceWithDiscount!==document.getElementById(\"totalPriceWithDiscount\")\neller\ndelivery.productQuantity==1")
+        if (totalPriceWithDiscount!==document.getElementById
+        ("totalPriceWithDiscount" && delivery.productQuantity==1)){
+            alert("prisen stemmer ikke" +
+                "\nFejl opstod ved kondition" +
+                "\ntotalPriceWithDiscount!==document.getElementById(\"totalPriceWithDiscount\")" +
+                "\neller" +
+                "\ndelivery.productQuantity==1")
             correctResponse=0;
         }
         if (correctResponse===1){
@@ -400,4 +428,4 @@ function testerJS() {
     }
 }
 
-//Funktionen viser at det er muligt at tilføje levering flere gange. //Funktionen viser at det er muligt at tilføje levering flere gange. MB
+// Funktionen viser at det er muligt at tilføje levering flere gange. MB

@@ -15,7 +15,8 @@ class Customer {
     // Formålet med denne er at standardisere slutbrugerens inout i en HTML-form. MB
     submitCustomerInfomation() {
 
-        // alert("Navn: " + document.getElementById("user_name").value + "\n" + "Nummer: " + document.getElementById("user_number").value + "\n" + "Mail: " +document.getElementById("user_mail").value);
+        // alert("Navn: " + document.getElementById("user_name").value + "\n" + "Nummer: " +
+        // document.getElementById("user_number").value + "\n" + "Mail: " +document.getElementById("user_mail").value);
         // Er kun relevant for at få et output på skærmen ift. hvad der er blevet indtastet (ikke godkendt).
 
         // Her defineres en variabel er indeholder alle gyldie bogstaver
@@ -42,7 +43,8 @@ class Customer {
         }
         catch(error){
             alert("Fejl ved navn: " + error);
-            // Som nævnt tidligere i koden sættes validated variabel til 1 for at registrere en fejl, dette gentages i try/catch. MB
+            // Som nævnt tidligere i koden sættes validated variabel til 1 for at registrere en fejl,
+            // dette gentages i try/catch. MB
             validated=1;
         }
 
@@ -67,8 +69,9 @@ class Customer {
             if (mail === "") throw "Felt skal udfyldes";
             if (mail.length > 255) throw "Overskrider maks antal tegn";
 
-            // indexOf returnerer positionen hvor den finder en angiven værdi og returnerer -1 hvis søgningen ikke finder noget
-            // indexOf skal være <0 pga ovenstående logik eller ikke 0 da det så er forrest i linjen (f.eks: @live.dk). MB
+            // indexOf returnerer positionen hvor den finder en angiven værdi og returnerer -1 hvis søgningen
+            // ikke finder noget.  MB
+            // indexOf skal være <0 pga ovenstående logik eller ikke 0 da det så er forrest i linjen (f.eks: @live.dk).
             if (mail.indexOf("@") < 0 || mail.indexOf("@") == 0) throw "Mail skal indeholde ét @ og må ikke være forrest på linjen";
 
             // Søger efter et punktum, dog kan man indtaste flere punktummer. MB
@@ -102,7 +105,8 @@ class Customer {
         newCustomer.customer_ID = Math.floor(Math.random() * 100);
 
 
-        // Et if-statement der sørger for at vi kun videre i codeflow hvis try/catch ikke har ændret validated variblen så den er 0
+        // Et if-statement der sørger for at vi kun videre i codeflow hvis try/catch ikke har ændret validated variblen
+        // så den er 0.
         // Hvis denne block executes skubbes variablen newCustomer op i vores savedCustomer array
         // den kalder også goToPayment funktionen for at avancere i flowet. MB
         if (validated===0){
@@ -121,7 +125,7 @@ class Customer {
 // Formål med denne er at instatiere et nyt object "customer" hvis parametre er defineret ud fra DOM
 // Hvorefter den kalder metoden submitCustomerInformation fra klassen. MB
 function Submit() {
-    name = document.getElementById("user_name").value;                                      //HG: fejl under 'use strict': Attempt to assign to const or readonly variable
+    name = document.getElementById("user_name").value;
     number = document.getElementById("user_number").value;
     mail = document.getElementById("user_mail").value;
     let customer = new Customer (name,number,mail);
@@ -138,4 +142,5 @@ function goToPayment() {
 }
 
 // Ved demonstration er det vigtigt at vide at window.close kun kan lukke faner der er åbnet af et script
-// hvilket betyder at vi skal gennemgå flow i kronologisk rækkefølge for at et flow har åbnet dem og det fungerer som ønsket
+// hvilket betyder at vi skal gennemgå flow i kronologisk rækkefølge for at et flow har åbnet dem og det fungerer
+// som ønsket
