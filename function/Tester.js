@@ -3,8 +3,8 @@
 // Formålet med at oprette en variabel der er et array er at kunne opbevare de objekter vi vil tilføje i dette. MB
 let item = [];
 
-// Formålet med at oprette en klasse er at definere hvilke informationer et "produkt" består af
-// Klassen er ud fra en constructor givet 4 parametre der synes relevante for den ønskede funktion i programmet MB
+// Formålet med at oprette en klasse er at definere hvilke informationer et "produkt" består af.
+// Klassen er ud fra en constructor givet 4 parametre der synes relevante for den ønskede funktion i programmet. MB
 class Product {
     constructor(productName, productID, productPrice, initialProductQuantity) {
         this.productName = productName;
@@ -32,8 +32,8 @@ class Product {
         //Gemmer items-array med product-objektet i sessionStorage og printer array i konsol for kontrol. /HG
         sessionStorage.setItem("itemInformation", JSON.stringify(item));
         console.log(JSON.parse(sessionStorage.getItem("itemInformation")));
-
     }
+    
     // Denne metode er modstykket til addProduct sådan at vi også kan fjerne "produkter"/objekter i vores array. MB
     // HUSK skal reassigne til 0 hvis quantity er mindre end 0!!!
     removeProduct() {
