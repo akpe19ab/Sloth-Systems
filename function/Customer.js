@@ -1,3 +1,5 @@
+// Customer.js
+
 // Formålet med at oprette en variabel der er et array er at kunne opbevare kundeinformationer. MB
 var savedCustomer = [];
 
