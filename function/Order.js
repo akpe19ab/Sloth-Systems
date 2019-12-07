@@ -2,7 +2,7 @@
 
 // Formålet med at oprette 'Order'-klassen er at definere hvilke attributter (informationer) som en "ordre" består af.
 // Orderklassen anvendes, når kunde har bekræftet betaling og dermed placerer sin ordre.
-// Klassen defineres med en constructor med 4 properties der synes relevante for den ønskede funktion i programmet. /HG
+// Klassen defineres med en constructor med 3 properties der synes relevante for den ønskede funktion i programmet. /HG
 class Order {
     constructor(orderID, orderDate, totalPrice, orderItems) {
         this.orderID = orderID;
@@ -23,7 +23,7 @@ class Order {
 function acceptOrder() {
     var popUp= window.open("","_self");
 
-    // Definerer variable, der henter de gemte værdier fra sessionStorage ud fra de respektive keys og deres værdier. /HG
+// Ordrebekræftelse, der henter de gemte værdier fra sessionStorage ud fra de respektive keys og deres værdier. /HG
     let customerInfo = JSON.parse(sessionStorage.getItem("customerInformation"));
     let deliveryInfo = JSON.parse(sessionStorage.getItem("deliveryInformation"));
     let orderItems=JSON.parse(sessionStorage.getItem("itemInformation"));
@@ -42,7 +42,7 @@ function acceptOrder() {
     let city = deliveryInfo[0]["deliveryCity"];
 
     // Ordrebekræftelse der viser info fra tester.js, delivery.js, customer.js
-    // Der er dog ikke selve produkterne, for hvad kunde har købt. /HG
+    // Der er dog ikke selve produkterne, for hvad kunde har købt //HG
     popUp.document.write(`
     <br>Hej ${name}. Tak for din ordre! 
     <br> Dette er din ordrebekræftelse på din bestilling:<br>
@@ -68,12 +68,11 @@ function acceptOrder() {
     order.orderConfirmation();
     console.log(order.orderItems);
 
-    //MB:
-    // Her kaldes en ny funktion dette sker hver gang acceptOder() executer men jeg har valgt at splitte op i 2
-    // funktioner for overskueligheds skyld
+    // Her kaldes en ny funktion dette sker hver gang acceptOrder() executer men jeg har valgt at splitte op i 2
+    // funktioner for overskueligheds skyld.
     // set timeout forsinker kaldet til den nye funktion sådan at vi kan fremvise ovenstående strings
-    // hvis der ikke er timeout går det så hurtigt at man ikke lægger mærke til det
-    setTimeout(redirectToFrontPage,300000);
+    // hvis der ikke er timeout går det så hurtigt at man ikke lægger mærke til det. MB
+    setTimeout(redirectToFrontPage,10000);
 }
 
 // Laver en "cirkelslutning" sådan at vi kommer tilbage til vores forside "index.html" når betalingen er gennemført
@@ -82,4 +81,3 @@ function redirectToFrontPage() {
     var frontPage=window.location="index.html";
     window.open(frontPage);
 }
-

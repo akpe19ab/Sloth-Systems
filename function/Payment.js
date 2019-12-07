@@ -1,4 +1,4 @@
-// Udarbejdet af:
+// Payment.js
 
 // Definerer variabel der henter totalprisen på ordren fra sessionStorage ud fra specifik key.
 // Viser totalPrice i html-dokument /HG
@@ -122,7 +122,7 @@ function validateCreditCard() {
 function correctDates() {
     var expiryDateMonth = document.getElementById("expiryDateMonth").value;
 
-    if (expiryDateMonth > 12 || expiryDateMonth < 01) {
+    if (expiryDateMonth > 12 || expiryDateMonth < 1) {
         document.getElementById("expiryDateMonth").value = "";
     }
     var expiryDateYear = document.getElementById("expiryDateYear").value;
@@ -151,75 +151,3 @@ function saveCreditCard(){
     // grunden til opdeling er at det er mere overskueligt at dele op da formålene med funktioner er ret forskellige. MB
     acceptOrder();
 }
-
-
-/*  Den oprindelig funktion - udvidet så der vises oplysninger på ordre - ligger under "Order.js".
-Hvis denne ikke er kommenteret ud virker den stadig (og man ikke bruger "order.js)=>
-alert kommer med "ordrebekræftelse" når kunde trykker "betal".
-
-// Denne funktion kaldes af saveCreditCard og sørger for at slutbrugeren avancerer i vores flow. MB
-function acceptOrder() {
-    var popUp= window.open("","_self");
-
-    // Her kunne det være fedt hvis vi havde storage så vi kunne vise info fra tester.js og customer.js og rent
-    // faktisk vise en kvittering for hvad man har købt
-    popUp.document.write("Dette er din bekræftelse på din bestilling"+"<br>");
-    popUp.document.write("Du bliver nu ført tilbage til forsiden");
-    createOrder();
-
-    // Her kaldes en ny funktion dette sker hver gang acceptOder executer men jeg har valgt at splitte op i 2
-    // funktioner for overskueligheds skyld
-    // set timeout forsinker kaldet til den nye funktion sådan at vi kan fremvise ovenstående strings
-    // hvis der ikke er timeout går det så hurtigt at man ikke ligger mærke til det
-    setTimeout(redirectToFrontPage,3000);
-
-}
-
-// Laver en "cirkelslutning" sådan at vi kommer tilbage til vores forside "index.html" når betalingen er gennemført
-// og i den virkelige verden en kunde vil være færdig med at bruge vores hjemmeside
-function redirectToFrontPage() {
-    var frontPage=window.location="index.html";
-    window.open(frontPage);
-}
-
-
-
-// Ordrebekræftelse der henter de gemte værdier fra sessionStorage ud fra de respektive keys og deres værdier.
-function createOrder() {
-    let customerInfo = JSON.parse(sessionStorage.getItem("customerInformation"));
-    let deliveryInfo = JSON.parse(sessionStorage.getItem("deliveryInformation"));
-    let totalPrice = JSON.parse(sessionStorage.getItem("totalOrderPrice"));
-    let now = new Date();
-    let orderDate = `${now.getDate()}/${now.getMonth()+1}-${now.getFullYear()}`;
-    let orderID = customerInfo[0]["customer_ID"];
-    let name = customerInfo[0]["customer_Name"];
-    let email = customerInfo[0]["customer_Mail"];
-    let phone = customerInfo[0]["customer_Number"];
-    let dispatchType = deliveryInfo[0]["deliveryMethod"];
-    let time = deliveryInfo[0]["deliveryTime"];
-    let comment = deliveryInfo[0]["deliveryComment"];
-    let address = deliveryInfo[0]["deliveryAddress"];
-    let region = deliveryInfo[0]["deliveryRegion"];
-    let city = deliveryInfo[0]["deliveryCity"];
-
-    alert(`Hej ${name}. Tak for din bestilling!
-    Ordrebekræftelse:
-    Dato for bestilling: ${orderDate}
-    Samlet pris på ordre: ${totalPrice} kr.
-    Ordre-ID: ${orderID}
-    Leveringsmetode: ${dispatchType}
-    Tidspunkt for levering/afhentning: ${time}
-    E-mail: ${email}
-    Telefonnr.: ${phone}
-    Evt. kommentar til bestilling: ${comment}
-    Leveringsaddresse: ${address}, ${region}, ${city}.
-    `);
-}
-
-// Laver en "cirkelslutning" sådan at vi kommer tilbage til vores forside "index.html" når betalingen er gennemført
-// og i den virkelige verden en kunde vil være færdig med at bruge vores hjemmeside
-function redirectToFrontPage() {
-    var frontPage=window.location="index.html";
-    window.open(frontPage);
-}
-*/

@@ -3,7 +3,6 @@
 // Formålet med at oprette klassen 'DeliveryInfo' er at definere hvilke attributter som "leveringsinformation" består af.
 // Klassen defineres med en constructor med 6 properties der synes relevante for den ønskede funktion i programmet. /HG
 class DeliveryInfo {
-    // Definerer klassens constructor med properties. (Constructor funktion, 102), (this.-keyword s. 99)
     constructor(deliveryMethod, deliveryTime, deliveryAddress, deliveryRegion, deliveryCity, deliveryComment) {
         this.deliveryMethod = deliveryMethod;
         this.deliveryTime = deliveryTime;
@@ -12,7 +11,7 @@ class DeliveryInfo {
         this.deliveryCity = deliveryCity;
         this.deliveryComment = deliveryComment;}
 
-    // Der deklareres unikke metoder for 'DeliveryInfo'-klassen, der kaldes i funktionen validateDeliveryInformation().
+    // Deklarerer unikke metoder for 'DeliveryInfo'-klassen, der kaldes i funktionen validateDeliveryInformation().
     // Formålet er at brugeren får en alert, når de indtastede oplysninger er valideret og registreret.
     // Metoden anvender alert til at vise dialogbox med en string om at leveringsinfo er registreret samt værdierne
     // bundet til de respektive attributter. /HG
@@ -38,7 +37,7 @@ class DeliveryInfo {
     }
 }
 
-// Deklarerer et array med formålet at have en let data struktur til at opbevare og tilgå registrerede
+// Deklarerer array med formålet at have en let data struktur til at opbevare og tilgå registrerede
 // leveringsoplysninger. Dermed bruges et array til senere hen at opbevare en instantiering af et deliveryInfo-objekt.
 // Når en kunde har registreret korrekte oplysninger gemmes oplysningerne som properties til et nyt
 // delivery-objekt der pushes til arrayet./HG
@@ -52,8 +51,7 @@ var savedDelivery = [];
 // !!!! Lige nu er der både en alert + fejlmeddelselser vises i HTML vha. DOM-metode .innerHTML./HG                                ****
 
 function validateDeliveryInformation() {
-    // Anvender DOM-properties (.options, .selectedIndex, .text, .value) for at tilgå værdierne i input-felterne.
-    // Disse bindes til en variabel og bruges til validation./HG
+    // Anvender DOM-properties (.options, .selectedIndex, .text, .value) for at tilgå værdierne i input-felterne./HG
     let objHours = document.getElementById("delivery_time-hours");
     let selectedHours  = objHours.options[objHours.selectedIndex].text;
     let objMin = document.getElementById("delivery_time-minutes");
@@ -80,7 +78,7 @@ function validateDeliveryInformation() {
     // Definerer variablen delRadioBtn der bindes til radiobuttons-noderne vha. DOM-metoden querySelectorAll().                           // querySelectorAll,322
     // delRadioBtn er en NodeList der indeholder to objekter for hver radiobtn-node. Formålet er, at Radiobtns .checked                    // NodeList, 227
     // property skal tilgås, for at validere om leveringsmetode er blevet valgt.
-    // NodeList property .length anvendes for at returnere antallet af items i delRadioBtn. /HG
+    // NodeList-property .length anvendes for at returnere antallet af items i delRadioBtn. /HG
     let delRadioBtn = document.querySelectorAll("[name=delivery-methods]");
     console.log(delRadioBtn);
     let len = delRadioBtn.length;
@@ -89,9 +87,9 @@ function validateDeliveryInformation() {
 // Validation af hele leverings/afhentningsformen
     // Deklarerer variblen 'formValid' der bruges til at validere formen for leverings/oplysninger som kunde har indtastet.
     // Værdien defineres til boolsk udtryk 'true' som initiel værdi. Hvis if-statement fanger fejl vil den ændres til "false"
-    // Hvis formValids boolske værdi er 'false' betyder det, at én eller flere felter, som kunde skal udfylde,
-    // ikke er udfyldt korrekt, hvormed fejlbesked vil blive alerted. Alle fejl gemmes i validationMessage. Hvis formValid
-    // er true er alle påkrævede felter udfyldt korrekt og de gemmes som et instantieret objekt i deliverySaved-array'et. /HG
+    // hvilket indikerer at én eller flere felter, som kunde skal udfylde, ikke er udfyldt korrekt og
+    // fejlbesked vil blive alerted. Alle fejl gemmes i validationMessage. Hvis formValid er true er alle
+    // påkrævede felter udfyldt korrekt og de gemmes som et instantieret objekt i deliverySaved-array'et. /HG
     let formValid = true;
     let validationMessage = "";
 
@@ -154,8 +152,8 @@ function validateDeliveryInformation() {
     // For at kontrollere at der ikke kun er indtastet white spaces anvendes string metoden trim() på variablen
     // 'address' der binder en string. Bruger dernæst identity operator for at checke om den efter trim er en empty.
     if (delivery.deliverySelected === true) {
-        if (address === null || address === "" || address.trim()==="") {                                           // Den kontrollerer ikke hvis man skriver mellemrum
-            validationMessage += "Du skal indtaste addresse\n";                                                    // Dette er løst vha. trim(). /HG
+        if (address === null || address === "" || address.trim()==="") {           // Den kontrollerer ikke hvis man skriver mellemrum
+            validationMessage += "Du skal indtaste addresse\n";                    // Dette er løst vha. trim(). /HG
             formValid = false;
             paraValAddress.innerHTML = "Udfyld addressefelt";
         } else {
@@ -196,9 +194,9 @@ function validateDeliveryInformation() {
         // Anvender not-operator på isNaN-funktionen der skal kontrollere at der ikke er indtastet et tal
         // !!!!virker ikke optimalt =>  KUN hvis der udelukkende indtastet et tal.
         } else if (!isNaN(city)) {
-            validationMessage += "By kan ikke indeholde tal\n";
+            validationMessage += "By kan ikke bestå af tal\n";
             formValid = false;
-            paraValCity.innerHTML = "By kan ikke indeholde tal";
+            paraValCity.innerHTML = "By kan ikke bestå af tal";
 
         } else {
             paraValCity.innerHTML = null;
@@ -242,9 +240,9 @@ function validateDeliveryInformation() {
         let pickupObj = new DeliveryInfo (
             "Afhentning",
             deliveryTime,
-            "",
-            "",
-            "",
+            "Ikke relevant",
+            "--",
+            "--",
             comment
         );
         // Pusher det nye instantierede objekt til savedDelivery-array.
