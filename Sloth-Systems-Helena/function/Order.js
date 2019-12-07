@@ -71,7 +71,7 @@ function acceptOrder() {
     // funktioner for overskueligheds skyld
     // set timeout forsinker kaldet til den nye funktion sådan at vi kan fremvise ovenstående strings
     // hvis der ikke er timeout går det så hurtigt at man ikke lægger mærke til det
-    setTimeout(redirectToFrontPage,300000);
+    setTimeout(redirectToFrontPage,10000);
 }
 
 // Laver en "cirkelslutning" sådan at vi kommer tilbage til vores forside "index.html" når betalingen er gennemført

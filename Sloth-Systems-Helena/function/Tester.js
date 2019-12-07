@@ -315,7 +315,8 @@ function calculateTotalPrice(){
     console.log("-----------------------------------------------");
 
     // Gemmer totalPrice i sessionStorage, så dens værdi senere kan tilgås under betaling.
-    sessionStorage.setItem("totalOrderPrice", JSON.stringify(totalPrice));
+    //Har ændret variablen til totalPriceDiscount så korrekt pris bliver gemt hvis der er rabatkode
+    sessionStorage.setItem("totalOrderPrice", JSON.stringify(totalPriceDiscount));
 }
 
 
@@ -382,8 +383,8 @@ function testerJS() {
     //Validerer at produkterne er tilføjet og tilføjer levering
     if (cheeseburger.productQuantity == 1 & water.productQuantity == 1 & fries.productQuantity == 1){
         document.getElementById("yes-delivery").checked=true;
-        deliveryMethodSelected();
-        if (delivery.deliverySelected==true){
+        delMethodFunctions();
+        if (delivery.deliverySelected==true && delivery.productQuantity==1){
         document.getElementById("delivery_time-hours").value="10";
         document.getElementById("delivery_time-minutes").value="15";
         document.getElementById("delivery_address").value="Testgade";
@@ -392,10 +393,10 @@ function testerJS() {
         document.getElementById("discountCodeField").value="ALL10";
         setTimeout(validateDeliveryInformation,3000);
         correctResponse=1;}
-        else alert("Noget med levering gik galt");
+        else alert("Levering gik galt\nFejl opstod ved kondition:\ndelivery.deliverySelected==true\neller\ndelivery.productQuantity>1");
 
     }
-    else alert("Noget gik galt med ved at tilføje produkter til kurven")
+    else alert("Noget gik galt med ved at tilføje produkter til kurven\nFejl opstod ved kondtion\ncheeseburger.productQuantity == 1 & water.productQuantity == 1 & fries.productQuantity == 1")
 
 
     //Igangsætter nu 1 funktion der kalder 3 andre som beskrevet nedenunder step=
@@ -403,12 +404,12 @@ function testerJS() {
 
         //Funktionen delMethodfunctions kalder deliveryMethodselected, calculateTotalPrice og displayItems
         setTimeout(delMethodFunctions,6000);
-        if (totalPriceWithDiscount!==document.getElementById("totalPriceWithDiscount")){
-            alert("prisen stemmer ikke")
+        if (totalPriceWithDiscount!==document.getElementById("totalPriceWithDiscount" && delivery.productQuantity==1)){
+            alert("prisen stemmer ikke\nFejl opstod ved kondition\ntotalPriceWithDiscount!==document.getElementById(\"totalPriceWithDiscount\")\neller\ndelivery.productQuantity==1")
             correctResponse=0;
         }
         if (correctResponse===1){
-            alert("Tester.js har korrekt output ift. input. \nKontroller siden for fejl i tal og priser");
+            alert("Tester.js har korrekt output ift. input.");
             }
         }
     }
