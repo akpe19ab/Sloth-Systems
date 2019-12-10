@@ -143,7 +143,7 @@ function validateDeliveryInformation() {
         } else {
             paraValComment.innerHTML = null;
         }
-}
+    }
 
 // Nested if-else statement anvendes da addresse, post nr. og by kun er påkrævet hvis "levering" er valgt.
 
@@ -162,21 +162,21 @@ function validateDeliveryInformation() {
         }
 
 // Validation: post nr.
-         // Kontrollerer at felt er udfyldt, som ovenfor.
+        // Kontrollerer at felt er udfyldt, som ovenfor.
         if (region === "" || region === null || region.trim()==="") {
             validationMessage += "Du mangler at udfylde post nr.\n";
             formValid = false;
             paraValRegion.innerHTML = "Udfyld post nr.";
 
-        // Kalder isNaN-funktionen i et if statement for at kontrollere at der kun er indtastet
-        // tal da post nr kun kan bestå af tal.
+            // Kalder isNaN-funktionen i et if statement for at kontrollere at der kun er indtastet
+            // tal da post nr kun kan bestå af tal.
         } else if (isNaN(region)) {
             validationMessage += "Post nr. kan kun bestå af tal\n";
             formValid = false;
             paraValRegion.innerHTML = "Post nr. kan kun bestå af tal";
 
 
-        // Post nr. kan kun bestå af 4 cifre
+            // Post nr. kan kun bestå af 4 cifre
         } else if (region.length !== 4) {
             validationMessage += "Post nr. skal bestå af 4 cifre\n";
             formValid = false;
@@ -192,8 +192,8 @@ function validateDeliveryInformation() {
             formValid = false;
             paraValCity.innerHTML = "Udfyld by";
 
-        // Anvender not-operator på isNaN-funktionen der skal kontrollere at der ikke er indtastet et tal
-        // !!!!virker ikke optimalt =>  KUN hvis der udelukkende indtastet et tal.
+            // Anvender not-operator på isNaN-funktionen der skal kontrollere at der ikke er indtastet et tal
+            // !!!!virker ikke optimalt =>  KUN hvis der udelukkende indtastet et tal.
         } else if (!isNaN(city)) {
             validationMessage += "By kan ikke bestå af tal\n";
             formValid = false;
@@ -296,7 +296,7 @@ function changeDeliveryInfo() {
         savedDelivery.splice(0,1);
         paraDelRegistered.innerHTML="Leveringsoplysninger er ikke gemt.";
 
-    // else-statement, der eksekveres, hvis der ikke er gemt et delivery-objekt i arrayet.
+        // else-statement, der eksekveres, hvis der ikke er gemt et delivery-objekt i arrayet.
     } else {
         alert("Du har ikke gemt nogle oplysninger endnu");
     }
@@ -313,8 +313,3 @@ document.getElementById('submit-delivery-information').addEventListener("click",
 document.getElementById('edit-delivery-information').addEventListener("click", () => {
     changeDeliveryInfo();
 });
-
-
-
-
-

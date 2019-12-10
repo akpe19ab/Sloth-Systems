@@ -33,7 +33,7 @@ class Product {
         sessionStorage.setItem("itemInformation", JSON.stringify(item));
         console.log(JSON.parse(sessionStorage.getItem("itemInformation")));
     }
-    
+
     // Denne metode er modstykket til addProduct sådan at vi også kan fjerne "produkter"/objekter i vores array. MB
     // HUSK skal reassigne til 0 hvis quantity er mindre end 0!!!
     removeProduct() {
@@ -93,9 +93,9 @@ let fries = new Extras("Pomfritter", 3, 15, 0);
 
 // Deklarerer subklassen 'Delivery' som nedarving der extender superklassen 'Product'.
 // Definerer klassens constructor med properties der nedarves fra superklassen, og properties der er unikke
-// for 'Delivery'. /HG                                                                                                          (Klassenotation og deklaration, s. 102, extend 113),
+// for 'Delivery'. /HG
 class Delivery extends Product {
-    // Kalder superklasses constructor med super-keyword, hvormed Delivery nedarver attributter og metoder fra 'Product'.      (this.-keyword s. 99)
+    // Kalder superklasses constructor med super-keyword, hvormed Delivery nedarver attributter og metoder fra 'Product'.
     constructor(productName, productID, productPrice, initialProductQuantity, deliverySelected) {
         super(productName, productID, productPrice, initialProductQuantity);
         this.deliverySelected = deliverySelected;
@@ -116,7 +116,7 @@ let delivery = new Delivery(
 
 
 // Funktion med formål at definere hvilken leveringsmetode kunden har valgt (levering/afhentning) efter hvilken
-// radiobutton der er tjekket.                                                                                                          (radiobutton, 322).
+// radiobutton der er tjekket.
 // DOM metoden .getElementById bruges til at finde den specifikke node for hver af de to radiobuttons.
 // Bruger conditional execution i form af if-else statement: først et if...else der assigner "deliverySelected"
 // til en boolean (true/false) alt efter hvilken radiobutton der er tjekket af. /HG
@@ -131,7 +131,7 @@ function deliveryMethodSelected() {
     // anvendes til at mutere noden med det specifikke ID så dens style bliver synlig eller skjult./HG
     if  (yesDelRadioBtn.checked === true && noDelRadioBtn.checked ===false ) {
         delivery.deliverySelected = true;
-        document.getElementById('if-yes-delivery').style.visibility = 'visible';                                    //(style', Haverbakee, s. 236)
+        document.getElementById('if-yes-delivery').style.visibility = 'visible';
         document.getElementById('if-no-delivery').style.visibility = 'visible';
 
         // else-if der tjekker modsat af første radiobtn. Hvis kunde vælger "afhentning" assignes boolean til 'false'.
@@ -159,7 +159,7 @@ function deliveryMethodSelected() {
 
         // Comparison operator sørger for at removeProduct kun kaldes, hvis der allerede er et delivery-objekt i item.
         // Hvis true, kaldes removeProduct-metoden og dermed fjernes leveringsobjekt fra item-array.
-    } else if (delivery.productQuantity > 0 ) {                                                                             // ('comparison operator', Haverbakee, s.17)
+    } else if (delivery.productQuantity > 0 ) {
         delivery.removeProduct();
         console.log(JSON.stringify(item)); // Dette er kun relevant for console.log
 
@@ -170,7 +170,7 @@ function deliveryMethodSelected() {
     }
 }
 
-// Deklarerer funktion der kalder flere funktioner i et nested scope                                                        ('nested scope', Haverbakee, s. 42)
+// Deklarerer funktion der kalder flere funktioner i et nested scope
 // kaldes ved buttons onclick-property i html. /HG
 function delMethodFunctions() {
     deliveryMethodSelected();
@@ -184,7 +184,7 @@ function delMethodFunctions() {
 // kaldes funktionen hvormed leveringsmetoden registreres.
 let noDelRadioBtn = document.getElementById('no-delivery');
 let yesDelRadioBtn = document.getElementById('yes-delivery');
-noDelRadioBtn.addEventListener("change", delMethodFunctions);                                                                // (addEventListener, Haverbakee s. 244)
+noDelRadioBtn.addEventListener("change", delMethodFunctions);
 yesDelRadioBtn.addEventListener("change", delMethodFunctions);
 
 
